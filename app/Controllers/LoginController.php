@@ -10,12 +10,13 @@ class LoginController extends BaseController
 {
     public function index()
     {
-        // Tampilkan halaman login
+        // Cek session jika user sudah login akan kembali ke dashboard
         $session = session();
-        if (session('jenis') == 'Besar') return view('dashboardView');
-        if (session('jenis') == 'Kecil') return view('dashboardView2');
+        if ($session->has('id_user')) {
+            return redirect()->to(base_url('DashboardController'));
+        }
+        // Tampilkan halaman login
         return view('loginView');
-        // return redirect()->to(base_url('DasboardController'));
 
     }
 
