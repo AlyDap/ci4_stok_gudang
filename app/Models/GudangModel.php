@@ -1,11 +1,12 @@
-<?php 
+<?php
 
 namespace App\Models;
 
 use CodeIgniter\Model;
 
-Class GudangModel extends Model{
- protected $DBGroup             = 'default';
+class GudangModel extends Model
+{
+    protected $DBGroup             = 'default';
     protected $table            = 'gudang';
     protected $primaryKey       = 'kode_gudang';
     protected $useAutoIncrement = true;
@@ -38,17 +39,15 @@ Class GudangModel extends Model{
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    
-    public function checkJenis( $kode_gudang)
+
+    public function checkJenis($kode_gudang)
     {
         $check = $this->where('kode_gudang', $kode_gudang)->first();
-    
+
         if ($check) {
-                return $check;            
+            return $check;
         }
-    
+
         return false;
     }
 }
-
-?>

@@ -1,11 +1,12 @@
-<?php 
+<?php
 
 namespace App\Models;
 
 use CodeIgniter\Model;
 
-Class UserModel extends Model{
- protected $DBGroup             = 'default';
+class UserModel extends Model
+{
+    protected $DBGroup             = 'default';
     protected $table            = 'users';
     protected $primaryKey       = 'id_user';
     protected $useAutoIncrement = true;
@@ -38,20 +39,18 @@ Class UserModel extends Model{
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    
+
     public function checkLogin($username, $password)
     {
         $user = $this->where('username', $username)->first();
-    
+
         if ($user) {
             // Menggunakan md5() untuk memeriksa password yang di-hash MD5
             if (md5($password) === $user['password']) {
                 return $user;
             }
         }
-    
+
         return false;
     }
 }
-
-?>
