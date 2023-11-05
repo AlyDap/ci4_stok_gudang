@@ -1,65 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<?= $this->extend('navbarView') ?>
+<?= $this->section('content') ?>
 
-<head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title><?= $title; ?></title>
- <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
- <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css'); ?>">
- <!-- <link rel="stylesheet" href="<?= base_url('css/style_tab_bar.css'); ?>"> -->
 
-</head>
-
-<body>
- <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-   <a class="navbar-brand" href="#">DASBOARD</a>
-   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-   </button>
-   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">PRODUK</a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="#">TRANSAKSI</a>
-     </li>
-     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-       Akun
-      </a>
-      <ul class="dropdown-menu">
-       <li><a class="dropdown-item" href="#">Info</a></li>
-       <li><a class="dropdown-item" href="#">Kelola</a></li>
-       <li>
-        <hr class="dropdown-divider">
-       </li>
-       <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
-       <li><a class="dropdown-item disabled" aria-disabled="true">Mengelola Akun</a></li>
-      </ul>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link disabled" aria-disabled="true">Waktu dan tanggal</a>
-     </li>
-    </ul>
-    <form class="d-flex" role="search">
-     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-     <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-   </div>
-  </div>
- </nav>
- <h1>Login 1 Berhasil</h1>
- <br>
- <h2><a href="<?= base_url('LoginController/logOut'); ?>">log out</a></h2>
+<!-- Cek session dengan var_dump -->
+<!-- <?= var_dump(session('foto_user')) ?> -->
+<!-- <?= var_dump(session('nama_gudang')) ?> -->
 
 
 
- <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
- <script src="<?= base_url('js/bootstrap.bundle.min.js'); ?>"></script>
- <!-- <script src="<?= base_url('js/script_tab_bar.js'); ?>"></script> -->
-</body>
+<p class="h1">h1. Login 1 Berhasil</p>
+<p class="h2">h2. Login 1 Berhasil</p>
+<p class="h3">h3. Login 1 Berhasil</p>
+<p class="h4">h4. Login 1 Berhasil</p>
+<p class="h5">h5. Login 1 Berhasil</p>
+<p class="h6">h6. Login 1 Berhasil</p>
+<h1 class="display-1">Setelah width 991 px</h1>
+<h1 class="display-2">Navbar yang di atas </h1>
+<h1 class="display-3">pindah ke samping</h1>
+<h1 class="display-4">Display 4</h1>
+<h1 class="display-5">Display 5</h1>
+<h1 class="display-6">Display 6</h1>
+<h1>Login 1 Berhasil</h1>
+<br>
 
-</html>
+
+<?= $this->endSection('content') ?>

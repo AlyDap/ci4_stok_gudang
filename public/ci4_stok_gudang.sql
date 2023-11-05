@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Nov 2023 pada 11.36
+-- Waktu pembuatan: 05 Nov 2023 pada 02.31
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -80,6 +80,61 @@ INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan`, `harga_beli`, `har
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `barang_keluar`
+--
+
+CREATE TABLE `barang_keluar` (
+  `no_barang_keluar` int(11) NOT NULL,
+  `tgl_keluar` datetime NOT NULL DEFAULT current_timestamp(),
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `barang_masuk`
+--
+
+CREATE TABLE `barang_masuk` (
+  `no_barang_masuk` int(11) NOT NULL,
+  `tanggal_masuk` datetime NOT NULL DEFAULT current_timestamp(),
+  `total_harga` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `detail_barang_keluar`
+--
+
+CREATE TABLE `detail_barang_keluar` (
+  `no_barang_keluar` int(11) NOT NULL,
+  `kode_barang` int(11) NOT NULL,
+  `satuan` text NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga_per_satuan` int(11) NOT NULL,
+  `total_harga` int(11) NOT NULL,
+  `keterangan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `detail_barang_masuk`
+--
+
+CREATE TABLE `detail_barang_masuk` (
+  `no_barang_masuk` int(11) NOT NULL,
+  `kode_barang` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `total_harga` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `gudang`
 --
 
@@ -136,20 +191,6 @@ INSERT INTO `merek` (`id_merek`, `nama_merek`, `kategori_produk`, `deskripsi`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembelian`
---
-
-CREATE TABLE `pembelian` (
-  `no_trans_in` int(11) NOT NULL,
-  `id_supplier` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `tanggal` datetime NOT NULL,
-  `total_harga` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `stok_barang`
 --
 
@@ -199,6 +240,7 @@ CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
   `username` text NOT NULL,
   `password` text NOT NULL,
+  `foto_user` text NOT NULL,
   `kode_gudang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -206,9 +248,9 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id_user`, `username`, `password`, `kode_gudang`) VALUES
-(1, 'a', '03c7c0ace395d80182db07ae2c30f034', 1),
-(2, 'aa', '3691308f2a4c2f6983f2880d32e29c84', 2);
+INSERT INTO `users` (`id_user`, `username`, `password`, `foto_user`, `kode_gudang`) VALUES
+(1, 'a', '03c7c0ace395d80182db07ae2c30f034', 'ALYDAP.jpg', 1),
+(2, 'aa', '3691308f2a4c2f6983f2880d32e29c84', 'traveller_sinis.png', 2);
 
 --
 -- Indexes for dumped tables
@@ -222,6 +264,32 @@ ALTER TABLE `barang`
   ADD KEY `id_merek` (`id_merek`);
 
 --
+-- Indeks untuk tabel `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+  ADD PRIMARY KEY (`no_barang_keluar`);
+
+--
+-- Indeks untuk tabel `barang_masuk`
+--
+ALTER TABLE `barang_masuk`
+  ADD PRIMARY KEY (`no_barang_masuk`);
+
+--
+-- Indeks untuk tabel `detail_barang_keluar`
+--
+ALTER TABLE `detail_barang_keluar`
+  ADD KEY `kode_barang` (`kode_barang`),
+  ADD KEY `no_barang_keluar` (`no_barang_keluar`);
+
+--
+-- Indeks untuk tabel `detail_barang_masuk`
+--
+ALTER TABLE `detail_barang_masuk`
+  ADD KEY `kode_barang` (`kode_barang`),
+  ADD KEY `no_barang_masuk` (`no_barang_masuk`);
+
+--
 -- Indeks untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
@@ -232,14 +300,6 @@ ALTER TABLE `gudang`
 --
 ALTER TABLE `merek`
   ADD PRIMARY KEY (`id_merek`);
-
---
--- Indeks untuk tabel `pembelian`
---
-ALTER TABLE `pembelian`
-  ADD PRIMARY KEY (`no_trans_in`),
-  ADD KEY `id_supplier` (`id_supplier`),
-  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indeks untuk tabel `stok_barang`
@@ -272,6 +332,18 @@ ALTER TABLE `barang`
   MODIFY `kode_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
+-- AUTO_INCREMENT untuk tabel `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+  MODIFY `no_barang_keluar` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `barang_masuk`
+--
+ALTER TABLE `barang_masuk`
+  MODIFY `no_barang_masuk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
@@ -282,12 +354,6 @@ ALTER TABLE `gudang`
 --
 ALTER TABLE `merek`
   MODIFY `id_merek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT untuk tabel `pembelian`
---
-ALTER TABLE `pembelian`
-  MODIFY `no_trans_in` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
@@ -312,11 +378,18 @@ ALTER TABLE `barang`
   ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_merek`) REFERENCES `merek` (`id_merek`);
 
 --
--- Ketidakleluasaan untuk tabel `pembelian`
+-- Ketidakleluasaan untuk tabel `detail_barang_keluar`
 --
-ALTER TABLE `pembelian`
-  ADD CONSTRAINT `pembelian_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id_supplier`),
-  ADD CONSTRAINT `pembelian_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
+ALTER TABLE `detail_barang_keluar`
+  ADD CONSTRAINT `detail_barang_keluar_ibfk_1` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_barang`),
+  ADD CONSTRAINT `detail_barang_keluar_ibfk_2` FOREIGN KEY (`no_barang_keluar`) REFERENCES `barang_keluar` (`no_barang_keluar`);
+
+--
+-- Ketidakleluasaan untuk tabel `detail_barang_masuk`
+--
+ALTER TABLE `detail_barang_masuk`
+  ADD CONSTRAINT `detail_barang_masuk_ibfk_1` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_barang`),
+  ADD CONSTRAINT `detail_barang_masuk_ibfk_2` FOREIGN KEY (`no_barang_masuk`) REFERENCES `barang_masuk` (`no_barang_masuk`);
 
 --
 -- Ketidakleluasaan untuk tabel `stok_barang`

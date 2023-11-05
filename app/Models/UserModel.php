@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $DBGroup             = 'default';
+    protected $DBGroup          = 'default';
     protected $table            = 'users';
     protected $primaryKey       = 'id_user';
     protected $useAutoIncrement = true;
@@ -14,7 +14,7 @@ class UserModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['username', 'password', 'jabatan'];
+    protected $allowedFields    = ['username', 'password', 'foto_user', 'kode_gudang'];
 
     // Dates
     protected $useTimestamps = false;
