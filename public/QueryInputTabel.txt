@@ -1,0 +1,13 @@
+UPDATE
+    `barang`
+SET
+    `nama_barang` = ' Le Minerale tanggung 600 ml',
+    `satuan` = 'dus',
+    `harga_beli` = '150000',
+    `harga_jual_satuan` = '30000',
+    `harga_jual_bijian` = '5000',
+    `jumlah_per_satuan` = '24',
+    `foto_barang` = 'lemineraletanggung.jpg'
+WHERE
+    `barang`.`kode_barang` = 2;
+

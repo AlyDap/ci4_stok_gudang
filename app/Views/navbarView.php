@@ -7,17 +7,54 @@
   <title>
     <?= $title; ?>
   </title>
+  <!-- bootstrap.min.css -->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css'); ?>">
   <!-- <link rel="stylesheet" href="<?= base_url('css/style_tab_bar.css'); ?>"> -->
 
-  <!-- ikon -->
-  <!-- <link href="/your-path-to-uicons/css/uicons-[your-style].css" rel="stylesheet">  -->
+  <!-- ikon Flaticon-->
   <link rel="stylesheet" href="<?= base_url('uicons-regular-rounded/css/uicons-regular-rounded.css'); ?>">
 
+  <!-- adminlte -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css"
+    integrity="sha256-rhU0oslUDWrWDxTY4JxI2a2OdRtG7YSf3v5zcRbcySE=" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="<?= base_url('css/adminlte.min.css'); ?>">
+
+  <!-- Ikon ionic -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- tidak bisa -->
+  <link rel="stylesheet" href="<?= base_url('css/ionicons.min.css'); ?>">
+  <style>
+    .time {
+      color: #fff;
+      margin-top: 7.5px;
+      right: 5%;
+      position: absolute;
+    }
+
+    @media(max-width:991px) {
+      .time {
+        color: #fff;
+        /* margin-top: 110px; */
+        /* right: 5%; */
+        bottom: 0;
+        position: absolute;
+      }
+    }
+
+    @media print {
+      .gaprint {
+        display: none;
+      }
+
+      .total {
+        display: inline;
+      }
+    }
+  </style>
 </head>
 
-<body class="bg-warning">
+<body class="bg-light" onload="updateClock()">
   <nav class="navbar sticky-top navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
     <div class="container-fluid">
 
@@ -47,7 +84,8 @@
       <!-- <a class="navbar-brand" href="#"></a> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <!-- <span class="navbar-toggler-icon"></span> -->
+        <i class="fi fi-rr-menu-burger"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -79,16 +117,20 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Waktu dan tanggal</a>
+            <a class="nav-link disabled" aria-disabled="true">
+              <!-- <p class="time gaprint"> -->
+              <span id="waktu" class="jam">
+                <!-- </p> -->
+            </a>
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <button class="btn btn-outline-warning" style="padding-top: 9px; margin-right: 7.5px;">
+          <button class="btn btn-outline-light" style="padding-top: 9px; margin-right: 7.5px;">
             <i class="fi fi-rr-user"></i>
           </button>
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-            <button class="btn btn-outline-warning" style="padding-top: 9px;">
+            <button class="btn btn-outline-light" style="padding-top: 9px;">
               <i class="fi fi-rr-exit"></i>
             </button>
           </a>
@@ -103,18 +145,18 @@
       aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header bg-warning">
+          <div class="modal-header bg-dark">
             <!-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
     -->
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body bg-dark" style="text-align: center;">
             <img src="<?= base_url('gambar_user/' . session('foto_user')); ?>" alt="Foto User" data-bs-toggle="modal"
               data-bs-target="#staticBackdrop" class="d-inline-block align-text-top" style="width: 100%;">
           </div>
-          <div class="modal-footer bg-warning">
+          <div class="modal-footer bg-dark">
             <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-            <button type="button" class="btn btn-outline-dark" data-bs-target="#exampleModalToggle2"
+            <button type="button" class="btn btn-outline-light" data-bs-target="#exampleModalToggle2"
               data-bs-toggle="modal">Ganti Foto</button>
           </div>
         </div>
@@ -124,26 +166,27 @@
     <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria- labelledby="exampleModalToggleLabel2"
       data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content  bg-dark">
           <div class="modal-header">
             <!-- <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1> -->
-            <input type="file" class="form-control" id="foto_user">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- <input type="file" class="form-control" id="foto_user"> -->
+            <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form>
+          <form action="#">
             <div class="modal-body">
               <!-- Hide this modal and show the first with the button below. -->
               <div class="mb-3">
                 <!-- <label for="foto_user" class="col-form-label">Silahkan pilih fotonya</label> -->
                 <input type="file" class="form-control" id="foto_user">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
-              <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal">Kembali</button>
+              <!-- <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button> -->
+              <button class="btn btn-outline-light" data-bs-target="#staticBackdrop"
+                data-bs-toggle="modal">Kembali</button>
               <a href="#">
-                <button class="btn btn-primary" type="submit" data-bs-target="#staticBackdrop"
+                <button class="btn btn-outline-light" type="submit" data-bs-target="#staticBackdrop"
                   data-bs-toggle="modal">Simpan</button>
               </a>
             </div>
@@ -157,30 +200,40 @@
       aria-labelledby="staticBackdrop2Label" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header bg-warning">
+          <div class="modal-header bg-dark">
             <h1 class="modal-title fs-5" id="staticBackdrop2Label">Apakah Anda ingin keluar?</h1>
 
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-footer bg-dark">
-            <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Tidak</button>
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Tidak</button>
             <a href="<?= base_url('LoginController/logOut'); ?>"><button type="button"
-                class="btn btn-outline-warning">Ya</button></a>
+                class="btn btn-outline-light">Ya</button></a>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-
+  <div class="container-fluid">
+    <div class="d-flex ">
+      <p class="gaprint"> <span id="tanggal"></span></p>
+      <p class="ms-auto gaprint">Selamat Datang
+        <?= session()->get('username'); ?>
+      </p>
+    </div>
     <!-- Isi content -->
     <?= $this->renderSection('content') ?>
-
   </div>
+
+  <!-- <div class="container-fluid"> -->
+  <br><br>
   <nav class="navbar fixed-bottom navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Default Navbar Bottom</a>
     </div>
   </nav>
+  <!-- </div> -->
 
 
 
@@ -188,7 +241,22 @@
   <script src="<?= base_url('js/bootstrap.bundle.min.js'); ?>"></script>
   <!-- <script src="<?= base_url('js/script_tab_bar.js'); ?>"></script> -->
 
-  <!-- ikon -->
+  <!-- Moment.js untuk waktu -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+  <script src="<?= base_url('js/moment.min.js'); ?>"></script>
+
+  <!-- id.js untuk waktu Indonesia -->
+  <script src="<?= base_url('js/id.js'); ?>"></script>
+  <!-- waktu -->
+  <script>
+    document.getElementById('tanggal').innerHTML = moment().locale('id').format('dddd DD MMMM YYYY');
+
+    function updateClock() {
+      // document.getElementById('waktu').innerHTML = jam + ':' + menit + ':' + detik;
+      document.querySelector(".jam").innerHTML = moment().locale('id').format('hh:mm:ss');
+      setTimeout(updateClock, 1000);
+    };
+  </script>
 </body>
 
 </html>
