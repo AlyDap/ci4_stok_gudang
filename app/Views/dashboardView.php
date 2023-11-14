@@ -7,6 +7,19 @@
 <!-- <?= var_dump(session('nama_gudang')) ?> -->
 
 
+<!-- kotak kotak dashboard -->
+<!-- toast belum bisa -->
+<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+ <div class="d-flex">
+  <div class="toast-body">
+   Selamat Datang<strong>
+    <?= session()->get('username'); ?>
+   </strong>
+  </div>
+  <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+ </div>
+</div>
+
 <div class="row">
  <div class="col-lg-3 col-6">
   <!-- small box -->
@@ -14,10 +27,10 @@
    <div class="inner">
     <h3>150</h3>
 
-    <p>New Orders</p>
+    <p>Items</p>
    </div>
    <div class="icon">
-    <i class="ion ion-bag"></i>
+    <i class="ion ion-cube"></i>
    </div>
    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
   </div>
@@ -27,37 +40,41 @@
   <!-- small box -->
   <div class="small-box bg-success">
    <div class="inner">
-    <h3>53<sup style="font-size: 20px">%</sup></h3>
+    <h3>4<sup style="font-size: 20px"></sup></h3>
 
-    <p>Bounce Rate</p>
+    <p>Warehouse</p>
    </div>
    <div class="icon">
-    <i class="ion ion-stats-bars"></i>
+    <i class="fi fi-rr-building" style="font-size: 63px;"></i>
    </div>
-   <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+   <a href="<?= base_url('GudangController'); ?>" class="small-box-footer">More info <i
+     class="fas fa-arrow-circle-right"></i></a>
   </div>
  </div>
- <div class="col-lg-3 col-6">
-  <!-- small box -->
-  <div class="small-box bg-warning">
-   <div class="inner">
-    <h3>44</h3>
+ <?php if (session()->get('jenis') == ('Besar')) { ?>
+  <div class="col-lg-3 col-6">
+   <!-- small box -->
+   <div class="small-box bg-warning">
+    <div class="inner">
+     <h3>11</h3>
 
-    <p>User Registrations</p>
+
+     <p>Users</p>
+    </div>
+    <div class="icon">
+     <i class="fi fi-rr-users-alt" style="font-size: 63px;"></i>
+    </div>
+    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
    </div>
-   <div class="icon">
-    <i class="ion ion-person-add"></i>
-   </div>
-   <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
   </div>
- </div>
+ <?php } ?>
  <div class="col-lg-3 col-6">
   <!-- small box -->
   <div class="small-box bg-danger">
    <div class="inner">
-    <h3>65</h3>
+    <h3>35</h3>
 
-    <p>Merek</p>
+    <p>Brand</p>
    </div>
    <div class="icon">
     <i class="ion ion-pie-graph"></i>
@@ -67,19 +84,7 @@
  </div>
 </div>
 <br>
-<p class="h1">h1. Login 1 Berhasil</p>
-<p class="h2">h2. Login 1 Berhasil</p>
-<p class="h3">h3. Login 1 Berhasil</p>
-<p class="h4">h4. Login 1 Berhasil</p>
-<p class="h5">h5. Login 1 Berhasil</p>
-<p class="h6">h6. Login 1 Berhasil</p>
-<h1 class="display-1">Setelah width 991 px</h1>
-<h1 class="display-2">Navbar yang di atas </h1>
-<h1 class="display-3">pindah ke samping</h1>
-<h1 class="display-4">Display 4</h1>
-<h1 class="display-5">Display 5</h1>
-<h1 class="display-6">Display 6</h1>
-<h1>Login 1 Berhasil</h1>
+
 <br>
 
 

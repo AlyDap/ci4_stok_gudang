@@ -102,7 +102,7 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('DashboardController/transaksi'); ?>"> Transaksi </a>
           </li>
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Akun
             </a>
@@ -112,10 +112,10 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
               <li><a class="dropdown-item disabled" aria-disabled="true">Mengelola Akun</a></li>
             </ul>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">
               <!-- <p class="time gaprint"> -->
@@ -124,17 +124,29 @@
             </a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <button class="btn btn-outline-light" style="padding-top: 9px; margin-right: 7.5px;">
-            <i class="fi fi-rr-user"></i>
-          </button>
+        <div class="d-flex" role="search">
+          <div class="nav-item dropdown">
+            <button class="btn btn-outline-light" style="padding-top: 9px; margin-right: 7.5px;"
+              class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fi fi-rr-user"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Info</a></li>
+              <li><a class="dropdown-item" href="#">Setting</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+              <li><a class="dropdown-item disabled" aria-disabled="true">Akun</a></li>
+            </ul>
+          </div>
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
             <button class="btn btn-outline-light" style="padding-top: 9px;">
               <i class="fi fi-rr-exit"></i>
             </button>
           </a>
-        </form>
+        </div>
       </div>
     </div>
   </nav>
@@ -216,13 +228,15 @@
   </div>
 
   <div class="container-fluid">
-    <div class="d-flex ">
-      <p class="gaprint"> <span id="tanggal"></span></p>
-      <p class="ms-auto gaprint">Selamat Datang
-        <?= session()->get('username'); ?>
-      </p>
-    </div>
+    <!-- <div class="d-flex "> -->
+    <!-- <p class="gaprint"> <span id="tanggal"></span></p> -->
+
+
+    <!-- </div> -->
+
+
     <!-- Isi content -->
+    <br>
     <?= $this->renderSection('content') ?>
   </div>
 
@@ -230,7 +244,7 @@
   <br><br>
   <nav class="navbar fixed-bottom navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Default Navbar Bottom</a>
+      <a class="navbar-brand" href="#"><span id="tanggal"></span></a>
     </div>
   </nav>
   <!-- </div> -->

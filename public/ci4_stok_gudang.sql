@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Nov 2023 pada 02.31
+-- Waktu pembuatan: 14 Nov 2023 pada 02.12
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -45,9 +45,9 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan`, `harga_beli`, `harga_jual_satuan`, `harga_jual_bijian`, `jumlah_per_satuan`, `foto_barang`, `id_merek`, `status`) VALUES
-(1, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(2, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(3, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
+(1, 'Le Minerale kecil 330 ml', 'dus', 100000, 20000, 3000, 24, 'lemineralekecil.jpeg', 1, 'aktif'),
+(2, 'Le Minerale tanggung 600 ml', 'dus', 150000, 30000, 5000, 24, 'lemineraletanggung.jpg', 1, 'aktif'),
+(3, 'Le Minerale besar 1500 ml', 'dus', 200000, 50000, 8000, 12, 'lemineralebesar.jpg', 1, 'nonaktif'),
 (4, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
 (5, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
 (6, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
@@ -86,7 +86,8 @@ INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan`, `harga_beli`, `har
 CREATE TABLE `barang_keluar` (
   `no_barang_keluar` int(11) NOT NULL,
   `tgl_keluar` datetime NOT NULL DEFAULT current_timestamp(),
-  `id_user` int(11) NOT NULL
+  `id_user` int(11) NOT NULL,
+  `kode_gudang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -99,8 +100,16 @@ CREATE TABLE `barang_masuk` (
   `no_barang_masuk` int(11) NOT NULL,
   `tanggal_masuk` datetime NOT NULL DEFAULT current_timestamp(),
   `total_harga` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL
+  `id_user` int(11) NOT NULL,
+  `kode_gudang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `barang_masuk`
+--
+
+INSERT INTO `barang_masuk` (`no_barang_masuk`, `tanggal_masuk`, `total_harga`, `id_user`, `kode_gudang`) VALUES
+(1, '2023-11-13 07:16:42', 4500000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -127,10 +136,20 @@ CREATE TABLE `detail_barang_keluar` (
 CREATE TABLE `detail_barang_masuk` (
   `no_barang_masuk` int(11) NOT NULL,
   `kode_barang` int(11) NOT NULL,
+  `satuan` text NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga` int(11) NOT NULL,
   `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `detail_barang_masuk`
+--
+
+INSERT INTO `detail_barang_masuk` (`no_barang_masuk`, `kode_barang`, `satuan`, `jumlah`, `harga`, `total_harga`) VALUES
+(1, 1, 'dus', 20, 100000, 2000000),
+(1, 2, 'dus', 10, 150000, 1500000),
+(1, 3, 'dus', 5, 200000, 1000000);
 
 -- --------------------------------------------------------
 
@@ -196,10 +215,19 @@ INSERT INTO `merek` (`id_merek`, `nama_merek`, `kategori_produk`, `deskripsi`, `
 
 CREATE TABLE `stok_barang` (
   `kode_barang` int(11) NOT NULL,
-  `status` text NOT NULL,
+  `satuan` text NOT NULL,
   `jumlah` int(11) NOT NULL,
   `kode_gudang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `stok_barang`
+--
+
+INSERT INTO `stok_barang` (`kode_barang`, `satuan`, `jumlah`, `kode_gudang`) VALUES
+(1, 'dus', 20, 1),
+(2, 'dus', 10, 1),
+(3, 'dus', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -249,8 +277,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `foto_user`, `kode_gudang`) VALUES
-(1, 'a', '03c7c0ace395d80182db07ae2c30f034', 'ALYDAP.jpg', 1),
-(2, 'aa', '3691308f2a4c2f6983f2880d32e29c84', 'traveller_sinis.png', 2);
+(1, 'ali', 'ed9c6b92b65cb04655c6e93e6c476545', 'ALYDAP.jpg', 1),
+(2, 'abu', '2c6101a64935a3bbd5c67f2fb461c4f3', 'traveller_sinis.png', 2),
+(3, 'siti', '6e3efc8c14f930d71f7cb946adabdd31', 'luffy-bg000.jpg', 3),
+(4, 'nur', '93868666d04f24c4ebb01c8bf71d5776', 'wanderer.png', 4);
 
 --
 -- Indexes for dumped tables
@@ -267,13 +297,17 @@ ALTER TABLE `barang`
 -- Indeks untuk tabel `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  ADD PRIMARY KEY (`no_barang_keluar`);
+  ADD PRIMARY KEY (`no_barang_keluar`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `kode_gudang` (`kode_gudang`);
 
 --
 -- Indeks untuk tabel `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  ADD PRIMARY KEY (`no_barang_masuk`);
+  ADD PRIMARY KEY (`no_barang_masuk`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `kode_gudang` (`kode_gudang`);
 
 --
 -- Indeks untuk tabel `detail_barang_keluar`
@@ -341,13 +375,13 @@ ALTER TABLE `barang_keluar`
 -- AUTO_INCREMENT untuk tabel `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `no_barang_masuk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_barang_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `merek`
@@ -365,7 +399,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -376,6 +410,20 @@ ALTER TABLE `users`
 --
 ALTER TABLE `barang`
   ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_merek`) REFERENCES `merek` (`id_merek`);
+
+--
+-- Ketidakleluasaan untuk tabel `barang_keluar`
+--
+ALTER TABLE `barang_keluar`
+  ADD CONSTRAINT `barang_keluar_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`),
+  ADD CONSTRAINT `barang_keluar_ibfk_2` FOREIGN KEY (`kode_gudang`) REFERENCES `gudang` (`kode_gudang`);
+
+--
+-- Ketidakleluasaan untuk tabel `barang_masuk`
+--
+ALTER TABLE `barang_masuk`
+  ADD CONSTRAINT `barang_masuk_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`),
+  ADD CONSTRAINT `barang_masuk_ibfk_2` FOREIGN KEY (`kode_gudang`) REFERENCES `gudang` (`kode_gudang`);
 
 --
 -- Ketidakleluasaan untuk tabel `detail_barang_keluar`

@@ -25,7 +25,8 @@
 <p>DAFTAR IKON PADA <a href="https://ionic.io/ionicons">Ionic</a></p>
 <i class="ion ion-person-add"></i>
 <i class="ion ion-search"></i>
-<i class="ion ion-ios-navigate"></i>
+<i class="ion ion-podium"></i>
+<i class="ion ion-albums"></i>
 <i class="ion ion-android-calendar"></i>
 <i class="ion ion-ios-clock"></i>
 <i class="ion ion-ios-heart"></i>
@@ -38,8 +39,13 @@
 <i class="ion ion-home"></i>
 <i class="ion ion-document-text"></i>
 <i class="ion ion-cellular"></i>
-
-
+<!-- <i class="ion ion-cart"></i> -->
+<i class="ion ion-cube"></i>
+<i class="ion ion-business"></i>
+<!-- <i class="ion ion-flie-tray"></i>
+<i class="ion ion-flie-tray-full"></i> -->
+<i class="ion ion-clipboard"></i>
+<i class="ion ion-pricetag"></i>
 <i class="ion ion-pricetags"></i>
-<ion-icon name="pricetags-outline"></ion-icon>
+
 <?= $this->endSection('content') ?>

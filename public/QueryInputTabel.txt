@@ -11,3 +11,8 @@ SET
 WHERE
     `barang`.`kode_barang` = 2;
 
+UPDATE `users` SET `username` = 'siti', `password` = MD5('siti1') WHERE `users`.`id_user` = 3; 
+UPDATE `users` SET `username` = 'nur', `password` = MD5('nur1') WHERE `users`.`id_user` = 4;
+
+buatkan saya controller dan view untuk input user dengan field:
+id_user, usename, password, foto_user, kode_gudang
