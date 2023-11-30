@@ -39,19 +39,23 @@
                       <?php if (session()->getFlashdata('error')) { ?>
                         <!-- <button class="button large round alert">Error notification</button> -->
                         <!-- <div class="alert alert-danger"></div> -->
-                        <p class="errr"> <?= session()->getFlashdata('error') ?></p>
+                        <p class="errr">
+                          <?= session()->getFlashdata('error') ?>
+                        </p>
                       <?php } else {
-                      ?>
+                        ?>
                         <p class="errr">&#128522</p>
-                      <?php
+                        <?php
                       } ?>
                       <form method="post" action="<?= base_url('LoginController/processLogin'); ?>" autocomplete="off">
                         <div class="form-group">
-                          <input type="text" name="loguser" class="form-style" placeholder="Your Username" id="loguser" autofocus>
+                          <input type="text" name="loguser" class="form-style" placeholder="Your Username" id="loguser"
+                            autofocus>
                           <i class="input-icon uil uil-at"></i>
                         </div>
                         <div class="form-group mt-2">
-                          <input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass">
+                          <input type="password" name="logpass" class="form-style" placeholder="Your Password"
+                            id="logpass">
                           <i class="input-icon uil uil-lock-alt"></i>
                         </div>
                         <button class="btn mt-4" id="submit-button" disabled>submit</button>
@@ -65,15 +69,18 @@
                     <div class="section text-center">
                       <h4 class="mb-4 pb-3">Sign Up</h4>
                       <div class="form-group">
-                        <input type="text" name="signame" class="form-style" placeholder="Your Full Name" id="signame" autocomplete="off">
+                        <input type="text" name="signame" class="form-style" placeholder="Your Full Name" id="signame"
+                          autocomplete="off">
                         <i class="input-icon uil uil-user"></i>
                       </div>
                       <div class="form-group mt-2">
-                        <input type="text" name="siguser" class="form-style" placeholder="Your Email" id="siguser" autocomplete="off">
+                        <input type="text" name="siguser" class="form-style" placeholder="Your Email" id="siguser"
+                          autocomplete="off">
                         <i class="input-icon uil uil-at"></i>
                       </div>
                       <div class="form-group mt-2">
-                        <input type="password" name="sigpass" class="form-style" placeholder="Your Password" id="sigpass" autocomplete="off">
+                        <input type="password" name="sigpass" class="form-style" placeholder="Your Password"
+                          id="sigpass" autocomplete="off">
                         <i class="input-icon uil uil-lock-alt"></i>
                       </div>
                       <a href="#" class="btn mt-4">submit</a>

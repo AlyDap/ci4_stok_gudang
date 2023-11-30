@@ -58,4 +58,13 @@ class DashboardController extends BaseController
         // return view('loginView');
         return redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548');
     }
+    public function data()
+    {
+        if (session('jenis') == 'Besar') {
+            return view('adminBesar/data');
+        }
+        // if (session('jenis') == 'Kecil') return view('dashboardView2');
+        // return view('loginView');
+        return redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548');
+    }
 }

@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css'); ?>">
   <!-- <link rel="stylesheet" href="<?= base_url('css/style_tab_bar.css'); ?>"> -->
 
+  <!-- datatables -->
+  <link rel="stylesheet" href="<?= base_url('data_tables/datatables.min.css'); ?>">
+  <script src="<?= base_url('data_tables/datatables.min.js'); ?>"></script>
+
   <!-- ikon Flaticon-->
   <link rel="stylesheet" href="<?= base_url('uicons-regular-rounded/css/uicons-regular-rounded.css'); ?>">
 
@@ -131,7 +135,7 @@
               <i class="fi fi-rr-user"></i>
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Info</a></li>
+              <li><a class="dropdown-item" href="<?= base_url('DashboardController/data'); ?>">Info</a></li>
               <li><a class="dropdown-item" href="#">Setting</a></li>
               <li>
                 <hr class="dropdown-divider">

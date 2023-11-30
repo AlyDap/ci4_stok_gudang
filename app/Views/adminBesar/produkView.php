@@ -3,7 +3,8 @@
 
 
 <h2>hi guys</h2>
-<p>DAFTAR IKON PADA <a href="https://www.flaticon.com/uicons/interface-icons">Flaticon</a></p>
+<p>DAFTAR IKON PADA <a href="https://www.flaticon.com/uicons/interface-icons" target="_blank"
+  rel="noopener noreferrer">Flaticon</a></p>
 <i class="fi fi-rr-exit"></i>
 <i class="fi fi-rr-address-card"></i>
 <i class="fi fi-rr-search"></i>
@@ -19,10 +20,16 @@
 <i class="fi fi-rr-menu-burger"></i>
 <i class="fi fi-rr-rectangle-xmark"></i>
 <i class="fi fi-rr-door-open"></i>
+<i class="fi fi-rr-edit"></i>
+<i class="fi fi-rr-chart-histogram"></i>
+<i class="fi fi-rr-chart-pie-alt"></i>
+<i class="fi fi-rr-person-dolly"></i>
+<i class="fi fi-rr-family"></i>
+<i class="fi fi-rr-clipboard"></i>
 
 <br>
 <br>
-<p>DAFTAR IKON PADA <a href="https://ionic.io/ionicons">Ionic</a></p>
+<p>DAFTAR IKON PADA <a href="https://ionic.io/ionicons" target="_blank" rel="noopener noreferrer">Ionic</a></p>
 <i class="ion ion-person-add"></i>
 <i class="ion ion-search"></i>
 <i class="ion ion-podium"></i>
