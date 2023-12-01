@@ -12,9 +12,17 @@
   <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css'); ?>">
   <!-- <link rel="stylesheet" href="<?= base_url('css/style_tab_bar.css'); ?>"> -->
 
+  <!-- Tailwindcss -->
+  <!-- <script src="<?= base_url('js/tailwind3.3.5.js'); ?>"></script> -->
+
+
   <!-- datatables -->
-  <link rel="stylesheet" href="<?= base_url('data_tables/datatables.min.css'); ?>">
-  <script src="<?= base_url('data_tables/datatables.min.js'); ?>"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 
   <!-- ikon Flaticon-->
   <link rel="stylesheet" href="<?= base_url('uicons-regular-rounded/css/uicons-regular-rounded.css'); ?>">
@@ -125,6 +133,8 @@
               <!-- <p class="time gaprint"> -->
               <span id="waktu" class="jam">
                 <!-- </p> -->
+              </span>
+              WIB
             </a>
           </li>
         </ul>
@@ -162,8 +172,6 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-dark">
-            <!-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-    -->
             <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body bg-dark" style="text-align: center;">
@@ -171,7 +179,6 @@
               data-bs-target="#staticBackdrop" class="d-inline-block align-text-top" style="width: 100%;">
           </div>
           <div class="modal-footer bg-dark">
-            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
             <button type="button" class="btn btn-outline-light" data-bs-target="#exampleModalToggle2"
               data-bs-toggle="modal">Ganti Foto</button>
           </div>
@@ -184,21 +191,15 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content  bg-dark">
           <div class="modal-header">
-            <!-- <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1> -->
-            <!-- <input type="file" class="form-control" id="foto_user"> -->
             <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="#">
             <div class="modal-body">
-              <!-- Hide this modal and show the first with the button below. -->
               <div class="mb-3">
-                <!-- <label for="foto_user" class="col-form-label">Silahkan pilih fotonya</label> -->
                 <input type="file" class="form-control" id="foto_user">
-                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
               </div>
             </div>
             <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button> -->
               <button class="btn btn-outline-light" data-bs-target="#staticBackdrop"
                 data-bs-toggle="modal">Kembali</button>
               <a href="#">
