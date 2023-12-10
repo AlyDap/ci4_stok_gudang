@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Des 2023 pada 04.40
+-- Waktu pembuatan: 10 Des 2023 pada 15.51
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -175,7 +175,12 @@ INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `status`)
 (3, 'Gudang Kecil 2', 'kecil', 'Gang 1', 'nonaktif'),
 (4, 'Gudang Kecil 3', 'kecil', 'Gang 3', 'aktif'),
 (7, 'aaa', 'besar', 'bbb', 'nonaktif'),
-(8, 'bbbb1', 'kecil', 'cccc2', 'aktif');
+(8, 'bbbb1', 'kecil', 'cccc2', 'aktif'),
+(9, '1111', 'besar', '222', 'nonaktif'),
+(10, 'asd', 'besar', 'dsa', 'nonaktif'),
+(11, 'eheheh', 'besar', 'aaalaa;aa', 'nonaktif'),
+(12, 'awwaa', 'kecil', 'ssass', 'aktif'),
+(13, 'aku', 'besar', 'anak', 'nonaktif');
 
 -- --------------------------------------------------------
 
@@ -383,7 +388,7 @@ ALTER TABLE `barang_masuk`
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `merek`

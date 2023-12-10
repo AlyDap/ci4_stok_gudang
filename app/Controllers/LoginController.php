@@ -16,6 +16,7 @@ class LoginController extends BaseController
 		if ($session->has('id_user')) {
 			return redirect()->to(base_url('DashboardController'));
 		} else {
+			$session->destroy();
 			// Tampilkan halaman login
 			return view('loginView');
 		}

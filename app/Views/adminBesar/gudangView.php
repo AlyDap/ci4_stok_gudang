@@ -83,7 +83,7 @@
     <h1 class="modal-title fs-5" id="exampleModalLabel">Gudang Baru</h1>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="btn-close"></button>
    </div>
-   <form method="post" action="<?= base_url('/GudangController/save'); ?>">
+   <form method="post" action="<?= base_url('/GudangController/store'); ?>">
     <div class="modal-body">
      <input type="hidden" class="form-control" id="kode_gudang" name="kode_gudang" value="">
      <div class="mb-3">
@@ -145,8 +145,8 @@
   elKode.value = "";
   elNama.value = "";
   elAlamat.value = "";
-  elJenis.value = "";
-  elStatus.value = "";
+  elJenis.value = "kecil";
+  elStatus.value = "aktif";
   btnForm.innerHTML = 'Tambah';
  });
 
