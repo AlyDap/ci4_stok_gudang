@@ -5,71 +5,78 @@
 <div class="" style="text-align: center; display: content;">
  <h2>Daftar Gudang
  </h2>
- <div class="" style="text-align: right; margin: -2px 0 0px 0; float: right;">
-  <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-   style="padding-top: 3px; " id="btn-add">
+</div>
+<div class="mb-2 d-flex justify-content-between">
+ <div class="bg-primary px-2 rounded" style="padding-top: 8px;">
+  <a href="<?= base_url('DashboardController'); ?>">
+   <i class="fi fi-rr-left text-xl"></i>
+  </a>
+ </div>
+ <div class="">
+
+  <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-add" class="right-0">
    <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
    Tambah Gudang
   </button>
  </div>
+
 </div>
+
 
 <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
  <i class="fi fi-rr-plus" style="font-size: 2rem;"></i>
 </button> -->
 
-<?php if (!empty($gudang)):
+<?php if (!empty($gudang)) :
  $no = 1;
- ?>
- <table class="table" id="example">
-  <thead>
-   <tr>
-    <th scope="col">No</th>
-    <th scope="col">Nama Gudang</th>
-    <th scope="col">Jenis</th>
-    <th scope="col">Alamat</th>
-    <th scope="col">Status</th>
-    <th scope="col">Aksi</th>
-   </tr>
-  </thead>
-  <tbody>
-   <?php foreach ($gudang as $row): ?>
+?>
+ <div class="table-responsive">
+  <table class="table" id="example">
+   <thead>
     <tr>
-     <th scope="row">
-      <?= $no++; ?>
-     </th>
-     <td>
-      <?= $row['nama_gudang']; ?>
-     </td>
-     <td>
-      <?= $row['jenis']; ?>
-     </td>
-     <td>
-      <?= $row['alamat']; ?>
-     </td>
-     <td>
-      <?= $row['status']; ?>
-     </td>
-     <td>
-      <!-- Tombol Edit -->
-      <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal"
-       data-bs-target="#exampleModal"
-       onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['status']; ?>`)"
-       id="btn-edit">
-       <i class="fi fi-rr-edit"></i>
-      </span>
-     </td>
+     <th scope="col">No</th>
+     <th scope="col">Nama Gudang</th>
+     <th scope="col">Jenis</th>
+     <th scope="col">Alamat</th>
+     <th scope="col">Status</th>
+     <th scope="col">Aksi</th>
     </tr>
-   <?php endforeach; ?>
-  </tbody>
- </table>
-<?php else: ?>
+   </thead>
+   <tbody>
+    <?php foreach ($gudang as $row) : ?>
+     <tr>
+      <th scope="row">
+       <?= $no++; ?>
+      </th>
+      <td>
+       <?= $row['nama_gudang']; ?>
+      </td>
+      <td>
+       <?= $row['jenis']; ?>
+      </td>
+      <td>
+       <?= $row['alamat']; ?>
+      </td>
+      <td>
+       <?= $row['status']; ?>
+      </td>
+      <td>
+       <!-- Tombol Edit -->
+       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
+        <i class="fi fi-rr-edit"></i>
+       </span>
+      </td>
+     </tr>
+    <?php endforeach; ?>
+   </tbody>
+  </table>
+ </div>
+<?php else : ?>
  <p>Tidak ada data gudang.</p>
 <?php endif; ?>
 
 <!-- TAMBAH GUDANG -->
-<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
- aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  <div class="modal-dialog">
   <div class="modal-content">
    <div class="modal-header">
@@ -118,9 +125,9 @@
  // Tambah & Edit Gudang
 
 
- const btnAdd = document.querySelector('#btn-add');
+ const btnAdd = document.getElementById('btn-add');
+ const btnClose = document.getElementsByName('btn-close');
  const btnEdit = document.querySelector('#btn-edit');
- const btnClose = document.querySelectorAll('.btn-close');
  const btnForm = document.querySelector('#btn-form');
 
  const modalExample = document.querySelector('#exampleModal');
@@ -132,7 +139,7 @@
  const elJenis = document.querySelector('#jenis');
  const elStatus = document.querySelector('#status');
 
- btnClose.addEventListener('click', function () {
+ btnAdd.addEventListener('click', function() {
 
   modelTitle.innerHTML = 'Tambah Data';
   elKode.value = "";
@@ -140,7 +147,7 @@
   elAlamat.value = "";
   elJenis.value = "";
   elStatus.value = "";
-  btnForm.innerHTML = 'Update';
+  btnForm.innerHTML = 'Tambah';
  });
 
  function editData(kode, nama_gudang, alamat, jenis, status) {
@@ -152,7 +159,6 @@
   elStatus.value = status;
   btnForm.innerHTML = 'Update';
  }
-
 </script>
 
 

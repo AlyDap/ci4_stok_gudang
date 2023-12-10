@@ -10,7 +10,7 @@ class GudangController extends BaseController
 {
  // public function __construct()
  // {
- //  if (session('jenis') != 'Besar') {
+ //  if (session('jenis') != 'besar') {
  //   return redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548');
  //  }
  // }
@@ -43,5 +43,3 @@ class GudangController extends BaseController
   return redirect()->to(base_url('GudangController'));
  }
 }
-
-?>

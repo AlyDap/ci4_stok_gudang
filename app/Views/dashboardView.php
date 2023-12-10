@@ -51,7 +51,7 @@
           class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
-  <?php if (session()->get('jenis') == ('Besar')) { ?>
+  <?php if (session()->get('jenis') == ('besar')) { ?>
     <div class="col-lg-3 col-6">
       <!-- small box -->
       <div class="small-box bg-warning">

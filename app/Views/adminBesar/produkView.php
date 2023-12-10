@@ -3,9 +3,9 @@
 
 
 <h2>hi guys</h2>
-<p>DAFTAR IKON PADA <a href="https://www.flaticon.com/uicons/interface-icons" target="_blank"
-  rel="noopener noreferrer">Flaticon</a></p>
+<p>DAFTAR IKON PADA <a href="https://www.flaticon.com/uicons/interface-icons" target="_blank" rel="noopener noreferrer">Flaticon</a></p>
 <i class="fi fi-rr-exit"></i>
+<i class="fi fi-rr-left"></i>
 <i class="fi fi-rr-address-card"></i>
 <i class="fi fi-rr-search"></i>
 <i class="fi fi-rr-address-card"></i>

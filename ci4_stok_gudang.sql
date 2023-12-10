@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Nov 2023 pada 03.48
+-- Waktu pembuatan: 10 Des 2023 pada 04.40
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -170,10 +170,12 @@ CREATE TABLE `gudang` (
 --
 
 INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `status`) VALUES
-(1, 'Gudang Utama', 'Besar', 'JL BESAR', 'aktif'),
-(2, 'Gudang Kecil 1', 'Kecil', 'Gang Buntu', 'aktif'),
-(3, 'Gudang Kecil 2', 'Kecil', 'Gang 1', 'nonaktif'),
-(4, 'Gudang Kecil 3', 'Kecil', 'Gang 3', 'aktif');
+(1, 'Gudang Utama', 'besar', 'JL BESAR', 'aktif'),
+(2, 'Gudang Kecil 1', 'kecil', 'Gang Buntu', 'aktif'),
+(3, 'Gudang Kecil 2', 'kecil', 'Gang 1', 'nonaktif'),
+(4, 'Gudang Kecil 3', 'kecil', 'Gang 3', 'aktif'),
+(7, 'aaa', 'besar', 'bbb', 'nonaktif'),
+(8, 'bbbb1', 'kecil', 'cccc2', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -277,10 +279,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `foto_user`, `kode_gudang`) VALUES
-(1, 'a', '03c7c0ace395d80182db07ae2c30f034', 'ALYDAP.jpg', 1),
-(2, 'aa', 'c12e01f2a13ff5587e1e9e4aedb8242d', 'traveller_sinis.png', 2),
-(3, 'aq', '4bc92a7aeb9478e6bf3f989025232b22', 'luffy-bg000.jpg', 3),
-(4, 'aw', '43b36d42e7f8e60be58ba4356b6af40c', 'wanderer.png', 4);
+(1, 'ali', 'ed9c6b92b65cb04655c6e93e6c476545', 'ALYDAP.jpg', 1),
+(2, 'abu', '2c6101a64935a3bbd5c67f2fb461c4f3', 'traveller_sinis.png', 2),
+(3, 'siti', '6e3efc8c14f930d71f7cb946adabdd31', 'luffy-bg000.jpg', 3),
+(4, 'nur', '93868666d04f24c4ebb01c8bf71d5776', 'wanderer.png', 4);
 
 --
 -- Indexes for dumped tables
@@ -381,7 +383,7 @@ ALTER TABLE `barang_masuk`
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `merek`
