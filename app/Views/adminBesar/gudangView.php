@@ -61,8 +61,12 @@
        <?= $row['status']; ?>
       </td>
       <td>
+       <!-- Tombol Info -->
+       <span type="button" class="badge rounded-pill text-bg-primary" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
+        <i class="fi fi-rr-info"></i>
+       </span>
        <!-- Tombol Edit -->
-       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
+       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
         <i class="fi fi-rr-edit"></i>
        </span>
       </td>
@@ -102,6 +106,11 @@
       </select>
      </div>
      <div class="mb-3">
+      <label for="foto_gudang" class="col-form-label">Foto Gudang</label>
+      <br>
+      <input type="file" name="foto_gudang" id="foto_gudang" class="cursor-pointer" accept=".jpg,.jpeg,.png">
+     </div>
+     <div class="mb-3">
       <label for="status" class="col-form-label">Status</label>
       <select class="form-select" aria-label="Default select example" id="status" name="status">
        <option value="aktif" selected>Aktif</option>
@@ -137,6 +146,7 @@
  const elNama = document.querySelector('#nama_gudang');
  const elAlamat = document.querySelector('#alamat');
  const elJenis = document.querySelector('#jenis');
+ const elFoto = document.querySelector('#foto_gudang');
  const elStatus = document.querySelector('#status');
 
  btnAdd.addEventListener('click', function() {
@@ -146,16 +156,18 @@
   elNama.value = "";
   elAlamat.value = "";
   elJenis.value = "kecil";
+  elFoto.value = "";
   elStatus.value = "aktif";
   btnForm.innerHTML = 'Tambah';
  });
 
- function editData(kode, nama_gudang, alamat, jenis, status) {
+ function editData(kode, nama_gudang, alamat, jenis, foto_gudang, status) {
   modelTitle.innerHTML = 'Edit Gudang';
   elKode.value = kode;
   elNama.value = nama_gudang;
   elAlamat.value = alamat;
   elJenis.value = jenis;
+  elFoto.value = foto_gudang;
   elStatus.value = status;
   btnForm.innerHTML = 'Update';
  }

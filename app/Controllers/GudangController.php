@@ -43,6 +43,7 @@ class GudangController extends BaseController
     'nama_gudang' => $this->request->getPost('nama_gudang'),
     'jenis' => $this->request->getPost('jenis'),
     'alamat' => $this->request->getPost('alamat'),
+    'foto_gudang' => $this->request->getPost('foto_gudang'),
     'status' => $this->request->getPost('status'),
    ];
    $this->gudangModell->insert($data);
@@ -58,6 +59,7 @@ class GudangController extends BaseController
    'nama_gudang' => $this->request->getVar('nama_gudang'),
    'jenis' => $this->request->getVar('jenis'),
    'alamat' => $this->request->getVar('alamat'),
+   'foto_gudang' => $this->request->getVar('foto_gudang'),
    'status' => $this->request->getVar('status'),
   ];
   $this->gudangModell->update($id, $data);

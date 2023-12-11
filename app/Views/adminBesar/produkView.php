@@ -26,6 +26,7 @@
 <i class="fi fi-rr-person-dolly"></i>
 <i class="fi fi-rr-family"></i>
 <i class="fi fi-rr-clipboard"></i>
+<i class="fi fi-rr-info"></i>
 
 <br>
 <br>
