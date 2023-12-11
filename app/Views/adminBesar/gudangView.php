@@ -62,7 +62,7 @@
       </td>
       <td>
        <!-- Tombol Info -->
-       <span type="button" class="badge rounded-pill text-bg-primary" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
+       <span type="button" class="badge rounded-pill text-bg-primary" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="infoData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
         <i class="fi fi-rr-info"></i>
        </span>
        <!-- Tombol Edit -->
@@ -108,7 +108,9 @@
      <div class="mb-3">
       <label for="foto_gudang" class="col-form-label">Foto Gudang</label>
       <br>
-      <input type="file" name="foto_gudang" id="foto_gudang" class="cursor-pointer" accept=".jpg,.jpeg,.png">
+      <input type="file" name="foto_gudang" id="input_foto" class="cursor-pointer" accept=".jpg,.jpeg,.png">
+      <br>
+      <img src="" alt="Foto Gudang" name="foto_gudang" id="hasil_foto" style="min-width: 100px;max-width: 321px;">
      </div>
      <div class="mb-3">
       <label for="status" class="col-form-label">Status</label>
@@ -126,6 +128,17 @@
   </div>
  </div>
 </div>
+
+<!-- KURANG
+MAU MENAMBAH INPUT TYPE TEXT UNTUK JENIS DAN STATUS YANG HANYA DITAMPILKAN SAAT KLIK INFO
+LALU TIDAK MENAMPILKAN SELECT JENIS DAN STATUS PADA SAAT KLIK INFO
+JADI HANYA MENAMPILKAN INPUT TYPE TEXT PADA KLIK INFO KECUALI GAMBAR YANG HANYA TAMPIL IMG
+
+BELUM BISA TAMPIL GAMBAR SAAT KLIK INFO DAN KLIK IKON UPDATE
+IMG BELUM BISA MASUK KE STORAGE
+TETAPI HANYA TEXT NYA SAJA
+NANTI TEXT PADA IMG AKAN DIRANDOM AGAR NAMA TIDAK ADA YANG SAMA
+-->
 
 <script>
  // datatables
@@ -146,10 +159,13 @@
  const elNama = document.querySelector('#nama_gudang');
  const elAlamat = document.querySelector('#alamat');
  const elJenis = document.querySelector('#jenis');
- const elFoto = document.querySelector('#foto_gudang');
+ const elFoto = document.querySelector('#input_foto');
+ const elHasilFoto = document.querySelector('#hasil_foto');
  const elStatus = document.querySelector('#status');
 
+
  btnAdd.addEventListener('click', function() {
+  btnForm.style.display = 'block';
 
   modelTitle.innerHTML = 'Tambah Data';
   elKode.value = "";
@@ -162,15 +178,82 @@
  });
 
  function editData(kode, nama_gudang, alamat, jenis, foto_gudang, status) {
+  btnForm.style.display = 'block';
   modelTitle.innerHTML = 'Edit Gudang';
   elKode.value = kode;
   elNama.value = nama_gudang;
   elAlamat.value = alamat;
   elJenis.value = jenis;
-  elFoto.value = foto_gudang;
+  // elFoto.value = foto_gudang;
   elStatus.value = status;
   btnForm.innerHTML = 'Update';
+
+  elKode.removeAttribute('readonly');
+  elNama.removeAttribute('readonly');
+  elAlamat.removeAttribute('readonly');
+  elJenis.removeAttribute('readonly');
+
+  // Menyimpan URL gambar sebelumnya
+  let previousImageUrl = ''; // Inisialisasi variabel untuk menyimpan URL gambar sebelumnya
+
+  // Menetapkan URL gambar sebelumnya ke elemen img
+  previousImageUrl = foto_gudang;
+  elHasilFoto.src = foto_gudang;
+
+  // Menggabungkan base_url dan previousImageUrl dalam pathGambarGudang
+  let pathGambarGudang = '<?= base_url('gambar_gudang/') ?>' + previousImageUrl;
+  console.log(pathGambarGudang); // Untuk memeriksa pathGambarGudang dalam konsol
+
  }
+
+ function infoData(kode, nama_gudang, alamat, jenis, foto_gudang, status) {
+  btnForm.style.display = 'none';
+  modelTitle.innerHTML = 'Info Gudang';
+  elKode.value = kode;
+  elNama.value = nama_gudang;
+  elAlamat.value = alamat;
+  elJenis.value = jenis;
+  // elFoto.value = foto_gudang;
+  elStatus.value = status;
+
+  elKode.setAttribute('readonly', true);
+  elNama.setAttribute('readonly', true);
+  elAlamat.setAttribute('readonly', true);
+  elJenis.setAttribute('readonly', true);
+
+  // Menyimpan URL gambar sebelumnya
+  let previousImageUrl = ''; // Inisialisasi variabel untuk menyimpan URL gambar sebelumnya
+
+  // Menetapkan URL gambar sebelumnya ke elemen img
+  previousImageUrl = foto_gudang;
+  elHasilFoto.src = foto_gudang;
+
+  // Menggabungkan base_url dan previousImageUrl dalam pathGambarGudang
+  let pathGambarGudang = '<?= base_url('gambar_gudang/') ?>' + previousImageUrl;
+  console.log(pathGambarGudang); // Untuk memeriksa pathGambarGudang dalam konsol
+
+ }
+
+
+ // Mendengarkan perubahan pada input file
+ elFoto.addEventListener('change', function() {
+  const file = elFoto.files[0]; // Mengambil file yang dipilih
+
+  // Memeriksa apakah file telah dipilih
+  if (file) {
+   const reader = new FileReader();
+
+   // Saat file selesai dibaca
+   reader.onload = function(event) {
+    elHasilFoto.src = event.target.result; // Menampilkan gambar yang dipilih pada elemen img
+   };
+
+   // Membaca file sebagai URL data
+   reader.readAsDataURL(file);
+  } else {
+   elHasilFoto.src = previousImageUrl; // Jika tidak ada file yang dipilih, kosongkan elemen img
+  }
+ });
 </script>
 
 

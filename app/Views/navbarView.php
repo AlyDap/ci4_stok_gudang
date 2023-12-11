@@ -29,7 +29,7 @@
 
  <!-- adminlte -->
  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css"
-    integrity="sha256-rhU0oslUDWrWDxTY4JxI2a2OdRtG7YSf3v5zcRbcySE=" crossorigin="anonymous"> -->
+   integrity="sha256-rhU0oslUDWrWDxTY4JxI2a2OdRtG7YSf3v5zcRbcySE=" crossorigin="anonymous"> -->
  <link rel="stylesheet" href="<?= base_url('css/adminlte.min.css'); ?>">
 
  <!-- Ikon ionic -->
@@ -111,19 +111,19 @@
       <a class="nav-link" href="<?= base_url('DashboardController/transaksi'); ?>"> Transaksi </a>
      </li>
      <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Akun
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Info</a></li>
-              <li><a class="dropdown-item" href="#">Kelola</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true">Mengelola Akun</a></li>
-            </ul>
-          </li> -->
+           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             Akun
+           </a>
+           <ul class="dropdown-menu">
+             <li><a class="dropdown-item" href="#">Info</a></li>
+             <li><a class="dropdown-item" href="#">Kelola</a></li>
+             <li>
+               <hr class="dropdown-divider">
+             </li>
+             <li><a class="dropdown-item" href="#">Something else here</a></li>
+             <li><a class="dropdown-item disabled" aria-disabled="true">Mengelola Akun</a></li>
+           </ul>
+         </li> -->
      <li class="nav-item">
       <a class="nav-link disabled" aria-disabled="true">
        <!-- <p class="time gaprint"> -->
