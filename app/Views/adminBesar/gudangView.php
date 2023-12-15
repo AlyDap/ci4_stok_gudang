@@ -113,6 +113,8 @@
 
      <div class="mb-3">
       <label for="foto_gudang" class="col-form-label">Foto Gudang</label>
+      <input type="hidden" class="form-control" id="foto_gudang1" name="foto_gudang2" value="">
+
       <div class="inputgambargudang">
        <!-- <br> -->
        <input type="file" name="foto_gudang" id="input_foto" class="cursor-pointer" accept=".jpg,.jpeg,.png">
@@ -144,13 +146,9 @@
 </div>
 
 <!-- KURANG
-MAU MENAMBAH INPUT TYPE TEXT UNTUK JENIS DAN STATUS YANG HANYA DITAMPILKAN SAAT KLIK INFO
-LALU TIDAK MENAMPILKAN SELECT JENIS DAN STATUS PADA SAAT KLIK INFO
-JADI HANYA MENAMPILKAN INPUT TYPE TEXT PADA KLIK INFO KECUALI GAMBAR YANG HANYA TAMPIL IMG
-
-BELUM BISA TAMPIL GAMBAR SAAT KLIK INFO DAN KLIK IKON UPDATE
 IMG BELUM BISA MASUK KE STORAGE
-TETAPI HANYA TEXT NYA SAJA
+HANYA TEXT NYA SAJA KE DATABASE
+
 NANTI TEXT PADA IMG AKAN DIRANDOM AGAR NAMA TIDAK ADA YANG SAMA
 
 MAU TAMBAH DESKRIPSI GUDANG YANG HANYA TAMPIL PADA SAAT KLIK ICON INFO/EDIT/ADD
@@ -184,6 +182,7 @@ SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
  const elHasilFoto = document.querySelector('#hasil_foto');
  const elStatus = document.querySelector('#status');
 
+ const elHiddenFoto = document.getElementById('foto_gudang1');
  const elStatusText = document.querySelector('#status-text');
  const elJenisText = document.querySelector('#jenis-text');
 
@@ -227,6 +226,8 @@ SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
   // elFoto.value = foto_gudang;
   elStatus.value = status;
   btnForm.innerHTML = 'Update';
+  elHiddenFoto.value = foto_gudang;
+  console.log(elHiddenFoto.value);
 
   elKode.removeAttribute('readonly');
   elNama.removeAttribute('readonly');

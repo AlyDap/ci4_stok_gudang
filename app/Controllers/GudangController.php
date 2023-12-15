@@ -37,29 +37,40 @@ class GudangController extends BaseController
  public function store()
  {
   $id = $this->request->getVar('kode_gudang');
+  $foto = $this->request->getVar('foto_gudang');
+  $foto2 = $this->request->getVar('foto_gudang2');
+
   if ($id == '') {
+   if ($foto == '') {
+    $foto = 'default-gudang.png';
+   }
+
    $data = [
     'kode_gudang' => $this->request->getPost('kode_gudang'),
     'nama_gudang' => $this->request->getPost('nama_gudang'),
     'jenis' => $this->request->getPost('jenis'),
     'alamat' => $this->request->getPost('alamat'),
-    'foto_gudang' => $this->request->getPost('foto_gudang'),
+    'foto_gudang' => $foto,
     'status' => $this->request->getPost('status'),
    ];
    $this->gudangModell->insert($data);
   } else {
-   $this->update($id);
+   if ($foto == '') {
+    $foto = $foto2;
+   }
+
+   $this->update($id, $foto);
   }
   return redirect()->to(base_url('GudangController'));
  }
 
- public function update($id)
+ public function update($id, $foto)
  {
   $data = [
    'nama_gudang' => $this->request->getVar('nama_gudang'),
    'jenis' => $this->request->getVar('jenis'),
    'alamat' => $this->request->getVar('alamat'),
-   'foto_gudang' => $this->request->getVar('foto_gudang'),
+   'foto_gudang' => $foto, // Menggunakan nilai dari $foto yang diterima sebagai parameter
    'status' => $this->request->getVar('status'),
   ];
   $this->gudangModell->update($id, $data);
