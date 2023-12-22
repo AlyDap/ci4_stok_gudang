@@ -87,7 +87,7 @@
     <h1 class="modal-title fs-5" id="exampleModalLabel">Gudang Baru</h1>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="btn-close"></button>
    </div>
-   <form method="post" action="<?= base_url('/GudangController/store'); ?>">
+   <form method="post" action="<?= base_url('/GudangController/store'); ?>" enctype="multipart/form-data">
     <div class="modal-body">
 
      <input type="hidden" class="form-control" id="kode_gudang" name="kode_gudang" value="">
@@ -113,6 +113,7 @@
 
      <div class="mb-3">
       <label for="foto_gudang" class="col-form-label">Foto Gudang</label>
+      <!-- save nama foto gudang lama -->
       <input type="hidden" class="form-control" id="foto_gudang1" name="foto_gudang2" value="">
 
       <div class="inputgambargudang">
@@ -122,7 +123,7 @@
 
       <div class="hasilgambargudang">
        <!-- <br> -->
-       <img src="" alt="Foto Gudang" name="foto_gudang" id="hasil_foto" style="min-width: 100px;max-width: 321px;">
+       <img src="" alt="Foto Gudang" id="hasil_foto" style="min-width: 100px;max-width: 321px;">
       </div>
      </div>
 
@@ -146,10 +147,6 @@
 </div>
 
 <!-- KURANG
-IMG BELUM BISA MASUK KE STORAGE
-HANYA TEXT NYA SAJA KE DATABASE
-
-NANTI TEXT PADA IMG AKAN DIRANDOM AGAR NAMA TIDAK ADA YANG SAMA
 
 MAU TAMBAH DESKRIPSI GUDANG YANG HANYA TAMPIL PADA SAAT KLIK ICON INFO/EDIT/ADD
 SAAT KLIK JENIS GUDANG BESAR MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
