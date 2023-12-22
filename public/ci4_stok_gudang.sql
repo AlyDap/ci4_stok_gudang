@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Des 2023 pada 07.21
+-- Waktu pembuatan: 22 Des 2023 pada 08.35
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -173,21 +173,10 @@ CREATE TABLE `gudang` (
 INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `foto_gudang`, `status`) VALUES
 (1, 'Gudang Utama', 'besar', 'JL BESAR', '1.png', 'aktif'),
 (2, 'Gudang Kecil 1', 'kecil', 'Gang Buntu', '2.jpg', 'aktif'),
-(3, 'Gudang Kecil 2', 'kecil', 'Gang 1', '2.jpg', 'nonaktif'),
-(4, 'Gudang Kecil 3', 'kecil', 'Gang 3', '2.jpg', 'aktif'),
-(7, 'aaa', 'besar', 'bbb', '3.jpeg', 'nonaktif'),
-(8, 'bbbb1', 'kecil', 'cccc2', '3.jpeg', 'aktif'),
-(9, '1111', 'besar', '222', '3.jpeg', 'nonaktif'),
-(10, 'asd', 'besar', 'dsa', 'R (1).jpeg', 'nonaktif'),
-(11, 'eheheh', 'besar', 'aaalaa;aa', 'MENU - LANDING PAGE (1).png', 'nonaktif'),
-(12, 'awwaa', 'kecil', 'ssass', '3.jpeg', 'aktif'),
-(13, 'aku', 'besar', 'anak', '3.jpeg', 'nonaktif'),
-(14, 'aaaaaaaaaa', 'besar', 'sssssssssss', 'image.png', 'nonaktif'),
-(15, '12', 'kecil', '21', 'GDSC23-Background-Workshop.jpg', 'aktif'),
-(16, 'iput 14', 'kecil', '14 in', '', 'aktif'),
-(17, 'input15', 'besar', 'in15', 'default-gudang.png', 'nonaktif'),
-(18, 'inpu166', 'besar', 'in166', '', 'nonaktif'),
-(19, 'inp171', 'kecil', '177', 'GDSC23-Background-Workshop.jpg', 'nonaktif');
+(3, 'Gudang Kecil 2', 'kecil', 'Gang 1', 'default-gudang.png', 'nonaktif'),
+(4, 'Gudang Kecil 3', 'kecil', 'Gang 3', '3.jpeg', 'aktif'),
+(19, 'inp171', 'kecil', '177', 'default-gudang.png', 'nonaktif'),
+(34, '1', 'kecil', '2', '20231222072116_BFoFuRP2_OIP.jpeg', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -395,7 +384,7 @@ ALTER TABLE `barang_masuk`
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `merek`
