@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Des 2023 pada 08.35
+-- Waktu pembuatan: 23 Des 2023 pada 04.23
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -162,6 +162,7 @@ CREATE TABLE `gudang` (
   `nama_gudang` text NOT NULL,
   `jenis` text NOT NULL,
   `alamat` text NOT NULL,
+  `keterangan` text NOT NULL,
   `foto_gudang` text NOT NULL,
   `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -170,13 +171,15 @@ CREATE TABLE `gudang` (
 -- Dumping data untuk tabel `gudang`
 --
 
-INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `foto_gudang`, `status`) VALUES
-(1, 'Gudang Utama', 'besar', 'JL BESAR', '1.png', 'aktif'),
-(2, 'Gudang Kecil 1', 'kecil', 'Gang Buntu', '2.jpg', 'aktif'),
-(3, 'Gudang Kecil 2', 'kecil', 'Gang 1', 'default-gudang.png', 'nonaktif'),
-(4, 'Gudang Kecil 3', 'kecil', 'Gang 3', '3.jpeg', 'aktif'),
-(19, 'inp171', 'kecil', '177', 'default-gudang.png', 'nonaktif'),
-(34, '1', 'kecil', '2', '20231222072116_BFoFuRP2_OIP.jpeg', 'aktif');
+INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `keterangan`, `foto_gudang`, `status`) VALUES
+(1, 'Gudang Utama', 'besar', 'JL BESAR', 'ini adalah gudang utama 1', '1.png', 'aktif'),
+(2, 'Gudang Kecil 1', 'kecil', 'Gang Buntu', 'ini adalah gudang cabang ...', '2.jpg', 'aktif'),
+(3, 'Gudang Kecil 2', 'kecil', 'Gang 1', 'ini adalah gudang cabang ...', 'default-gudang.png', 'nonaktif'),
+(4, 'Gudang Kecil 3', 'kecil', 'Gang 3', 'ini adalah gudang cabang ...', '3.jpeg', 'aktif'),
+(19, 'inp171', 'kecil', '177', 'ini adalah gudang cabang ...', 'default-gudang.png', 'nonaktif'),
+(34, '1', 'kecil', '2', 'ini adalah gudang cabang ...', '20231222072116_BFoFuRP2_OIP.jpeg', 'aktif'),
+(35, '2', 'kecil', '3', '', 'default-gudang.png', 'aktif'),
+(36, '', 'kecil', '', 'Ini adalah gudang cabang ... ', 'default-gudang.png', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -384,7 +387,7 @@ ALTER TABLE `barang_masuk`
 -- AUTO_INCREMENT untuk tabel `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `kode_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `merek`
