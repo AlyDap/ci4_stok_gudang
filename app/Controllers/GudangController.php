@@ -74,6 +74,7 @@ class GudangController extends BaseController
     'nama_gudang' => $this->request->getPost('nama_gudang'),
     'jenis' => $this->request->getPost('jenis'),
     'alamat' => $this->request->getPost('alamat'),
+    'keterangan' => $this->request->getPost('keterangan'),
     'foto_gudang' => $namagambar,
     'status' => $this->request->getPost('status'),
    ];
@@ -112,6 +113,7 @@ class GudangController extends BaseController
    'nama_gudang' => $this->request->getVar('nama_gudang'),
    'jenis' => $this->request->getVar('jenis'),
    'alamat' => $this->request->getVar('alamat'),
+   'keterangan' => $this->request->getPost('keterangan'),
    'foto_gudang' => $namagambar,
    'status' => $this->request->getVar('status'),
   ];

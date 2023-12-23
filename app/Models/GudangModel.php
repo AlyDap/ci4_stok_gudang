@@ -14,7 +14,7 @@ class GudangModel extends Model
  protected $returnType       = 'array';
  protected $useSoftDeletes   = false;
  protected $protectFields    = true;
- protected $allowedFields    = ['nama_gudang', 'jenis', 'alamat', 'foto_gudang', 'status'];
+ protected $allowedFields    = ['nama_gudang', 'jenis', 'alamat', 'keterangan', 'foto_gudang', 'status'];
 
  // Dates
  protected $useTimestamps = false;

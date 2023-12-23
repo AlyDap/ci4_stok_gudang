@@ -7,11 +7,11 @@
  </h2>
 </div>
 <div class="mb-2 d-flex justify-content-between">
- <div class="bg-primary px-2 rounded" style="padding-top: 8px;">
-  <a href="<?= base_url('DashboardController'); ?>">
-   <i class="fi fi-rr-left text-xl"></i>
-  </a>
- </div>
+ <!-- <div class="" style="margin-bottom: -10px;"> -->
+ <a class="btn btn-warning px-3" href="<?= base_url('DashboardController'); ?>" style="padding-top: 1rem;">
+  <i class="fi fi-rr-left text-xl"></i>
+ </a>
+ <!-- </div> -->
  <div class="">
 
   <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-add" class="right-0">
@@ -62,11 +62,11 @@
       </td>
       <td>
        <!-- Tombol Info -->
-       <span type="button" class="badge rounded-pill text-bg-primary" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="infoData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['status']; ?>`)" id="btn-info">
+       <span type="button" class="badge rounded-pill text-bg-primary" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="infoData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['keterangan']; ?>`,`<?= $row['status']; ?>`)" id="btn-info">
         <i class="fi fi-rr-info"></i>
        </span>
        <!-- Tombol Edit -->
-       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
+       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['keterangan']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
         <i class="fi fi-rr-edit"></i>
        </span>
       </td>
@@ -94,12 +94,12 @@
 
      <div class="mb-3">
       <label for="nama_gudang" class="col-form-label">Nama Gudang</label>
-      <input type="text" required class="form-control" id="nama_gudang" name="nama_gudang">
+      <input type="text" required class="form-control" id="nama_gudang" name="nama_gudang" placeholder="masukan nama gudang ...">
      </div>
 
      <div class="mb-3">
       <label for="alamat" class="col-form-label">Alamat</label>
-      <input type="text" required class="form-control" id="alamat" name="alamat">
+      <input type="text" required class="form-control" id="alamat" name="alamat" placeholder="masukan alamat gudang ...">
      </div>
 
      <div class="mb-3">
@@ -109,6 +109,12 @@
        <option selected value="kecil">kecil</option>
        <option value="besar">besar</option>
       </select>
+     </div>
+
+     <div class="mb-3">
+      <label for="keterangan" class="col-form-label">Keterangan</label>
+      <br>
+      <textarea name="keterangan" id="keterangan" rows="3" class="form-control"></textarea>
      </div>
 
      <div class="mb-3">
@@ -139,6 +145,8 @@
     </div>
     <div class="modal-footer">
      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" name="btn-close">Close</button>
+     <button type="button" class="btn btn-warning" id="btn-reset">Reset</button>
+     <button type="button" class="btn btn-warning" id="btn-reset2">Reset</button>
      <button type="submit" class="btn btn-primary" id="btn-form">Save</button>
     </div>
    </form>
@@ -147,12 +155,7 @@
 </div>
 
 <!-- KURANG
-
-MAU TAMBAH DESKRIPSI GUDANG YANG HANYA TAMPIL PADA SAAT KLIK ICON INFO/EDIT/ADD
-SAAT KLIK JENIS GUDANG BESAR MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
-"INI ADALAH GUDANG UTAMA..."
-SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
-"INI ADALAH GUDANG CABANG..."
+tombol reset saat edit belum bisa
 -->
 
 <script>
@@ -167,6 +170,8 @@ SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
  const btnEdit = document.querySelector('#btn-edit');
  const btnForm = document.querySelector('#btn-form');
  const btnInfo = document.querySelector('#btn-info');
+ const btnReset = document.querySelector('#btn-reset');
+ const btnReset2 = document.querySelector('#btn-reset2');
 
  const modalExample = document.querySelector('#exampleModal');
  const modelTitle = document.querySelector('#exampleModalLabel');
@@ -178,21 +183,52 @@ SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
  const elFoto = document.querySelector('#input_foto');
  const elHasilFoto = document.querySelector('#hasil_foto');
  const elStatus = document.querySelector('#status');
+ const elKeterangan = document.querySelector('#keterangan');
 
  const elHiddenFoto = document.getElementById('foto_gudang1');
  const elStatusText = document.querySelector('#status-text');
  const elJenisText = document.querySelector('#jenis-text');
 
+ var nilaiAwal = {
+  // kode: elKode.value,
+  namaGudang: elNama.value,
+  alamat: elAlamat.value,
+  jenis: elJenis.value,
+  keterangan: elKeterangan.value,
+  status: elStatus.value,
+  fotoGudang: elHiddenFoto.value // Misalnya, jika elHiddenFoto adalah input hidden
+ }
 
- btnAdd.addEventListener('click', function() {
-  btnForm.style.display = 'block';
-  elStatusText.style.display = 'none';
-  elJenisText.style.display = 'none';
-  elJenis.style.display = 'block';
-  elStatus.style.display = 'block';
-  elFoto.style.display = 'block';
+ function resetData() {
+  // elKode.value = nilaiAwal.kode;
+  elNama.value = nilaiAwal.namaGudang;
+  elAlamat.value = nilaiAwal.alamat;
+  elJenis.value = nilaiAwal.jenis;
+  elKeterangan.value = nilaiAwal.keterangan;
+  elStatus.value = nilaiAwal.status;
+  // Jika perlu, atur nilai foto juga
+  elHiddenFoto.value = nilaiAwal.fotoGudang;
+  // Tambahan: Atur tampilan elemen sesuai kebutuhan setelah reset
+  // ...
+ }
 
-  modelTitle.innerHTML = 'Tambah Gudang';
+ function hapusReadOnly() {
+  elKode.removeAttribute('readonly');
+  elNama.removeAttribute('readonly');
+  elAlamat.removeAttribute('readonly');
+  elKeterangan.removeAttribute('readonly');
+ }
+
+ function beriReadOnly() {
+  elKeterangan.setAttribute('readonly', true);
+  elKode.setAttribute('readonly', true);
+  elNama.setAttribute('readonly', true);
+  elAlamat.setAttribute('readonly', true);
+  elJenisText.setAttribute('readonly', true);
+  elStatusText.setAttribute('readonly', true);
+ }
+
+ function clearForm() {
   elKode.value = "";
   elNama.value = "";
   elAlamat.value = "";
@@ -201,14 +237,47 @@ SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
   elStatus.value = "aktif";
   btnForm.innerHTML = 'Tambah';
   elHasilFoto.src = "";
+  elKeterangan.value = 'Ini adalah gudang cabang ... ';
+ }
 
-  elKode.removeAttribute('readonly');
-  elNama.removeAttribute('readonly');
-  elAlamat.removeAttribute('readonly');
+ btnAdd.addEventListener('click', function() {
+  btnForm.style.display = 'block';
+  btnReset.style.display = 'block';
+  btnReset2.style.display = 'none';
+
+  elStatusText.style.display = 'none';
+  elJenisText.style.display = 'none';
+  elJenis.style.display = 'block';
+  elStatus.style.display = 'block';
+  elFoto.style.display = 'block';
+
+  modelTitle.innerHTML = 'Tambah Gudang';
+
+  clearForm();
+  hapusReadOnly();
  });
 
- function editData(kode, nama_gudang, alamat, jenis, foto_gudang, status) {
+ btnReset.addEventListener('click', function() {
+  clearForm();
+ })
+
+ btnReset2.addEventListener('click', function() {
+  // inputan kembali seperti data awal  
+ })
+
+ elJenis.addEventListener('change', function() {
+  if (elJenis.value === 'kecil') {
+   elKeterangan.value = 'Ini adalah gudang cabang ... ';
+  } else if (elJenis.value === 'besar') {
+   elKeterangan.value = 'Ini adalah gudang utama ... ';
+  }
+ })
+
+ function editData(kode, nama_gudang, alamat, jenis, foto_gudang, keterangan, status) {
   btnForm.style.display = 'block';
+  btnReset.style.display = 'none';
+  btnReset2.style.display = 'block';
+
   elStatusText.style.display = 'none';
   elJenisText.style.display = 'none';
   elJenis.style.display = 'block';
@@ -220,15 +289,13 @@ SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
   elNama.value = nama_gudang;
   elAlamat.value = alamat;
   elJenis.value = jenis;
-  // elFoto.value = foto_gudang;
+  elKeterangan.value = keterangan;
   elStatus.value = status;
   btnForm.innerHTML = 'Update';
   elHiddenFoto.value = foto_gudang;
   console.log(elHiddenFoto.value);
 
-  elKode.removeAttribute('readonly');
-  elNama.removeAttribute('readonly');
-  elAlamat.removeAttribute('readonly');
+  hapusReadOnly();
 
   elHasilFoto.src = ambilGambar(foto_gudang);
  }
@@ -247,8 +314,11 @@ SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
   return pathGambarGudang;
  }
 
- function infoData(kode, nama_gudang, alamat, jenis, foto_gudang, status) {
+ function infoData(kode, nama_gudang, alamat, jenis, foto_gudang, keterangan, status) {
   btnForm.style.display = 'none';
+  btnReset.style.display = 'none';
+  btnReset2.style.display = 'none';
+
   elStatusText.style.display = 'block';
   elJenisText.style.display = 'block';
   elJenis.style.display = 'none';
@@ -262,12 +332,9 @@ SAAT KLIK JENIS GUDANG KECIL MAKA PLACEHOLDER DESKRIPSI GUDANG AKAN MENJADI:
   elJenisText.value = jenis;
   // elFoto.value = foto_gudang;
   elStatusText.value = status;
+  elKeterangan.value = keterangan;
 
-  elKode.setAttribute('readonly', true);
-  elNama.setAttribute('readonly', true);
-  elAlamat.setAttribute('readonly', true);
-  elJenisText.setAttribute('readonly', true);
-  elStatusText.setAttribute('readonly', true);
+  beriReadOnly();
 
   elHasilFoto.src = ambilGambar(foto_gudang);
  }
