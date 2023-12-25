@@ -14,7 +14,7 @@ class UserModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['username', 'password', 'foto_user', 'kode_gudang'];
+    protected $allowedFields    = ['username', 'password', 'no_hp', 'email', 'foto_user', 'kode_gudang', 'status'];
 
     // Dates
     protected $useTimestamps = false;
@@ -52,5 +52,29 @@ class UserModel extends Model
         }
 
         return false;
+    }
+
+    public function getNamaGudang()
+    {
+        return $this->db->query("SELECT
+        a.kode_gudang AS kode_gudang,
+        g.nama_gudang AS nama_gudang,
+        a.id_user AS id_user,
+        a.username AS username,
+        a.password AS password,
+        a.no_hp AS no_hp,
+        a.email AS email,
+        a.foto_user AS foto_user,
+        a.status AS status
+    FROM
+        `gudang` AS g,
+        users AS a
+    WHERE
+        g.kode_gudang = a.kode_gudang")->getResultArray();
+    }
+
+    public function getGudangAktif()
+    {
+        return $this->db->query("SELECT * FROM `gudang` WHERE `status` = 'aktif'")->getResultArray();
     }
 }

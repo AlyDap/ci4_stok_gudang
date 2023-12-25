@@ -47,8 +47,7 @@
       <div class="icon">
         <i class="fi fi-rr-building" style="font-size: 63px;"></i>
       </div>
-      <a href="<?= base_url('GudangController'); ?>" class="small-box-footer">More info <i
-          class="fas fa-arrow-circle-right"></i></a>
+      <a href="<?= base_url('GudangController'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
   <?php if (session()->get('jenis') == ('besar')) { ?>
@@ -64,7 +63,7 @@
         <div class="icon">
           <i class="fi fi-rr-users-alt" style="font-size: 63px;"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="<?= base_url('UserController'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
   <?php } ?>
