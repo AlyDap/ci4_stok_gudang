@@ -189,28 +189,7 @@ tombol reset saat edit belum bisa
  const elStatusText = document.querySelector('#status-text');
  const elJenisText = document.querySelector('#jenis-text');
 
- var nilaiAwal = {
-  // kode: elKode.value,
-  namaGudang: elNama.value,
-  alamat: elAlamat.value,
-  jenis: elJenis.value,
-  keterangan: elKeterangan.value,
-  status: elStatus.value,
-  fotoGudang: elHiddenFoto.value // Misalnya, jika elHiddenFoto adalah input hidden
- }
-
- function resetData() {
-  // elKode.value = nilaiAwal.kode;
-  elNama.value = nilaiAwal.namaGudang;
-  elAlamat.value = nilaiAwal.alamat;
-  elJenis.value = nilaiAwal.jenis;
-  elKeterangan.value = nilaiAwal.keterangan;
-  elStatus.value = nilaiAwal.status;
-  // Jika perlu, atur nilai foto juga
-  elHiddenFoto.value = nilaiAwal.fotoGudang;
-  // Tambahan: Atur tampilan elemen sesuai kebutuhan setelah reset
-  // ...
- }
+ let reNama, reAlamat, reJenis, reFoto, reStatus, reKeterangan, reHiddenFoto, reHasilFoto = "";
 
  function hapusReadOnly() {
   elKode.removeAttribute('readonly');
@@ -261,10 +240,6 @@ tombol reset saat edit belum bisa
   clearForm();
  })
 
- btnReset2.addEventListener('click', function() {
-  // inputan kembali seperti data awal  
- })
-
  elJenis.addEventListener('change', function() {
   if (elJenis.value === 'kecil') {
    elKeterangan.value = 'Ini adalah gudang cabang ... ';
@@ -298,6 +273,14 @@ tombol reset saat edit belum bisa
   hapusReadOnly();
 
   elHasilFoto.src = ambilGambar(foto_gudang);
+
+  reNama = nama_gudang;
+  reAlamat = alamat;
+  reJenis = jenis;
+  reKeterangan = keterangan;
+  reStatus = status;
+  reHiddenFoto = foto_gudang;
+  reHasilFoto = ambilGambar(foto_gudang);
  }
 
  function ambilGambar(foto_saja) {
@@ -339,6 +322,22 @@ tombol reset saat edit belum bisa
   elHasilFoto.src = ambilGambar(foto_gudang);
  }
 
+ function resetData() {
+  elNama.value = reNama;
+  elAlamat.value = reAlamat;
+  elJenis.value = reJenis;
+  elKeterangan.value = reKeterangan;
+  elStatus.value = reStatus;
+  elHiddenFoto.value = reHiddenFoto;
+  elHasilFoto.src = reHasilFoto;
+  // hapus inputan pada type file foto
+  elFoto.value = "";
+ }
+
+ btnReset2.addEventListener('click', function() {
+  // inputan kembali seperti data awal  
+  resetData();
+ })
 
  // Mendengarkan perubahan pada input file
  elFoto.addEventListener('change', function() {
