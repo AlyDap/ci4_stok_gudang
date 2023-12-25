@@ -77,4 +77,9 @@ class UserModel extends Model
     {
         return $this->db->query("SELECT * FROM `gudang` WHERE `status` = 'aktif'")->getResultArray();
     }
+
+    public function getGudangId($id)
+    {
+        return $this->db->query("SELECT * FROM `gudang` WHERE `kode_gudang` = '" . $id . "'")->getRow();
+    }
 }

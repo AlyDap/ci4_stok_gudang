@@ -70,7 +70,7 @@
         <i class="fi fi-rr-info"></i>
        </span>
        <!-- Tombol Edit -->
-       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['id_user']; ?>,`<?= $row['username']; ?>`,`<?= $row['kode_gudang']; ?>`,`<?= $row['password']; ?>`,`<?= $row['foto_user']; ?>`,`<?= $row['no_hp']; ?>`,`<?= $row['email']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
+       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['id_user']; ?>,`<?= $row['username']; ?>`,`<?= $row['kode_gudang']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
         <i class="fi fi-rr-edit"></i>
        </span>
       </td>
@@ -101,32 +101,32 @@
       <input type="text" required class="form-control" id="username" name="username" placeholder="masukan nama user ...">
      </div>
 
-     <div class="mb-3">
-      <label for="password" class="col-form-label">Password</label>
+     <div class="mb-3 hilang">
+      <label for="password" id="labelPas" class="col-form-label">Password</label>
       <input type="password" required class="form-control" id="password" name="password" placeholder="masukan password user ...">
      </div>
 
      <div class="mb-3">
       <label for="kode_gudang" class="col-form-label">Gudang</label>
-      <input type="text" required class="form-control" id="jenis-text" disabled>
-      <select class="form-select" size="2" aria-label="Size 3 select example" id="kode_gudang" name="kode_gudang">
+      <input type="text" class="form-control" id="gudang-text" disabled>
+      <select class="form-select" required size="2" aria-label="Size 3 select example" id="kode_gudang" name="kode_gudang">
        <?php foreach ($gudangaktif as $ga) { ?>
         <option value="<?= $ga['kode_gudang'] ?>"><?= $ga['nama_gudang'] ?></option>
        <?php } ?>
       </select>
      </div>
 
-     <div class="mb-3">
+     <div class="mb-3 hilang">
       <label for="no_hp" class="col-form-label">No HP</label>
       <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="masukan no_hp user ...">
      </div>
-     <div class="mb-3">
+     <div class="mb-3 hilang">
       <label for="email" class="col-form-label">email</label>
       <input type="email" class="form-control" id="email" name="email" placeholder="masukan email user ...">
      </div>
 
      <div class="mb-3">
-      <label for="foto_user" class="col-form-label">Foto User</label>
+      <label for="foto_user" id="labelFot" class="col-form-label">Foto User</label>
       <!-- save nama foto user lama -->
       <input type="hidden" class="form-control" id="foto_user1" name="foto_user2" value="">
 
@@ -171,7 +171,8 @@ tombol reset saat edit belum bisa
  new DataTable('#example');
 
  // Tambah & Edit Gudang
-
+ // name= id_user username password kode_gudang no_hp email foto_user2(hidden) foto_user(file) status
+ // id= gudang-text(disabled) foto_user1(hidden) input_foto(file) hasil_foto(img) status-text(disabled)
 
  const btnAdd = document.getElementById('btn-add');
  const btnClose = document.getElementsByName('btn-close');
@@ -186,59 +187,80 @@ tombol reset saat edit belum bisa
 
  const elKode = document.querySelector('#id_user');
  const elNama = document.querySelector('#username');
- const elAlamat = document.querySelector('#alamat');
- const elJenis = document.querySelector('#jenis');
+ const elPassword = document.querySelector('#password');
+ const elkode_gudang = document.querySelector('#kode_gudang');
+ const elno_hp = document.querySelector('#no_hp');
+ const elemail = document.querySelector('#email');
  const elFoto = document.querySelector('#input_foto');
  const elHasilFoto = document.querySelector('#hasil_foto');
  const elStatus = document.querySelector('#status');
- const elno_hp = document.querySelector('#no_hp');
 
  const elHiddenFoto = document.getElementById('foto_user1');
  const elStatusText = document.querySelector('#status-text');
- const elJenisText = document.querySelector('#jenis-text');
+ const elGudangText = document.querySelector('#gudang-text');
 
- let reNama, reAlamat, reJenis, reFoto, reStatus, reno_hp, reHiddenFoto, reHasilFoto = "";
+ const hilang = document.querySelectorAll('.hilang');
+ const labelPas = document.querySelector('#labelPas');
+ const labelFot = document.querySelector('#labelFot');
+
+ let reGudang, reStatus = "";
 
  function hapusReadOnly() {
   elKode.removeAttribute('readonly');
+  elPassword.removeAttribute('readonly');
   elNama.removeAttribute('readonly');
-  elAlamat.removeAttribute('readonly');
+  elkode_gudang.removeAttribute('readonly');
   elno_hp.removeAttribute('readonly');
+  elemail.removeAttribute('readonly');
  }
 
  function beriReadOnly() {
-  elno_hp.setAttribute('readonly', true);
   elKode.setAttribute('readonly', true);
   elNama.setAttribute('readonly', true);
-  elAlamat.setAttribute('readonly', true);
-  elJenisText.setAttribute('readonly', true);
+  elPassword.setAttribute('readonly', true);
+  elkode_gudang.setAttribute('readonly', true);
+  elno_hp.setAttribute('readonly', true);
+  elemail.setAttribute('readonly', true);
+  elGudangText.setAttribute('readonly', true);
   elStatusText.setAttribute('readonly', true);
  }
 
  function clearForm() {
   elKode.value = "";
   elNama.value = "";
-  elAlamat.value = "";
-  elJenis.value = "kecil";
+  elPassword.value = "";
+  elkode_gudang.value = '';
+  elemail.value = "";
+  elno_hp.value = '';
   elFoto.value = "";
   elStatus.value = "aktif";
   btnForm.innerHTML = 'Tambah';
   elHasilFoto.src = "";
-  elno_hp.value = 'Ini adalah gudang cabang ... ';
  }
 
  btnAdd.addEventListener('click', function() {
   btnForm.style.display = 'block';
   btnReset.style.display = 'block';
   btnReset2.style.display = 'none';
+  hilang.forEach(element => {
+   element.style.display = 'block';
+  });
+  // hilang.style.display = 'block';
 
   elStatusText.style.display = 'none';
-  elJenisText.style.display = 'none';
-  elJenis.style.display = 'block';
-  elStatus.style.display = 'block';
+  elGudangText.style.display = 'none';
+  elNama.style.display = 'block';
+  elPassword.style.display = 'block';
+  elkode_gudang.style.display = 'block';
+  elno_hp.style.display = 'block';
+  elemail.style.display = 'block';
   elFoto.style.display = 'block';
+  elHasilFoto.style.display = 'block';
+  elStatus.style.display = 'block';
+  labelPas.style.display = 'block';
+  labelFot.style.display = 'block';
 
-  modelTitle.innerHTML = 'Tambah Gudang';
+  modelTitle.innerHTML = 'Tambah User';
 
   clearForm();
   hapusReadOnly();
@@ -248,47 +270,41 @@ tombol reset saat edit belum bisa
   clearForm();
  })
 
- elJenis.addEventListener('change', function() {
-  if (elJenis.value === 'kecil') {
-   elno_hp.value = 'Ini adalah gudang cabang ... ';
-  } else if (elJenis.value === 'besar') {
-   elno_hp.value = 'Ini adalah gudang utama ... ';
-  }
- })
-
- function editData(kode, username, alamat, jenis, foto_user, no_hp, email, status) {
+ function editData(kode, username, kode_gudang, status) {
   btnForm.style.display = 'block';
   btnReset.style.display = 'none';
   btnReset2.style.display = 'block';
+  hilang.forEach(element => {
+   element.style.display = 'none';
+  });
+  // hilang.style.display = 'none';
 
   elStatusText.style.display = 'none';
-  elJenisText.style.display = 'none';
-  elJenis.style.display = 'block';
+  elGudangText.style.display = 'none';
+  elNama.style.display = 'block';
+  elPassword.style.display = 'none';
+  elkode_gudang.style.display = 'block';
+  elno_hp.style.display = 'none';
+  elemail.style.display = 'none';
+  elFoto.style.display = 'none';
+  elHasilFoto.style.display = 'none';
   elStatus.style.display = 'block';
-  elFoto.style.display = 'block';
+  labelPas.style.display = 'none';
+  labelFot.style.display = 'none';
 
-  modelTitle.innerHTML = 'Edit Gudang';
+  modelTitle.innerHTML = 'Edit User';
   elKode.value = kode;
   elNama.value = username;
-  elAlamat.value = alamat;
-  elJenis.value = jenis;
-  elno_hp.value = no_hp;
+  elkode_gudang.value = kode_gudang;
   elStatus.value = status;
   btnForm.innerHTML = 'Update';
-  elHiddenFoto.value = foto_user;
-  console.log(elHiddenFoto.value);
 
   hapusReadOnly();
+  elNama.setAttribute('readonly', true);
+  elPassword.setAttribute('readonly', true);
 
-  elHasilFoto.src = ambilGambar(foto_user);
-
-  reNama = username;
-  reAlamat = alamat;
-  reJenis = jenis;
-  reno_hp = no_hp;
+  reGudang = kode_gudang;
   reStatus = status;
-  reHiddenFoto = foto_user;
-  reHasilFoto = ambilGambar(foto_user);
  }
 
  function ambilGambar(foto_saja) {
@@ -305,41 +321,68 @@ tombol reset saat edit belum bisa
   return pathGambarGudang;
  }
 
- function infoData(kode, username, alamat, jenis, foto_user, no_hp, email, status) {
+ function infoData(kode, username, kode_gudang, password, foto_user, no_hp, email, status) {
   btnForm.style.display = 'none';
   btnReset.style.display = 'none';
   btnReset2.style.display = 'none';
 
-  elStatusText.style.display = 'block';
-  elJenisText.style.display = 'block';
-  elJenis.style.display = 'none';
-  elStatus.style.display = 'none';
-  elFoto.style.display = 'none';
+  hilang.forEach(element => {
+   element.style.display = 'block';
+  });
+  // hilang.style.display = 'block';
 
-  modelTitle.innerHTML = 'Info Gudang';
+  elStatusText.style.display = 'block';
+  elGudangText.style.display = 'block';
+  elNama.style.display = 'block';
+  elPassword.style.display = 'none';
+  elkode_gudang.style.display = 'none';
+  elno_hp.style.display = 'block';
+  elemail.style.display = 'block';
+  elFoto.style.display = 'none';
+  elHasilFoto.style.display = 'block';
+  elStatus.style.display = 'none';
+  labelPas.style.display = 'none';
+  labelFot.style.display = 'block';
+
+  fetchNamaGudang(kode_gudang);
+
+  modelTitle.innerHTML = 'Info User';
   elKode.value = kode;
   elNama.value = username;
-  elAlamat.value = alamat;
-  elJenisText.value = jenis;
+  elPassword.value = password;
+  elkode_gudang.value = kode_gudang;
+  elno_hp.value = no_hp;
+  elemail.value = email;
+  // elGudangText.value = kode_gudang;
   // elFoto.value = foto_user;
   elStatusText.value = status;
-  elno_hp.value = no_hp;
 
   beriReadOnly();
 
   elHasilFoto.src = ambilGambar(foto_user);
  }
 
+ // Fungsi untuk mengambil nama gudang dari kode_gudang menggunakan fetch API
+ function fetchNamaGudang(kodeGudang) {
+  // Menggunakan fetch atau XMLHttpRequest untuk mengambil data dari server
+  fetch('UserController/getGudangById/' + kodeGudang)
+   .then(response => response.json())
+   .then(data => {
+    let elGudangText = document.querySelector('#gudang-text');
+    if (data) {
+     elGudangText.value = data.nama_gudang;
+    } else {
+     elGudangText.value = 'Gudang tidak ditemukan';
+    }
+   })
+   .catch(error => {
+    console.error('Error:', error);
+   });
+ }
+
  function resetData() {
-  elNama.value = reNama;
-  elAlamat.value = reAlamat;
-  elJenis.value = reJenis;
-  elno_hp.value = reno_hp;
+  elkode_gudang.value = reGudang;
   elStatus.value = reStatus;
-  elHiddenFoto.value = reHiddenFoto;
-  elHasilFoto.src = reHasilFoto;
-  // hapus inputan pada type file foto
-  elFoto.value = "";
  }
 
  btnReset2.addEventListener('click', function() {

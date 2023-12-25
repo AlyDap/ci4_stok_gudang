@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2023 at 11:19 AM
+-- Generation Time: Dec 25, 2023 at 05:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -290,9 +290,9 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `no_hp`, `email`, `foto_
 (2, 'abu', '2c6101a64935a3bbd5c67f2fb461c4f3', '1234509876', 'abuabu@email.com', 'traveller_sinis.png', 2, 'aktif'),
 (3, 'siti', '6e3efc8c14f930d71f7cb946adabdd31', '0000', 'email.com', 'luffy-bg000.jpg', 3, 'nonaktif'),
 (4, 'nur', '93868666d04f24c4ebb01c8bf71d5776', '7777777', 'nur@sch.id', 'wanderer.png', 4, 'aktif'),
-(6, '', '', '', '', '', 19, 'aktif'),
 (7, 'us', '144cce165e9b405a014d015e9059a7fd', '', '', '20231225101408_AyEo01qn_baby_pales.jpg', 2, 'aktif'),
-(8, 'as', '05f7088afd7bcdd7cc818c7ebe7b56cc', '2222', '2@g.c', 'default-user.png', 35, 'nonaktif');
+(8, 'as', '05f7088afd7bcdd7cc818c7ebe7b56cc', '2222', '2@g.c', 'default-user.png', 35, 'nonaktif'),
+(9, 'aaaa', 'df483402b9bfeb234717a32c6e86280e', '', '', 'default-user.png', 2, 'nonaktif');
 
 --
 -- Indexes for dumped tables
@@ -411,7 +411,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

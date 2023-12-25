@@ -94,39 +94,24 @@ class UserController extends BaseController
    // 
   } else { // Jika id ada maka jalankan perintah update
 
-   // cek file gambar default atau tidak
-   $cekgambar = $this->userModell->find($id);
-
-   // cek jika gambar tidak default
-   if ($cekgambar['foto_user'] != 'default-user.png') {
-
-    $gambarlama = $this->request->getVar('foto_user2');
-    // cek gambar apakah gambar diupdate atau tidak
-    if ($cekgambar['foto_user'] != $gambarlama) {
-
-     // hapus file foto gudang di local storage
-     unlink('gambar_user/' . $cekgambar['foto_user']);
-    } else {
-     $namagambar = $gambarlama;
-    }
-   }
-   // if ($namagambar == '') {
-   //  $namagambar = $foto2;
-   // }
-
-   $this->update($id, $namagambar);
+   $this->update($id);
   }
   return redirect()->to(base_url('UserController'));
  }
 
- public function update($id, $namagambar)
+ public function update($id)
  {
   $data = [
-   'username' => $this->request->getVar('username'),
-   'password' => $this->request->getVar('password'),
-   'foto_user' => $namagambar,
+   'kode_gudang' => $this->request->getVar('kode_gudang'),
    'status' => $this->request->getVar('status'),
   ];
   $this->userModell->update($id, $data);
+ }
+
+ public function getGudangById($kodeGudang)
+ {
+  $dataGudang = $this->userModell->getGudangId($kodeGudang);
+
+  return $this->response->setJSON($dataGudang);
  }
 }
