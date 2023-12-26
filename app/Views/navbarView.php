@@ -140,8 +140,9 @@
               <i class="fi fi-rr-user"></i>
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<?= base_url('DashboardController/data'); ?>">Info</a></li>
+              <li><a class="dropdown-item" href="<?= base_url('UserAllController'); ?>">Info</a></li>
               <li><a class="dropdown-item" href="#">Setting</a></li>
+              <li><a class="dropdown-item" href="<?= base_url('DashboardController/data'); ?>">Data</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>

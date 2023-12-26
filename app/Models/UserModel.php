@@ -54,6 +54,11 @@ class UserModel extends Model
         return false;
     }
 
+    public function getUserId($id)
+    {
+        return $this->db->query("SELECT * FROM `users` WHERE `id_user` = '" . $id . "'")->getRow();
+    }
+
     public function getNamaGudang()
     {
         return $this->db->query("SELECT
