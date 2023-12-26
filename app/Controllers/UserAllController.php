@@ -32,6 +32,7 @@ class UserAllController extends BaseController
   $data = [
    'title' => 'Kelola User',
    'useraktif' => $this->userModell->getUserId($id),
+   'infouser' => $this->userModell->getViewInfoUser($id),
   ];
   // $data['user'] = $this->userModell->findAll();
   return view('userAllView', $data);

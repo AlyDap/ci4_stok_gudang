@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2023 at 05:08 PM
+-- Generation Time: Dec 26, 2023 at 11:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -184,6 +184,21 @@ INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `keterang
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `info_user`
+-- (See below for the actual view)
+--
+CREATE TABLE `info_user` (
+`Id User` int(11)
+,`Username` text
+,`No HP` text
+,`Email` text
+,`Kode Gudang` int(11)
+,`Nama Gudang` text
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `merek`
 --
 
@@ -293,6 +308,15 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `no_hp`, `email`, `foto_
 (7, 'us', '144cce165e9b405a014d015e9059a7fd', '', '', '20231225101408_AyEo01qn_baby_pales.jpg', 2, 'aktif'),
 (8, 'as', '05f7088afd7bcdd7cc818c7ebe7b56cc', '2222', '2@g.c', 'default-user.png', 35, 'nonaktif'),
 (9, 'aaaa', 'df483402b9bfeb234717a32c6e86280e', '', '', 'default-user.png', 2, 'nonaktif');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `info_user`
+--
+DROP TABLE IF EXISTS `info_user`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `info_user`  AS SELECT `u`.`id_user` AS `Id User`, `u`.`username` AS `Username`, `u`.`no_hp` AS `No HP`, `u`.`email` AS `Email`, `g`.`kode_gudang` AS `Kode Gudang`, `g`.`nama_gudang` AS `Nama Gudang` FROM (`users` `u` join `gudang` `g`) WHERE `u`.`kode_gudang` = `g`.`kode_gudang` ;
 
 --
 -- Indexes for dumped tables

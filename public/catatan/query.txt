@@ -1,0 +1,12 @@
+CREATE VIEW info_user AS SELECT
+    u.id_user AS 'Id User',
+    u.username AS 'Username',
+    u.no_hp AS 'No HP',
+    u.email AS 'Email',
+    g.kode_gudang AS 'Kode Gudang',
+    g.nama_gudang AS 'Nama Gudang'
+FROM
+    users AS u,
+    gudang AS g
+WHERE
+    u.kode_gudang = g.kode_gudang
