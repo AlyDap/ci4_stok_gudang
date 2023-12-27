@@ -116,22 +116,22 @@
        <input type="hidden" class="form-control" id="foto_user1" name="foto_user2" value="">
 
        <!-- INPUT  FILE -->
-       <div class="inputgambaruser">
-        <input type="file" name="foto_user" id="input_foto" class="cursor-pointer" accept=".jpg,.jpeg,.png">
+       <div class="col">
+        <input type="file" name="foto_user" id="input_foto" class="form-control form-control-sm" accept=".jpg,.jpeg,.png">
        </div>
 
        <!-- IMG HASIL FOTO -->
-       <div class="hasilgambaruser">
+       <div class="text-center mb-2">
         <img src="" alt="Foto User" id="hasil_foto" style="min-width: 100px;max-width: 321px;">
        </div>
       </div>
       <!-- BUTTON -->
       <div class="row text-center">
        <div class="col">
-        <a href="#" class="btn btn-outline-primary">Update</a>
+        <a href="#" class="btn btn-outline-primary" id="btn-update-profil">Update</a>
        </div>
        <div class="col">
-        <a href="#" class="btn btn-outline-warning">Reset</a>
+        <a href="#" class="btn btn-outline-warning" id="btn-reset-profil">Reset</a>
        </div>
       </div>
      </div>
@@ -172,10 +172,10 @@
       <!-- BUTTON -->
       <div class="row text-center">
        <div class="col">
-        <a href="#" class="btn btn-outline-primary">Update</a>
+        <a href="#" class="btn btn-outline-primary" id="btn-update-password">Update</a>
        </div>
        <div class="col">
-        <a href="#" class="btn btn-outline-warning">Reset</a>
+        <a href="#" class="btn btn-outline-warning" id="btn-reset-password">Reset</a>
        </div>
       </div>
      </div>
@@ -185,13 +185,42 @@
  </div>
 </div>
 <script>
+ // div
  const eprofil = document.querySelectorAll('.edit-profil');
  const epassword = document.querySelectorAll('.edit-password');
 
+ // btn 3 di atas
  const btnEdit = document.getElementById('btn-edit-profil');
  const btnPass = document.getElementById('btn-edit-password');
  const btnBatal = document.getElementById('btn-edit-batal');
 
+ //  foto
+ const elFoto = document.querySelector('#input_foto');
+ const elHasilFoto = document.querySelector('#hasil_foto');
+ const elHiddenFoto = document.getElementById('foto_user1');
+
+ // edit profil
+ const elNama = document.querySelector('#username');
+ const elNoHP = document.querySelector('#no_hp');
+ const elEmail = document.querySelector('#email');
+
+ // btn di bawah edit profil
+ const btnUpdateProfil = document.querySelector('#btn-update-profil');
+ const btnResetProfil = document.querySelector('#btn-reset-profil');
+
+ // edit password
+ const elPasswordLama = document.querySelector('#passwordlama');
+ const elPasswordBaru = document.querySelector('#passwordbaru');
+ const elPasswordKonfirmasi = document.querySelector('#passwordkonfirmasi');
+
+ // btn di bawah edit password
+ const btnUpdatePassword = document.querySelector('#btn-update-password');
+ const btnResetPassword = document.querySelector('#btn-reset-password');
+
+ const elusername = '<?= $useraktif->username ?>'
+ console.log(elusername)
+
+ // div edit profil & password
  eprofil.forEach(element => {
   element.style.display = 'none'
  })
@@ -199,6 +228,15 @@
   element.style.display = 'none'
  })
 
+ function isiProfil() {
+  elNama.value = '<?= $useraktif->username ?>'
+  elNoHP.value = '<?= $useraktif->no_hp ?>'
+  elEmail.value = '<?= $useraktif->email ?>'
+  elFoto.value = ''
+  elHasilFoto.src = '<?= base_url('gambar_user/' . $useraktif->foto_user) ?>'
+ }
+
+ // btn edit profil
  btnEdit.addEventListener('click', function() {
   eprofil.forEach(element => {
    element.style.display = 'block'
@@ -206,8 +244,16 @@
   epassword.forEach(element => {
    element.style.display = 'none'
   })
+  // isi input
+  isiProfil()
  })
 
+ // btn reset profil
+ btnResetProfil.addEventListener('click', function() {
+  isiProfil()
+ })
+
+ // btn edit password
  btnPass.addEventListener('click', function() {
   eprofil.forEach(element => {
    element.style.display = 'none'
@@ -217,6 +263,7 @@
   })
  })
 
+ // btn batal edit
  btnBatal.addEventListener('click', function() {
   eprofil.forEach(element => {
    element.style.display = 'none'
@@ -225,6 +272,27 @@
    element.style.display = 'none'
   })
  })
+
+
+ // Mendengarkan perubahan pada input file
+ elFoto.addEventListener('change', function() {
+  const file = elFoto.files[0]; // Mengambil file yang dipilih
+
+  // Memeriksa apakah file telah dipilih
+  if (file) {
+   const reader = new FileReader();
+
+   // Saat file selesai dibaca
+   reader.onload = function(event) {
+    elHasilFoto.src = event.target.result; // Menampilkan gambar yang dipilih pada elemen img
+   };
+
+   // Membaca file sebagai URL data
+   reader.readAsDataURL(file);
+  } else {
+   elHasilFoto.src = previousImageUrl; // Jika tidak ada file yang dipilih, kosongkan elemen img
+  }
+ });
 </script>
 
 <?= $this->endSection('content') ?>
