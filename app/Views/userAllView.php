@@ -65,125 +65,160 @@
     <p class="card-text">Data Anda tidak benar? Silahkan rubah sekarang.</p>
     <div class="row text-center">
      <div class="col">
-      <a href="#" class="btn btn-outline-primary" id="btn-edit-profil">Edit Profil</a>
+      <button type="button" class="btn btn-outline-primary" id="btn-edit-profil">Edit Profil</button>
      </div>
      <div class="col">
-      <a href="#" class="btn btn-outline-warning" id="btn-edit-password">Edit Password</a>
+      <button type="button" class="btn btn-outline-warning" id="btn-edit-password">Edit Password</button>
      </div>
      <div class="col">
-      <a href="#" class="btn btn-outline-danger" id="btn-edit-batal">Batal</a>
+      <button type="button" class="btn btn-outline-danger" id="btn-edit-batal">Batal</button>
      </div>
     </div>
    </div>
 
    <!-- EDIT PROFIL -->
-   <div class="card-body edit-profil">
-    <div class="card">
-     <div class="card-body">
-      <!-- USERNAME -->
-      <div class="row username">
-       <div class="col" style=" max-width: 125px;">
-        <label for="username" class="col-form-label-sm">Username</label>
+   <form action="<?= base_url('/UserAllController/storeProfil'); ?>" method="post" enctype="multipart/form-data">
+    <div class="card-body edit-profil">
+     <div class="card">
+      <div class="card-body">
+       <!-- USERNAME -->
+       <div class="row username">
+        <div class="col" style=" max-width: 125px;">
+         <label for="username" class="col-form-label-sm">Username</label>
+        </div>
+        <div class="col">
+         <input type="text" name="username" id="username" class="form-control form-control-sm" placeholder="Silahkan masukan username Anda" required autofocus>
+        </div>
+        <div class="col" style="max-width: 35px; margin-top: 5px;">
+         <!-- <small style="color: blue;" id="masihutuh"><i>masih utuh</i></small> -->
+         <!-- <small style="color: red;" id="sudahada"><i class="fi fi-rr-circle-xmark"></i></small>
+         <small style="color: green;" id="belumada"><i> belum ada</i></small> -->
+         <!-- <small> -->
+         <i class="fi fi-rr-circle-xmark" id="sudahada" style="color: red;margin: 0px;"></i>
+         <i class="fi fi-rr-check-circle" id="belumada" style="color: green;margin: 0px;"></i>
+         <!-- </small> -->
+        </div>
        </div>
-       <div class="col">
-        <input type="text" name="username" id="username" class="form-control form-control-sm" placeholder="Silahkan masukan username Anda" require autofocus>
+       <!-- NO HP -->
+       <div class="row no_hp">
+        <div class="col" style=" max-width: 125px;">
+         <label for="no_hp" class="col-form-label-sm">No HP</label>
+        </div>
+        <div class="col">
+         <input type="text" name="no_hp" id="no_hp" class="form-control form-control-sm" placeholder="Silahkan masukan No HP Anda" required>
+        </div>
        </div>
-      </div>
-      <!-- NO HP -->
-      <div class="row no_hp">
-       <div class="col" style=" max-width: 125px;">
-        <label for="no_hp" class="col-form-label-sm">No HP</label>
+       <!-- EMAIL -->
+       <div class="row email">
+        <div class="col" style=" max-width: 125px;">
+         <label for="email" class="col-form-label-sm">Email</label>
+        </div>
+        <div class="col">
+         <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="Silahkan masukan email Anda" required>
+        </div>
        </div>
-       <div class="col">
-        <input type="text" name="no_hp" id="no_hp" class="form-control form-control-sm" placeholder="Silahkan masukan No HP Anda" require>
-       </div>
-      </div>
-      <!-- EMAIL -->
-      <div class="row email">
-       <div class="col" style=" max-width: 125px;">
-        <label for="email" class="col-form-label-sm">Email</label>
-       </div>
-       <div class="col">
-        <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="Silahkan masukan email Anda" require>
-       </div>
-      </div>
-      <!-- FOTO USER -->
-      <div class="row foto_user">
-       <div class="col" style=" max-width: 125px;">
-        <label for="foto_user" id="labelFot" class="col-form-label-sm">Foto User</label>
-       </div>
-       <!-- save nama foto user lama -->
-       <input type="hidden" class="form-control" id="foto_user1" name="foto_user2" value="">
+       <!-- FOTO USER -->
+       <div class="row foto_user">
+        <div class="col" style=" max-width: 125px;">
+         <label for="foto_user" id="labelFot" class="col-form-label-sm">Foto User</label>
+        </div>
+        <!-- save nama foto user lama -->
+        <input type="hidden" class="form-control" id="foto_user1" name="foto_user2" value="">
 
-       <!-- INPUT  FILE -->
-       <div class="col">
-        <input type="file" name="foto_user" id="input_foto" class="form-control form-control-sm" accept=".jpg,.jpeg,.png">
-       </div>
+        <!-- INPUT  FILE -->
+        <div class="col">
+         <input type="file" name="foto_user" id="input_foto" class="form-control form-control-sm" accept=".jpg,.jpeg,.png">
+        </div>
 
-       <!-- IMG HASIL FOTO -->
-       <div class="text-center mb-2">
-        <img src="" alt="Foto User" id="hasil_foto" style="min-width: 100px;max-width: 321px;">
+        <!-- IMG HASIL FOTO -->
+        <div class="text-center mb-2">
+         <img src="" alt="Foto User" id="hasil_foto" style="min-width: 100px;max-width: 321px;">
+        </div>
        </div>
-      </div>
-      <!-- BUTTON -->
-      <div class="row text-center">
-       <div class="col">
-        <a href="#" class="btn btn-outline-primary" id="btn-update-profil">Update</a>
-       </div>
-       <div class="col">
-        <a href="#" class="btn btn-outline-warning" id="btn-reset-profil">Reset</a>
+       <!-- BUTTON -->
+       <div class="row text-center">
+        <div class="col">
+         <button type="button" class="btn btn-outline-primary" id="btn-update-profil" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+        </div>
+        <div class="col">
+         <button type="button" class="btn btn-outline-warning" id="btn-reset-profil">Reset</button>
+        </div>
        </div>
       </div>
      </div>
     </div>
-   </div>
+
+    <!-- modal edit -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+      <div class="modal-content">
+       <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Info</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+        Setelah Data diupdate <br>
+        Anda diminta untuk login kembali
+       </div>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">No</button>
+        <button type="submit" class="btn btn-outline-primary">Yes</button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </form>
 
    <!-- EDIT PASSWORD -->
    <div class="card-body edit-password">
     <div class="card">
      <div class="card-body">
-      <!-- PASSWORD LAMA-->
-      <div class="row password">
-       <div class="col" style=" max-width: 125px;">
-        <label for="passwordlama" class="col-form-label-sm">Password Lama</label>
+      <form action="<?= base_url('/UserAllController/storePassword'); ?>" method="post">
+       <!-- PASSWORD LAMA-->
+       <div class="row password">
+        <div class="col" style=" max-width: 125px;">
+         <label for="passwordlama" class="col-form-label-sm">Password Lama</label>
+        </div>
+        <div class="col">
+         <input type="password" name="passwordlama" id="passwordlama" class="form-control form-control-sm" placeholder="Silahkan masukan password lama Anda" required autofocus>
+        </div>
        </div>
-       <div class="col">
-        <input type="password" name="password" id="passwordlama" class="form-control form-control-sm" placeholder="Silahkan masukan password lama Anda" require autofocus>
+       <!-- PASSWORD BARU-->
+       <div class="row password">
+        <div class="col" style=" max-width: 125px;">
+         <label for="passwordbaru" class="col-form-label-sm">Password Baru</label>
+        </div>
+        <div class="col">
+         <input type="password" name="passwordbaru" id="passwordbaru" class="form-control form-control-sm" placeholder="Silahkan masukan password baru Anda" required>
+        </div>
        </div>
-      </div>
-      <!-- PASSWORD BARU-->
-      <div class="row password">
-       <div class="col" style=" max-width: 125px;">
-        <label for="passwordbaru" class="col-form-label-sm">Password Baru</label>
+       <!-- PASSWORD KONFIRMASI-->
+       <div class="row password">
+        <div class="col" style=" max-width: 125px;">
+         <label for="passwordkonfirmasi" class="col-form-label-sm">Konfirmasi</label>
+        </div>
+        <div class="col">
+         <input type="password" name="passwordkonfirmasi" id="passwordkonfirmasi" class="form-control form-control-sm" placeholder="Konfirmasi password baru Anda" required>
+        </div>
        </div>
-       <div class="col">
-        <input type="password" name="password" id="passwordbaru" class="form-control form-control-sm" placeholder="Silahkan masukan password baru Anda" require autofocus>
+       <!-- BUTTON -->
+       <div class="row text-center">
+        <div class="col">
+         <button type="submit" class="btn btn-outline-primary" id="btn-update-password">Update</button>
+        </div>
+        <div class="col">
+         <button type="button" class="btn btn-outline-warning" id="btn-reset-password">Reset</button>
+        </div>
        </div>
-      </div>
-      <!-- PASSWORD KONFIRMASI-->
-      <div class="row password">
-       <div class="col" style=" max-width: 125px;">
-        <label for="passwordkonfirmasi" class="col-form-label-sm">Konfirmasi</label>
-       </div>
-       <div class="col">
-        <input type="password" name="password" id="passwordkonfirmasi" class="form-control form-control-sm" placeholder="Konfirmasi password baru Anda" require autofocus>
-       </div>
-      </div>
-      <!-- BUTTON -->
-      <div class="row text-center">
-       <div class="col">
-        <a href="#" class="btn btn-outline-primary" id="btn-update-password">Update</a>
-       </div>
-       <div class="col">
-        <a href="#" class="btn btn-outline-warning" id="btn-reset-password">Reset</a>
-       </div>
-      </div>
+      </form>
      </div>
     </div>
    </div>
   </div>
  </div>
 </div>
+
+
 <script>
  // div
  const eprofil = document.querySelectorAll('.edit-profil');
@@ -203,6 +238,40 @@
  const elNama = document.querySelector('#username');
  const elNoHP = document.querySelector('#no_hp');
  const elEmail = document.querySelector('#email');
+
+ // small info user
+ // const masihUtuh = document.getElementById('masihutuh');
+ const sudahAda = document.getElementById('sudahada');
+ const belumAda = document.getElementById('belumada');
+ sudahAda.style.display = 'none';
+ belumAda.style.display = 'block';
+ const usernameInput = document.getElementById('username');
+ // Mendengarkan perubahan pada input username
+ usernameInput.addEventListener('input', function() {
+  const enteredUsername = this.value.trim(); // Mendapatkan nilai dari input dan menghapus spasi kosong di awal dan akhir
+
+  // Lakukan validasi sesuai dengan aturan yang Anda tentukan
+  if (enteredUsername.length < 5) {
+   // Contoh validasi: username harus memiliki panjang minimal 5 karakter
+   // Lakukan tindakan yang sesuai jika validasi tidak terpenuhi
+   console.log('Username harus memiliki minimal 5 karakter');
+   sudahAda.style.display = 'block';
+   belumAda.style.display = 'none';
+   btnUpdateProfil.disabled = true;
+   alert('Password Lama yang Anda masukan Salah!');
+
+   // Anda bisa menambahkan pesan kesalahan atau tindakan lain di sini
+  } else {
+   // Lakukan tindakan yang sesuai jika validasi terpenuhi
+   console.log('Username valid');
+   sudahAda.style.display = 'none';
+   belumAda.style.display = 'block';
+   btnUpdateProfil.disabled = false;
+
+   // Anda bisa melakukan tindakan seperti mengubah warna input menjadi hijau, dll.
+  }
+ });
+
 
  // btn di bawah edit profil
  const btnUpdateProfil = document.querySelector('#btn-update-profil');
@@ -232,10 +301,18 @@
   elNama.value = '<?= $useraktif->username ?>'
   elNoHP.value = '<?= $useraktif->no_hp ?>'
   elEmail.value = '<?= $useraktif->email ?>'
+  elHiddenFoto.value = '<?= $useraktif->foto_user ?>'
   elFoto.value = ''
   elHasilFoto.src = '<?= base_url('gambar_user/' . $useraktif->foto_user) ?>'
  }
 
+ function clearPassword() {
+  elPasswordLama.value = ''
+  elPasswordBaru.value = ''
+  elPasswordKonfirmasi.value = ''
+ }
+
+ isiProfil();
  // btn edit profil
  btnEdit.addEventListener('click', function() {
   eprofil.forEach(element => {
@@ -245,7 +322,7 @@
    element.style.display = 'none'
   })
   // isi input
-  isiProfil()
+  // isiProfil()
  })
 
  // btn reset profil
@@ -262,6 +339,10 @@
    element.style.display = 'block'
   })
  })
+ // btn reset password
+ btnResetPassword.addEventListener('click', function() {
+  clearPassword()
+ })
 
  // btn batal edit
  btnBatal.addEventListener('click', function() {
@@ -271,8 +352,9 @@
   epassword.forEach(element => {
    element.style.display = 'none'
   })
+  isiProfil()
+  clearPassword()
  })
-
 
  // Mendengarkan perubahan pada input file
  elFoto.addEventListener('change', function() {
@@ -293,6 +375,71 @@
    elHasilFoto.src = previousImageUrl; // Jika tidak ada file yang dipilih, kosongkan elemen img
   }
  });
+</script>
+
+<script>
+ // proses cek pasword lama
+ // Mendapatkan nilai input password lama
+ const passwordLama = document.getElementById('passwordlama').value;
+ // jQuery
+ $(document).ready(function() {
+  $('#btn-update-password').click(function(e) {
+   e.preventDefault(); // Mencegah form dari pengiriman default
+
+   // Mendapatkan nilai input password lama
+   const passwordLama = document.getElementById('passwordlama').value; // Ganti dengan ID input yang sesuai
+
+   // Kirim data ke server menggunakan AJAX
+   $.ajax({
+    url: 'UserAllController/checkPasswordLama', // Ganti dengan URL endpoint di controller Anda
+    method: 'POST',
+    data: {
+     passwordLama: passwordLama
+    }, // Kirim data password lama
+    success: function(response) {
+     if (response === 'success') {
+      // Jika respons dari server adalah 'success', maka password lama sesuai
+      // Lakukan update tabel atau tindakan lain yang sesuai di sini
+      // window.location.href = '/path/ke/login'; // Redirect ke halaman login setelah update
+      alert('Password Lama yang Anda masukan BENAR!');
+     } else {
+      // Jika respons dari server adalah selain 'success', tampilkan alert
+      alert('Password Lama yang Anda masukan Salah!');
+     }
+    },
+    error: function() {
+     // Menangani error jika terjadi
+     alert('Terjadi kesalahan saat mengirim data.');
+    }
+   });
+  });
+ });
+</script>
+
+<script>
+ //script untuk password kosong dan harus sama
+ const passwordLamaInput = document.getElementById('passwordlama');
+ const passwordBaruInput = document.getElementById('passwordbaru');
+ const passwordKonfirmasiInput = document.getElementById('passwordkonfirmasi');
+ const updateButton = document.getElementById('btn-update-password');
+ updateButton.disabled = true;
+
+ function checkInputs() {
+  const passwordLama = passwordLamaInput.value;
+  const passwordBaru = passwordBaruInput.value;
+  const passwordKonfirmasi = passwordKonfirmasiInput.value;
+
+  if (passwordLama !== '' && passwordBaru !== '' && passwordKonfirmasi !== '' && passwordBaru === passwordKonfirmasi) {
+   updateButton.disabled = false;
+  } else {
+   updateButton.disabled = true;
+  }
+ }
+
+ // Memeriksa setiap input saat nilainya berubah
+ passwordLamaInput.addEventListener('input', checkInputs);
+ passwordBaruInput.addEventListener('input', checkInputs);
+ passwordKonfirmasiInput.addEventListener('input', checkInputs);
 </script>
 
 <?= $this->endSection('content') ?>

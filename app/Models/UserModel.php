@@ -93,4 +93,8 @@ class UserModel extends Model
  {
   return $this->db->query('SELECT * FROM `info_user` where `Id User` = "' . $id . '"')->getRow();
  }
+ public function getHitungUsername($username)
+ {
+  return $this->db->query('SELECT COUNT(`username`) as hitung FROM `users` WHERE `username` = "' . $username . '"')->getRow();
+ }
 }
