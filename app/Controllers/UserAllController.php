@@ -38,31 +38,6 @@ class UserAllController extends BaseController
   return view('userAllView', $data);
  }
 
- // cek password lama
- // Di controller (contoh menggunakan PHP)
- public function checkPasswordLama()
- {
-  $cekPass = $this->userModell->find(session()->get('id_user'));
-  // dd($cekPass['password']);
-  $passwordTabel = $cekPass['password'];
-  // Ambil password lama dari permintaan POST
-  // $passwordLamaFromClient = $this->input->post('passwordLama');
-  $passwordLamaFromClient = $_POST['passwordLama'];
-  if (is_string($passwordLamaFromClient) && !empty($passwordLamaFromClient)) {
-   $passwordLamaFromClient = md5($passwordLamaFromClient);
-  }
-
-  // Lakukan validasi atau pengecekan dengan data yang ada di database
-  // Jika password lama sesuai, kirim respons 'success', jika tidak, kirim respons yang sesuai
-  if ($passwordLamaFromClient === $passwordTabel) {
-   echo 'success';
-   // $this->storePassword();
-  } else {
-   echo 'invalid';
-  }
- }
-
-
  public function storeProfil()
  {
 
@@ -128,13 +103,38 @@ class UserAllController extends BaseController
 
   return redirect()->to(base_url('LoginController/logOut'));
  }
- public function storePassword()
+
+ // cek password lama
+ public function checkPasswordLama()
+ {
+  $cekPass = $this->userModell->find(session()->get('id_user'));
+  // dd($cekPass['password']);
+  $passwordTabel = $cekPass['password'];
+
+  $passwordLamaFromClient = $_POST['passwordLama'];
+
+  if (is_string($passwordLamaFromClient) && !empty($passwordLamaFromClient)) {
+   $passwordLamaFromClient = md5($passwordLamaFromClient);
+  }
+
+  if ($passwordLamaFromClient === $passwordTabel) {
+   echo 'success';
+   $passwordBaruFromClient = $_POST['passwordBaru'];
+   // dd($passwordBaruFromClient);
+   $this->storePassword($passwordBaruFromClient);
+  } else {
+   echo 'invalid';
+  }
+ }
+
+ public function storePassword($passwordBaruFromClient)
  {
   $id = session()->get('id_user');
+  if (is_string($passwordBaruFromClient) && !empty($passwordBaruFromClient)) {
+   $passwordBaruFromClient = md5($passwordBaruFromClient);
+  }
   $data = [
-   'username' => $this->request->getPost('username'),
-   'no_hp' => $this->request->getPost('no_hp'),
-   'email' => $this->request->getPost('email'),
+   'password' => $passwordBaruFromClient,
   ];
   $this->userModell->update($id, $data);
 

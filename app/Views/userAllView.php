@@ -386,22 +386,23 @@
   $('#btn-update-password').click(function(e) {
    e.preventDefault(); // Mencegah form dari pengiriman default
 
-   // Mendapatkan nilai input password lama
-   const passwordLama = document.getElementById('passwordlama').value; // Ganti dengan ID input yang sesuai
+   const passwordLama = document.getElementById('passwordlama').value;
+   const passwordBaru = document.getElementById('passwordbaru').value;
 
    // Kirim data ke server menggunakan AJAX
    $.ajax({
     url: 'UserAllController/checkPasswordLama', // Ganti dengan URL endpoint di controller Anda
     method: 'POST',
     data: {
-     passwordLama: passwordLama
+     passwordLama: passwordLama,
+     passwordBaru: passwordBaru
     }, // Kirim data password lama
     success: function(response) {
      if (response === 'success') {
       // Jika respons dari server adalah 'success', maka password lama sesuai
       // Lakukan update tabel atau tindakan lain yang sesuai di sini
-      // window.location.href = '/path/ke/login'; // Redirect ke halaman login setelah update
-      alert('Password Lama yang Anda masukan BENAR!');
+      alert('Password berhasil dirubah silahkan login kembali!');
+      window.location.href = "<?= base_url('/LoginController/logOut'); ?>"; // Redirect ke halaman login setelah update
      } else {
       // Jika respons dari server adalah selain 'success', tampilkan alert
       alert('Password Lama yang Anda masukan Salah!');
