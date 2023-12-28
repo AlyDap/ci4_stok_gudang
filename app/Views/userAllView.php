@@ -138,31 +138,11 @@
        <!-- BUTTON -->
        <div class="row text-center">
         <div class="col">
-         <button type="button" class="btn btn-outline-primary" id="btn-update-profil" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+         <button type="submit" class="btn btn-outline-primary" id="btn-update-profil">Update</button>
         </div>
         <div class="col">
          <button type="button" class="btn btn-outline-warning" id="btn-reset-profil">Reset</button>
         </div>
-       </div>
-      </div>
-     </div>
-    </div>
-
-    <!-- modal edit -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-     <div class="modal-dialog">
-      <div class="modal-content">
-       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Info</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-       </div>
-       <div class="modal-body">
-        Setelah Data diupdate <br>
-        Anda diminta untuk login kembali
-       </div>
-       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">No</button>
-        <button type="submit" class="btn btn-outline-primary">Yes</button>
        </div>
       </div>
      </div>
@@ -258,7 +238,6 @@
    sudahAda.style.display = 'block';
    belumAda.style.display = 'none';
    btnUpdateProfil.disabled = true;
-   alert('Password Lama yang Anda masukan Salah!');
 
    // Anda bisa menambahkan pesan kesalahan atau tindakan lain di sini
   } else {
@@ -377,8 +356,8 @@
  });
 </script>
 
+<!-- // proses cek pasword lama -->
 <script>
- // proses cek pasword lama
  // Mendapatkan nilai input password lama
  const passwordLama = document.getElementById('passwordlama').value;
  // jQuery
@@ -417,8 +396,48 @@
  });
 </script>
 
+<!-- // proses cek pasword lama -->
 <script>
- //script untuk password kosong dan harus sama
+ // Mendapatkan nilai input password lama
+ // jQuery
+ $(document).ready(function() {
+  $('#btn-update-profil').click(function(e) {
+   e.preventDefault(); // Mencegah form dari pengiriman default
+   let cekUsername = document.getElementById('username').value;
+
+   // Kirim data ke server menggunakan AJAX
+   $.ajax({
+    url: 'UserAllController/checkUsername', // Ganti dengan URL endpoint di controller Anda
+    method: 'POST',
+    data: {
+     cekUsername: cekUsername
+    }, // Kirim data password lama
+    success: function(response) {
+     if (response === 'success') {
+      // Jika respons dari server adalah 'success', maka password lama sesuai
+      // Lakukan update tabel atau tindakan lain yang sesuai di sini
+      alert('USERNAME BISA DIPAKAI');
+      // alert('Profil berhasil dirubah!');
+     } else if (response === 'hahah') {
+      alert('user masih sama dengan yang sekarang');
+
+     } else {
+      // Jika respons dari server adalah selain 'success', tampilkan alert
+      alert('USERNAME SUDAH DIPAKAI AKUN LAIN');
+      // alert('Username Sudah Terdaftar!');
+     }
+    },
+    error: function() {
+     // Menangani error jika terjadi
+     alert('Terjadi kesalahan saat mengirim data.');
+    }
+   });
+  });
+ });
+</script>
+
+<!-- //script untuk password kosong dan harus sama -->
+<script>
  const passwordLamaInput = document.getElementById('passwordlama');
  const passwordBaruInput = document.getElementById('passwordbaru');
  const passwordKonfirmasiInput = document.getElementById('passwordkonfirmasi');

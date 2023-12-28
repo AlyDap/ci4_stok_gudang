@@ -41,19 +41,6 @@ class UserAllController extends BaseController
  public function storeProfil()
  {
 
-  // cek username apakah masih sama / beda / jika beda apakah user sudah ada
-  $cekuser = $this->userModell->getHitungUsername(session()->get('username'));
-  $cekusertabel = session()->get('username');
-  $cekuserinput = $this->request->getPost('username');
-  if ($cekuserinput != $cekusertabel) {
-   // dd($cekuser);
-   if ($cekuser == '1') {
-    // respon notofikasi pada tampilan bahwa user sudah terdaftar
-    # isi code
-
-   }
-  }
-
   $gambar = $this->request->getFile('foto_user');
   $namagambar = $gambar->getName();
   $id = session()->get('id_user');
@@ -135,6 +122,45 @@ class UserAllController extends BaseController
   }
   $data = [
    'password' => $passwordBaruFromClient,
+  ];
+  $this->userModell->update($id, $data);
+
+  return redirect()->to(base_url('LoginController/logOut'));
+ }
+ // cek username
+ public function checkUsername()
+ {
+  $username = session()->get('username');
+  $cekusertabel = $username;
+  $usernameBaruFromClient = $_POST['cekUsername'];
+
+  $cekjumlahuser = $this->userModell->getHitungUsername($usernameBaruFromClient);
+  $hasilcekjumlahuser = $cekjumlahuser->hitung;
+  if ($usernameBaruFromClient != $cekusertabel) {
+   // dd($cekjumlahuser);
+   // mengecek pada writable logs lalu search nama variabelnya
+   // log_message('info', 'Nilai $hasilcekjumlahuser: ' . print_r($hasilcekjumlahuser, true));
+   if ($hasilcekjumlahuser == '0') {
+    echo 'success';
+    // $usernameBaruFromClient = $_POST['passwordBaru'];
+    // dd($passwordBaruFromClient);
+    // $this->storeUsername($usernameBaruFromClient);
+   } else {
+    echo 'invalid';
+   }
+  } else {
+   echo 'hahah';
+  }
+ }
+
+ public function storeUsername($usernameBaruFromClient)
+ {
+  $id = session()->get('id_user');
+  if (is_string($usernameBaruFromClient) && !empty($usernameBaruFromClient)) {
+   $usernameBaruFromClient = md5($usernameBaruFromClient);
+  }
+  $data = [
+   'password' => $usernameBaruFromClient,
   ];
   $this->userModell->update($id, $data);
 

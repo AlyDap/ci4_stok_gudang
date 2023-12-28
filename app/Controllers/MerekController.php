@@ -14,12 +14,26 @@ class MerekController extends BaseController
  {
   $this->merekModell = new MerekModel();
   // $this->merekModell = new \App\Models\MerekModel();
-  // $this->cekOtorisasi();
+  $this->cekOtorisasi();
  }
 
  public function cekOtorisasi()
  {
+  if (!session()->has('id_user')) {
+   redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548')->send();
+   exit(); // Menghentikan eksekusi setelah redirect
+  }
+ }
+ public function cekOtorisasiBesar()
+ {
   if (session('jenis') != 'besar') {
+   redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548')->send();
+   exit(); // Menghentikan eksekusi setelah redirect
+  }
+ }
+ public function cekOtorisasiKecil()
+ {
+  if (session('jenis') != 'kecil') {
    redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548')->send();
    exit(); // Menghentikan eksekusi setelah redirect
   }
@@ -36,7 +50,7 @@ class MerekController extends BaseController
 
  public function store()
  {
-  $this->cekOtorisasi();
+  $this->cekOtorisasiBesar();
 
   $id = $this->request->getVar('id_merek');
   $foto2 = $this->request->getVar('logo2');
@@ -111,7 +125,6 @@ class MerekController extends BaseController
 
  public function update($id, $namagambar)
  {
-  $this->cekOtorisasi();
 
   $data = [
    'nama_merek' => $this->request->getVar('nama_merek'),

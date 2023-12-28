@@ -13,11 +13,14 @@
  </a>
  <!-- </div> -->
  <div class="">
-
-  <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-add" class="right-0">
-   <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
-   Tambah Supplier
-  </button>
+  <?php
+  if (session('jenis') == 'besar') {
+  ?>
+   <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-add" class="right-0">
+    <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
+    Tambah Supplier
+   </button>
+  <?php } ?>
  </div>
 
 </div>
@@ -66,9 +69,13 @@
         <i class="fi fi-rr-info"></i>
        </span>
        <!-- Tombol Edit -->
-       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['id_supplier']; ?>,`<?= $row['nama_supplier']; ?>`,`<?= $row['email']; ?>`,`<?= $row['no_hp']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['deskripsi']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
-        <i class="fi fi-rr-edit"></i>
-       </span>
+       <?php
+       if (session('jenis') == 'besar') {
+       ?>
+        <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['id_supplier']; ?>,`<?= $row['nama_supplier']; ?>`,`<?= $row['email']; ?>`,`<?= $row['no_hp']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['deskripsi']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
+         <i class="fi fi-rr-edit"></i>
+        </span>
+       <?php } ?>
       </td>
      </tr>
     <?php endforeach; ?>
