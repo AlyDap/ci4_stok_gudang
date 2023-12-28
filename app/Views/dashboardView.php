@@ -21,7 +21,7 @@
 </div>
 
 <div class="row">
-  <div class="col-lg-3 col-6">
+  <div class="col-lg-2 col-6">
     <!-- small box -->
     <div class="small-box bg-info">
       <div class="inner">
@@ -30,13 +30,13 @@
         <p>Items</p>
       </div>
       <div class="icon">
-        <i class="fi fi-rr-person-dolly" style="font-size: 63px;"></i>
+        <i class="fi fi-rr-box-alt" style="font-size: 63px;"></i>
       </div>
       <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
   <!-- ./col -->
-  <div class="col-lg-3 col-6">
+  <div class="col-lg-2 col-6">
     <!-- small box -->
     <div class="small-box bg-success">
       <div class="inner">
@@ -51,7 +51,7 @@
     </div>
   </div>
   <?php if (session()->get('jenis') == ('besar')) { ?>
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-2 col-6">
       <!-- small box -->
       <div class="small-box bg-warning">
         <div class="inner">
@@ -67,12 +67,11 @@
       </div>
     </div>
   <?php } ?>
-  <div class="col-lg-3 col-6">
+  <div class="col-lg-2 col-6">
     <!-- small box -->
     <div class="small-box bg-danger">
       <div class="inner">
         <h3>35</h3>
-
         <p>Brand</p>
       </div>
       <div class="icon">
@@ -80,6 +79,34 @@
         <i class="fi fi-rr-file-invoice" style="font-size: 63px;"></i>
       </div>
       <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-lg-2 col-6">
+    <!-- small box -->
+    <div class="small-box bg-light">
+      <div class="inner">
+        <h3>35</h3>
+        <p>Supplier</p>
+      </div>
+      <div class="icon">
+        <!-- <i class="ion ion-pie-graph"></i> -->
+        <i class="fi fi-rr-person-dolly" style="font-size: 63px;"></i>
+      </div>
+      <a href="<?= base_url('SupplierController'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-lg-2 col-6">
+    <!-- small box -->
+    <div class="small-box bg-secondary">
+      <div class="inner">
+        <h3>35</h3>
+        <p>Transaction</p>
+      </div>
+      <div class="icon">
+        <!-- <i class="ion ion-pie-graph"></i> -->
+        <i class="fi fi-rr-chart-histogram" style="font-size: 63px;"></i>
+      </div>
+      <a href="<?= base_url('SupplierController'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
   </div>
 </div>

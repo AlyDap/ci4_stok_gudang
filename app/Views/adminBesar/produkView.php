@@ -27,6 +27,7 @@
 <i class="fi fi-rr-family"></i>
 <i class="fi fi-rr-clipboard"></i>
 <i class="fi fi-rr-info"></i>
+<i class="fi fi-rr-box-alt"></i>
 
 <br>
 <br>

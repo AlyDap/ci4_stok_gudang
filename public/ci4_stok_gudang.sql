@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2023 at 05:59 PM
+-- Generation Time: Dec 28, 2023 at 05:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,9 +35,9 @@ CREATE TABLE `barang` (
   `harga_jual_satuan` int(11) NOT NULL,
   `harga_jual_bijian` int(11) NOT NULL,
   `jumlah_per_satuan` int(11) NOT NULL,
-  `foto_barang` text NOT NULL,
+  `foto_barang` text DEFAULT 'default-barang.png',
   `id_merek` int(11) NOT NULL,
-  `status` text NOT NULL
+  `status` text DEFAULT 'aktif'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -206,10 +206,10 @@ CREATE TABLE `merek` (
   `id_merek` int(11) NOT NULL,
   `nama_merek` text NOT NULL,
   `kategori_produk` text NOT NULL,
-  `deskripsi` text NOT NULL,
-  `logo` text NOT NULL,
-  `pemilik` text NOT NULL,
-  `status` text NOT NULL
+  `deskripsi` text DEFAULT NULL,
+  `logo` text DEFAULT 'default-merek.png',
+  `pemilik` text DEFAULT NULL,
+  `status` text DEFAULT 'aktif'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -261,19 +261,19 @@ CREATE TABLE `supplier` (
   `nama_supplier` text NOT NULL,
   `email` text NOT NULL,
   `no_hp` text NOT NULL,
-  `Alamat` text NOT NULL,
-  `deskripsi` text NOT NULL,
-  `status` text NOT NULL
+  `alamat` text NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `status` text DEFAULT 'aktif'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `supplier`
 --
 
-INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `email`, `no_hp`, `Alamat`, `deskripsi`, `status`) VALUES
+INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `email`, `no_hp`, `alamat`, `deskripsi`, `status`) VALUES
 (1, 'PT. KOMINDO BIZOLUSI', '-', '213514201', 'Jalan Musi No 28, Jakarta Pusat, Indonesia 10150', '', 'aktif'),
 (2, 'CV. Amaly Food', '-', '313986744', 'JL. Sunan Prapen II no. 76 Gresik Jawa Timur', '', 'aktif'),
-(3, '', '', '0', '', '', ''),
+(3, 'CV PT AMMM', 'amm@g.co', '40404040', 'jalan error 404', 'jkjkj', 'nonaktif'),
 (4, 'PT 123 Terbuka', '123@gmail', '123', 'jalan 123', 'tidak ada deskripsi', 'aktif'),
 (5, 'CV 123 Terbuka', '321@gmail', '321', 'jalan 321', 'ada deskripsi', 'nonaktif'),
 (6, 'PT 123 Tertutup', '777@gmail', '777', 'jalan 777', 'deskripsi tidak ada', 'nonaktif'),
@@ -301,7 +301,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `no_hp`, `email`, `foto_user`, `kode_gudang`, `status`) VALUES
-(1, 'aliali', 'ed9c6b92b65cb04655c6e93e6c476545', '01010101', 'aliali0101@gmail.com', '20231227142731_YnNzwR3Q_zhongli.jpg', 1, 'aktif'),
+(1, 'aliali', 'a83170b4de61c936ff8e99ca758dec0d', '01010101', 'aliali0101@gmail.com', '20231227142731_YnNzwR3Q_zhongli.jpg', 1, 'aktif'),
 (2, 'abu', '2c6101a64935a3bbd5c67f2fb461c4f3', '1234509876', 'abuabu@email.com', 'traveller_sinis.png', 2, 'aktif'),
 (3, 'siti', '6e3efc8c14f930d71f7cb946adabdd31', '0000', 'email.com', 'luffy-bg000.jpg', 3, 'nonaktif'),
 (4, 'nur', '93868666d04f24c4ebb01c8bf71d5776', '7777777', 'nur@sch.id', 'wanderer.png', 4, 'aktif'),
