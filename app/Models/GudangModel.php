@@ -50,4 +50,12 @@ class GudangModel extends Model
 
   return false;
  }
+ public function jumlahGudang()
+ {
+  return $this->db->query('SELECT COUNT(*) as jumlah FROM `gudang` ')->getRow();
+ }
+ public function jumlahGudangOn()
+ {
+  return $this->db->query("SELECT COUNT(*) as jumlah FROM `gudang` WHERE status = 'aktif'")->getRow();
+ }
 }

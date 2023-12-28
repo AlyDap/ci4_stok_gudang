@@ -97,4 +97,13 @@ class UserModel extends Model
  {
   return $this->db->query('SELECT COUNT(`username`) as hitung FROM `users` WHERE `username` = "' . $username . '"')->getRow();
  }
+
+ public function jumlahUser()
+ {
+  return $this->db->query('SELECT COUNT(*) as jumlah FROM `users` ')->getRow();
+ }
+ public function jumlahUserOn()
+ {
+  return $this->db->query("SELECT COUNT(*) as jumlah FROM `users` WHERE status = 'aktif'")->getRow();
+ }
 }

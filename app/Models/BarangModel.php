@@ -39,4 +39,13 @@ class BarangModel extends Model
  protected $afterFind      = [];
  protected $beforeDelete   = [];
  protected $afterDelete    = [];
+
+ public function jumlahBarang()
+ {
+  return $this->db->query('SELECT COUNT(*) as jumlah FROM `barang` ')->getRow();
+ }
+ public function jumlahBarangOn()
+ {
+  return $this->db->query("SELECT COUNT(*) as jumlah FROM `barang` WHERE status = 'aktif'")->getRow();
+ }
 }

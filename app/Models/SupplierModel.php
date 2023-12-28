@@ -39,4 +39,13 @@ class SupplierModel extends Model
  protected $afterFind      = [];
  protected $beforeDelete   = [];
  protected $afterDelete    = [];
+
+ public function jumlahSupplier()
+ {
+  return $this->db->query('SELECT COUNT(*) as jumlah FROM `supplier` ')->getRow();
+ }
+ public function jumlahSupplierOn()
+ {
+  return $this->db->query("SELECT COUNT(*) as jumlah FROM `supplier` WHERE status = 'aktif'")->getRow();
+ }
 }
