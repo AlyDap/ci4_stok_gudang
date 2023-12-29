@@ -44,7 +44,11 @@ class SupplierController extends BaseController
   $data = [
    'title' => 'Kelola Supplier'
   ];
-  $data['supplier'] = $this->supplierModell->findAll();
+  if (session('jenis') == 'besar') {
+   $data['supplier'] = $this->supplierModell->findAll();
+  } else if (session('jenis') == 'kecil') {
+   $data['supplier'] = $this->supplierModell->getSupplierOn();
+  }
   return view('adminBesar/supplierView', $data);
  }
 

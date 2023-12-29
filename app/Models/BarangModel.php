@@ -48,4 +48,8 @@ class BarangModel extends Model
  {
   return $this->db->query("SELECT COUNT(*) as jumlah FROM `barang` WHERE status = 'aktif'")->getRow();
  }
+ public function getBarangOn()
+ {
+  return $this->db->query("SELECT * FROM `barang` WHERE status = 'aktif'")->getResultArray();
+ }
 }

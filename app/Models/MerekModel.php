@@ -59,4 +59,8 @@ class MerekModel extends Model
  {
   return $this->db->query("SELECT COUNT(*) as jumlah FROM `merek` WHERE status = 'aktif'")->getRow();
  }
+ public function getMerekOn()
+ {
+  return $this->db->query("SELECT * FROM `merek` WHERE status = 'aktif'")->getResultArray();
+ }
 }

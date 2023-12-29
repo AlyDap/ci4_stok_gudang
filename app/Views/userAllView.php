@@ -404,22 +404,32 @@
   $('#btn-update-profil').click(function(e) {
    e.preventDefault(); // Mencegah form dari pengiriman default
    let cekUsername = document.getElementById('username').value;
-
+   let noHp = document.getElementById('no_hp').value;
+   let email = document.getElementById('email').value;
+   // let foto = document.getElementById('input_foto').value;
+   let hiddenFoto = document.getElementById('foto_user1').value;
    // Kirim data ke server menggunakan AJAX
    $.ajax({
     url: 'UserAllController/checkUsername', // Ganti dengan URL endpoint di controller Anda
     method: 'POST',
     data: {
-     cekUsername: cekUsername
+     cekUsername: cekUsername,
+     noHp: noHp,
+     email: email,
+     // foto: foto,
+     hiddenFoto: hiddenFoto
     }, // Kirim data password lama
     success: function(response) {
      if (response === 'success') {
       // Jika respons dari server adalah 'success', maka password lama sesuai
       // Lakukan update tabel atau tindakan lain yang sesuai di sini
-      alert('USERNAME BISA DIPAKAI');
-      // alert('Profil berhasil dirubah!');
+      // alert('Username masih sama');
+      alert('Profil berhasil dirubah!');
+      window.location.href = "<?= base_url('/UserAllController'); ?>"; // Refresh halaman
      } else if (response === 'hahah') {
-      alert('user masih sama dengan yang sekarang');
+      // alert('user masih sama dengan yang sekarang');
+      alert('Profil berhasil dirubah!');
+      window.location.href = "<?= base_url('/UserAllController'); ?>"; // Refresh halaman
 
      } else {
       // Jika respons dari server adalah selain 'success', tampilkan alert

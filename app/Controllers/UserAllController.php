@@ -133,37 +133,38 @@ class UserAllController extends BaseController
   $username = session()->get('username');
   $cekusertabel = $username;
   $usernameBaruFromClient = $_POST['cekUsername'];
+  $noHPFromClient = $_POST['noHp'];
+  $emailFromClient = $_POST['email'];
+  // $fotoFromClient = $_POST['foto'];
+  // $hiddenFotoFromClient = $_POST['hiddenfoto'];
 
   $cekjumlahuser = $this->userModell->getHitungUsername($usernameBaruFromClient);
   $hasilcekjumlahuser = $cekjumlahuser->hitung;
   if ($usernameBaruFromClient != $cekusertabel) {
-   // dd($cekjumlahuser);
    // mengecek pada writable logs lalu search nama variabelnya
    // log_message('info', 'Nilai $hasilcekjumlahuser: ' . print_r($hasilcekjumlahuser, true));
    if ($hasilcekjumlahuser == '0') {
+    $this->storeUsername($usernameBaruFromClient, $noHPFromClient, $emailFromClient);
     echo 'success';
-    // $usernameBaruFromClient = $_POST['passwordBaru'];
-    // dd($passwordBaruFromClient);
-    // $this->storeUsername($usernameBaruFromClient);
    } else {
     echo 'invalid';
    }
   } else {
+   $this->storeUsername($usernameBaruFromClient, $noHPFromClient, $emailFromClient);
    echo 'hahah';
   }
  }
 
- public function storeUsername($usernameBaruFromClient)
+ public function storeUsername($usernameBaruFromClient, $noHPFromClient, $emailFromClient)
  {
-  $id = session()->get('id_user');
-  if (is_string($usernameBaruFromClient) && !empty($usernameBaruFromClient)) {
-   $usernameBaruFromClient = md5($usernameBaruFromClient);
-  }
   $data = [
-   'password' => $usernameBaruFromClient,
+   'username' => $usernameBaruFromClient,
+   'no_hp' => $noHPFromClient,
+   'email' => $emailFromClient,
+   // 'foto_user' => $fotoFromClient,
   ];
-  $this->userModell->update($id, $data);
 
-  return redirect()->to(base_url('LoginController/logOut'));
+  $id = session()->get('id_user');
+  $this->userModell->update($id, $data);
  }
 }

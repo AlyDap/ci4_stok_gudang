@@ -44,7 +44,11 @@ class MerekController extends BaseController
   $data = [
    'title' => 'Kelola Merek'
   ];
-  $data['merek'] = $this->merekModell->findAll();
+  if (session('jenis') == 'besar') {
+   $data['merek'] = $this->merekModell->findAll();
+  } else if (session('jenis') == 'kecil') {
+   $data['merek'] = $this->merekModell->getMerekOn();
+  }
   return view('adminBesar/merekView', $data);
  }
 

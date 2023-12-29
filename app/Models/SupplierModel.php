@@ -48,4 +48,8 @@ class SupplierModel extends Model
  {
   return $this->db->query("SELECT COUNT(*) as jumlah FROM `supplier` WHERE status = 'aktif'")->getRow();
  }
+ public function getSupplierOn()
+ {
+  return $this->db->query("SELECT * FROM `supplier` WHERE status = 'aktif'")->getResultArray();
+ }
 }
