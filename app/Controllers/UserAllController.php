@@ -132,35 +132,38 @@ class UserAllController extends BaseController
  {
   $username = session()->get('username');
   $cekusertabel = $username;
-  $usernameBaruFromClient = $_POST['cekUsername'];
-  $noHPFromClient = $_POST['noHp'];
-  $emailFromClient = $_POST['email'];
-  // $fotoFromClient = $_POST['foto'];
-  // $hiddenFotoFromClient = $_POST['hiddenfoto'];
+  $cekUsername = $this->request->getPost('cekUsername');
+  $noHp = $this->request->getPost('noHp');
+  $email = $this->request->getPost('email');
+  $hiddenFoto = $this->request->getPost('hiddenFoto');
 
-  $cekjumlahuser = $this->userModell->getHitungUsername($usernameBaruFromClient);
+  // Mengambil file foto dari request
+  $foto = $this->request->getFile('foto');
+  // $foto->move('path/to/destination', $foto->getRandomName());
+
+  $cekjumlahuser = $this->userModell->getHitungUsername($cekUsername);
   $hasilcekjumlahuser = $cekjumlahuser->hitung;
-  if ($usernameBaruFromClient != $cekusertabel) {
+  if ($cekUsername != $cekusertabel) {
    // mengecek pada writable logs lalu search nama variabelnya
    // log_message('info', 'Nilai $hasilcekjumlahuser: ' . print_r($hasilcekjumlahuser, true));
    if ($hasilcekjumlahuser == '0') {
-    $this->storeUsername($usernameBaruFromClient, $noHPFromClient, $emailFromClient);
+    $this->storeUsername($cekUsername, $noHp, $email);
     echo 'success';
    } else {
     echo 'invalid';
    }
   } else {
-   $this->storeUsername($usernameBaruFromClient, $noHPFromClient, $emailFromClient);
+   $this->storeUsername($cekUsername, $noHp, $email);
    echo 'hahah';
   }
  }
 
- public function storeUsername($usernameBaruFromClient, $noHPFromClient, $emailFromClient)
+ public function storeUsername($cekUsername, $noHp, $email)
  {
   $data = [
-   'username' => $usernameBaruFromClient,
-   'no_hp' => $noHPFromClient,
-   'email' => $emailFromClient,
+   'username' => $cekUsername,
+   'no_hp' => $noHp,
+   'email' => $email,
    // 'foto_user' => $fotoFromClient,
   ];
 
