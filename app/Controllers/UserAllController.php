@@ -33,6 +33,7 @@ class UserAllController extends BaseController
    'title' => 'Kelola User',
    'useraktif' => $this->userModell->getUserId($id),
    'infouser' => $this->userModell->getViewInfoUser($id),
+   'usersaatini' => $this->userModell->getUserSaatIni($id),
   ];
   // $data['user'] = $this->userModell->findAll();
   return view('userAllView', $data);
@@ -130,22 +131,64 @@ class UserAllController extends BaseController
  // cek username
  public function checkUsername()
  {
-  $username = session()->get('username');
-  $cekusertabel = $username;
-  $cekUsername = $this->request->getPost('cekUsername');
-  $noHp = $this->request->getPost('noHp');
-  $email = $this->request->getPost('email');
-  $hiddenFoto = $this->request->getPost('hiddenFoto');
+  $id = session()->get('id_user');
+  $username = $this->userModell->getUserSaatIni($id);
+  $cekusertabel = '';
+  if ($username) {
+   $cekusertabel = $username->username;
+  }
 
-  // Mengambil file foto dari request
-  $foto = $this->request->getFile('foto');
-  // $foto->move('path/to/destination', $foto->getRandomName());
+  // $cekUsername = $_POST['cekUsername'];
+  // $noHp = $_POST['noHp'];
+  // $email = $_POST['email'];
+  $cekUsername = $this->request->getVar('cekUsername');
+  $noHp = $this->request->getVar('noHp');
+  $email = $this->request->getVar('email');
+  // $hiddenFoto = $this->request->getVar('hiddenFoto');
+
+  // // Mengambil file foto dari request
+  // $foto = $this->request->getFile('foto');
+  // $namaFoto = $foto->getName();
+  // // $foto->move('path/to/destination', $foto->getRandomName());
+
+  // // cek foto kosong/tidak yang akan di move
+  // if ($namaFoto == '') {
+  //  $namaFoto = 'default-user.png';
+  // } else {
+  //  function generate_random_string($length = 8)
+  //  {
+  //   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  //   $randomString = '';
+  //   for ($i = 0; $i < $length; $i++) {
+  //    $randomString .= $characters[rand(0, strlen($characters) - 1)];
+  //   }
+  //   return $randomString;
+  //  }
+  //  $namaFoto = date('YmdHis') . '_' . generate_random_string(8) . '_' . $namaFoto;
+  //  $foto->move('gambar_user', $namaFoto);
+  // }
+  // // cek file gambar default atau tidak yang akan di unlink
+  // $cekgambar = $this->userModell->find($id);
+  // // cek jika gambar tidak default
+  // if ($cekgambar['foto_user'] != 'default-user.png') {
+  //  $gambarlama = $hiddenFoto;
+  //  // cek gambar apakah gambar diupdate atau tidak
+  //  if ($cekgambar['foto_user'] != $gambarlama) {
+  //   // hapus file foto merek di local storage
+  //   unlink('gambar_user/' . $cekgambar['foto_user']);
+  //  } else {
+  //   $namaFoto = $gambarlama;
+  //  }
+  // }
 
   $cekjumlahuser = $this->userModell->getHitungUsername($cekUsername);
   $hasilcekjumlahuser = $cekjumlahuser->hitung;
+  log_message('info', 'Nilai $id: ' . print_r($id, true));
+  log_message('info', 'Nilai $hasilcekjumlahuser: ' . print_r($hasilcekjumlahuser, true));
+  log_message('info', 'Nilai $cekUsername: ' . print_r($cekUsername, true));
+  log_message('info', 'Nilai $cekusertabel: ' . print_r($cekusertabel, true));
   if ($cekUsername != $cekusertabel) {
    // mengecek pada writable logs lalu search nama variabelnya
-   // log_message('info', 'Nilai $hasilcekjumlahuser: ' . print_r($hasilcekjumlahuser, true));
    if ($hasilcekjumlahuser == '0') {
     $this->storeUsername($cekUsername, $noHp, $email);
     echo 'success';
@@ -164,7 +207,7 @@ class UserAllController extends BaseController
    'username' => $cekUsername,
    'no_hp' => $noHp,
    'email' => $email,
-   // 'foto_user' => $fotoFromClient,
+   // 'foto_user' => $namaFoto,
   ];
 
   $id = session()->get('id_user');

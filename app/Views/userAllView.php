@@ -53,6 +53,8 @@
 							?>
 						</div>
 						<p class="card-text"><small class="text-body-secondary">Last updated 27 days ago</small></p>
+						<!-- <p class="card-text"><small class="text-body-secondary"><?= session()->get('username') ?>,<?= session()->get('id_user') ?></small></p>
+						<p class="card-text"><small class="text-body-secondary"><?= $usersaatini->username ?></small></p> -->
 					</div>
 				</div>
 			</div>
@@ -77,7 +79,8 @@
 			</div>
 
 			<!-- EDIT PROFIL -->
-			<form action="<?= base_url('/UserAllController/storeProfil'); ?>" method="post" enctype="multipart/form-data">
+			<!-- <form action="<?= base_url('/UserAllController/storeProfil'); ?>" method="post" enctype="multipart/form-data"> -->
+			<form method="post" enctype="multipart/form-data">
 				<div class="card-body edit-profil">
 					<div class="card">
 						<div class="card-body">
@@ -413,29 +416,38 @@
 			formData.append('cekUsername', cekUsername);
 			formData.append('noHp', noHp);
 			formData.append('email', email);
-			formData.append('foto', foto); // Mengirim file menggunakan FormData
+			formData.append('foto', foto);
 			formData.append('hiddenFoto', hiddenFoto);
 			// Kirim data ke server menggunakan AJAX
 			$.ajax({
 				url: 'UserAllController/checkUsername', // Ganti dengan URL endpoint di controller Anda
 				method: 'POST',
+				processData: false, // Set false agar FormData tidak diproses secara otomatis
+				contentType: false, // Set false agar konten tidak dikirimkan sebagai tipe form
 				data: formData,
+				// data: {
+				// 	cekUsername: cekUsername,
+				// 	noHp: noHp,
+				// 	email: email,
+				// 	foto: foto,
+				// 	hiddenFoto: hiddenFoto
+				// },
 				success: function(response) {
 					if (response === 'success') {
 						// Jika respons dari server adalah 'success', maka password lama sesuai
 						// Lakukan update tabel atau tindakan lain yang sesuai di sini
 						// alert('Username masih sama');
-						alert('Profil berhasil dirubah!');
+						alert('Profil berhasil dirubah dengan username berbeda!');
 						window.location.href = "<?= base_url('/UserAllController'); ?>"; // Refresh halaman
 					} else if (response === 'hahah') {
 						// alert('user masih sama dengan yang sekarang');
-						alert('Profil berhasil dirubah!');
+						alert('Profil berhasil dirubah dengan username masih sama!');
 						window.location.href = "<?= base_url('/UserAllController'); ?>"; // Refresh halaman
 
 					} else {
 						// Jika respons dari server adalah selain 'success', tampilkan alert
-						alert('USERNAME SUDAH DIPAKAI AKUN LAIN');
-						// alert('Username Sudah Terdaftar!');
+						// alert('USERNAME SUDAH DIPAKAI AKUN LAIN');
+						alert('Username Sudah Terdaftar Silahkan Ganti!');
 					}
 				},
 				error: function() {
