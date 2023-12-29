@@ -144,70 +144,77 @@ class UserAllController extends BaseController
   $cekUsername = $this->request->getVar('cekUsername');
   $noHp = $this->request->getVar('noHp');
   $email = $this->request->getVar('email');
-  // $hiddenFoto = $this->request->getVar('hiddenFoto');
+  $hiddenFoto = $this->request->getVar('hiddenFoto');
+  // $gambarlama = $hiddenFoto;
 
-  // // Mengambil file foto dari request
-  // $foto = $this->request->getFile('foto');
-  // $namaFoto = $foto->getName();
-  // // $foto->move('path/to/destination', $foto->getRandomName());
+  // Mengambil file foto dari request
+  $foto = $this->request->getFile('foto');
+  if ($foto) {
+   $namaFoto = $foto->getName();
+  } else {
+   $namaFoto = '';
+  }
+  // $foto->move('path/to/destination', $foto->getRandomName());
 
-  // // cek foto kosong/tidak yang akan di move
-  // if ($namaFoto == '') {
-  //  $namaFoto = 'default-user.png';
-  // } else {
-  //  function generate_random_string($length = 8)
-  //  {
-  //   $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  //   $randomString = '';
-  //   for ($i = 0; $i < $length; $i++) {
-  //    $randomString .= $characters[rand(0, strlen($characters) - 1)];
-  //   }
-  //   return $randomString;
-  //  }
-  //  $namaFoto = date('YmdHis') . '_' . generate_random_string(8) . '_' . $namaFoto;
-  //  $foto->move('gambar_user', $namaFoto);
-  // }
-  // // cek file gambar default atau tidak yang akan di unlink
-  // $cekgambar = $this->userModell->find($id);
-  // // cek jika gambar tidak default
-  // if ($cekgambar['foto_user'] != 'default-user.png') {
-  //  $gambarlama = $hiddenFoto;
-  //  // cek gambar apakah gambar diupdate atau tidak
-  //  if ($cekgambar['foto_user'] != $gambarlama) {
-  //   // hapus file foto merek di local storage
-  //   unlink('gambar_user/' . $cekgambar['foto_user']);
-  //  } else {
-  //   $namaFoto = $gambarlama;
-  //  }
-  // }
+  // cek foto kosong/tidak yang akan di move
+  if ($namaFoto == '') {
+   $namaFoto = 'default-user.png';
+  } else {
+   function generate_random_string($length = 8)
+   {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+     $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
+   }
+   $namaFoto = date('YmdHis') . '_' . generate_random_string(8) . '_' . $namaFoto;
+   $foto->move('gambar_user', $namaFoto);
+  }
+  // cek file gambar default atau tidak yang akan di unlink
+  $cekgambar = $this->userModell->find($id);
+  $cekgambarlog = $cekgambar['foto_user'];
+  // cek jika gambar tidak default
+  if ($cekgambar['foto_user'] != 'default-user.png') {
+   $gambarlama = $hiddenFoto;
+   // cek gambar apakah gambar diupdate atau tidak
+   if ($cekgambar['foto_user'] != $gambarlama) {
+    // hapus file foto merek di local storage
+    unlink('gambar_user/' . $cekgambar['foto_user']);
+   } else {
+    $namaFoto = $gambarlama;
+   }
+  }
 
   $cekjumlahuser = $this->userModell->getHitungUsername($cekUsername);
   $hasilcekjumlahuser = $cekjumlahuser->hitung;
-  log_message('info', 'Nilai $id: ' . print_r($id, true));
-  log_message('info', 'Nilai $hasilcekjumlahuser: ' . print_r($hasilcekjumlahuser, true));
-  log_message('info', 'Nilai $cekUsername: ' . print_r($cekUsername, true));
-  log_message('info', 'Nilai $cekusertabel: ' . print_r($cekusertabel, true));
+  // log_message('info', 'Nilai $id: ' . print_r($id, true));
+  // log_message('info', 'Nilai $hasilcekjumlahuser: ' . print_r($hasilcekjumlahuser, true));
+  // log_message('info', 'Nilai $cekUsername: ' . print_r($cekUsername, true));
+  log_message('info', 'Nilai $gambarlama: ' . print_r($gambarlama, true));
+  log_message('info', 'Nilai $cekgambarlog: ' . print_r($cekgambarlog, true));
   if ($cekUsername != $cekusertabel) {
    // mengecek pada writable logs lalu search nama variabelnya
    if ($hasilcekjumlahuser == '0') {
-    $this->storeUsername($cekUsername, $noHp, $email);
+    $this->storeUsername($cekUsername, $noHp, $email, $namaFoto);
     echo 'success';
    } else {
     echo 'invalid';
    }
   } else {
-   $this->storeUsername($cekUsername, $noHp, $email);
+   $this->storeUsername($cekUsername, $noHp, $email, $namaFoto);
    echo 'hahah';
   }
  }
 
- public function storeUsername($cekUsername, $noHp, $email)
+ public function storeUsername($cekUsername, $noHp, $email, $namaFoto)
  {
   $data = [
    'username' => $cekUsername,
    'no_hp' => $noHp,
    'email' => $email,
-   // 'foto_user' => $namaFoto,
+   'foto_user' => $namaFoto,
   ];
 
   $id = session()->get('id_user');
