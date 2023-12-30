@@ -22,9 +22,52 @@ class DashboardController extends BaseController
   $this->userModell = new UserModel();
  }
 
+ public function penggantiSession()
+ {
+  $id = session()->get('id_user');
+  $userSaatIni = $this->userModell->getUserSaatIni($id);
+  $isiKodeNama = '';
+  $isiIdGambar = '';
+  $isiIdNama = '';
+  $isiKodeGambar = '';
+  $isiKodeJenis = '';
+  if ($userSaatIni) {
+   $kode = $userSaatIni->kode_gudang;
+   $isiIdGambar = $userSaatIni->foto_user;
+   $isiIdNama = $userSaatIni->username;
+   $kodeSaatIni = $this->gudangModell->getKodeGudangSaatIni($kode);
+   if ($kodeSaatIni) {
+    $isiKodeNama = $kodeSaatIni->nama_gudang;
+    $isiKodeGambar = $kodeSaatIni->foto_gudang;
+    $isiKodeJenis = $kodeSaatIni->jenis;
+    $data = [
+     'isiIdGambar' => $isiIdGambar,
+     'isiKodeNama' => $isiKodeNama,
+     'isiIdNama' => $isiIdNama,
+     'isiKodeGambar' => $isiKodeGambar,
+     'isiKodeJenis' => $isiKodeJenis,
+    ];
+    return $data;
+   }
+  }
+ }
+
  public function index()
  {
-  $data = ['jumlahBarang' => ''];
+  // Memanggil fungsi penggantiSession untuk mendapatkan nilai-nilai yang dikembalikan
+  $dataPenggantiSession = $this->penggantiSession();
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiIdGambar = $dataPenggantiSession['isiIdGambar'];
+  $isiKodeNama = $dataPenggantiSession['isiKodeNama'];
+  $isiIdNama = $dataPenggantiSession['isiIdNama'];
+  $isiKodeGambar = $dataPenggantiSession['isiKodeGambar'];
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
+
+  $data = [
+   'jumlahBarang' => '',
+   // 'nama_gudang' => $isiKodeNama,
+   // 'foto_gudang' => $isiKodeGambar,
+  ];
   if (session('jenis') == 'besar') {
    $data = [
     'title' => 'Dashboard Besar',
@@ -34,6 +77,11 @@ class DashboardController extends BaseController
     'jSupplier' => $this->supplierModell->jumlahSupplier(),
     'jUser' => $this->userModell->jumlahUser(),
     'collg' => 'col-lg-2',
+    'nama_gudang' => $isiKodeNama,
+    'foto_gudang' => $isiKodeGambar,
+    'foto_user' => $isiIdGambar,
+    'username' => $isiIdNama,
+    'jenis' => $isiKodeJenis,
    ];
    return view('dashboardView', $data);
   } else if (session('jenis') == 'kecil') {
@@ -45,6 +93,11 @@ class DashboardController extends BaseController
     'jSupplier' => $this->supplierModell->jumlahSupplierOn(),
     'jUser' => $this->userModell->jumlahUserOn(),
     'collg' => 'col-lg-3',
+    'nama_gudang' => $isiKodeNama,
+    'foto_gudang' => $isiKodeGambar,
+    'foto_user' => $isiIdGambar,
+    'username' => $isiIdNama,
+    'jenis' => $isiKodeJenis,
    ];
    return view('dashboardView', $data);
   } else {

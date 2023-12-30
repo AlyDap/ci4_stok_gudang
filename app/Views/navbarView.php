@@ -72,8 +72,8 @@
 
    <!-- Cek Foto User -->
    <?php if (session()->has('foto_user')) : ?>
-    <!-- <img src="<?= base_url('path_ke_foto/' . session('foto_user')); ?>" alt="Foto Pengguna"> -->
-    <img src="<?= base_url('gambar_user/' . session('foto_user')); ?>" alt="Foto User" data-bs-toggle="modal" data-bs-target="#staticBackdrop" width="30" class="d-inline-block align-text-top" style="margin-right: 9px; border-radius: 21%; cursor: pointer;">
+    <!-- <img src="<?= base_url('path_ke_foto/' . $foto_user); ?>" alt="Foto Pengguna"> -->
+    <img src="<?= base_url('gambar_user/' . $foto_user); ?>" alt="Foto User" data-bs-toggle="modal" data-bs-target="#staticBackdrop" width="30" class="d-inline-block align-text-top" style="margin-right: 9px; border-radius: 21%; cursor: pointer;">
    <?php else : ?>
     <!-- <p>Foto pengguna tidak ditemukan.</p> -->
    <?php endif; ?>
@@ -82,7 +82,7 @@
 
     <!-- Cek nama gudang -->
     <?php if (session()->has('nama_gudang')) : ?>
-     <?= session('nama_gudang'); ?>
+     <?= $nama_gudang; ?>
     <?php else : ?>
      DASBOARD
     <?php endif; ?>
@@ -100,7 +100,7 @@
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
      <!-- cek admin besar -->
-     <?php if (session()->get('jenis') == ('besar')) {
+     <?php if ($jenis == 'besar') {
      ?>
       <li class="nav-item">
        <a class="nav-link active" aria-current="page" href="<?= base_url('DashboardController/produk'); ?>">Produk</a>
@@ -170,7 +170,7 @@
       <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
      </div>
      <div class="modal-body bg-dark" style="text-align: center;">
-      <img src="<?= base_url('gambar_user/' . session('foto_user')); ?>" alt="Foto User" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="d-inline-block align-text-top" style="width: 100%;">
+      <img src="<?= base_url('gambar_user/' . $foto_user); ?>" alt="Foto User" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="d-inline-block align-text-top" style="width: 100%;">
      </div>
      <div class="modal-footer bg-dark">
       <button type="button" class="btn btn-outline-light" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Ganti Foto</button>

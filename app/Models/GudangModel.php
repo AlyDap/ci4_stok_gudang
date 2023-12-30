@@ -58,4 +58,8 @@ class GudangModel extends Model
  {
   return $this->db->query("SELECT COUNT(*) as jumlah FROM `gudang` WHERE status = 'aktif'")->getRow();
  }
+ public function getKodeGudangSaatIni($id)
+ {
+  return $this->db->query('SELECT * FROM `gudang` where `kode_gudang` = "' . $id . '"')->getRow();
+ }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2023 at 08:10 AM
+-- Generation Time: Dec 30, 2023 at 03:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -178,7 +178,7 @@ INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `keterang
 (4, 'Gudang Kecil 3', 'kecil', 'Gang 3', 'ini adalah gudang cabang ...', '3.jpeg', 'aktif'),
 (19, 'inp171', 'kecil', '177', 'ini adalah gudang cabang ...', 'default-gudang.png', 'nonaktif'),
 (34, '1', 'kecil', '2', 'ini adalah gudang cabang ...', '20231222072116_BFoFuRP2_OIP.jpeg', 'aktif'),
-(35, '2', 'kecil', '3', '', 'default-gudang.png', 'aktif'),
+(35, '2', 'kecil', '3', 'keterangan apa itu?', 'default-gudang.png', 'aktif'),
 (36, 'ahhh', 'kecil', 'heheh', 'Ini adalah gudang cabang ... keee', 'default-gudang.png', 'aktif');
 
 -- --------------------------------------------------------
@@ -218,7 +218,7 @@ CREATE TABLE `merek` (
 
 INSERT INTO `merek` (`id_merek`, `nama_merek`, `kategori_produk`, `deskripsi`, `logo`, `pemilik`, `status`) VALUES
 (1, 'Le Minerale', 'Air Mineral', 'Le minerale merupakan merek air minum dalam kemasan (AMDK) di Indonesia yang diproduksi oleh PT Tirta Fresindo Jaya yang merupakan anak perusahaan dari PT Mayora Indah yang bergerak dalam bidang beverages.\r\n\r\nMenurut informasi Le Minerale telah hadir sejak tahun 2015. Pabrik Le Minerale sendiri berada di beberapa daerah di Indonesia seperti Ciawi, Sukabumi, Pasuruan, Medan, dan Makassar. Selain itu, terdapat dua pabrik tambahan yang baru dibangun di akhir 2016 yakni daerah Cianjur dan Palembang. Tentu saja Le Minerale bisa menjadi alternatif produk lokal Indonesia yang dapat menggantikan produk Israel terutama di air minum dalam kemasan.', 'default-merek.png', 'PT Tirta Fresindo Jaya', 'aktif'),
-(2, 'Cleo', 'Air Mineral', 'Cleo merupakan air minum dalam kemasan dengan diferensiasi air minum yang didirikan di Indonesia oleh PT. Sariguna Primatirta Tbk pada tahun 2004. Awalnya produk Cleo hanya dipasarkan di Jawa Timur saja, namun perusahaan ini kemudian berekspansi dengan mendirikan sejumlah pabrik di luar Jawa Timur.\r\n\r\nPemilik dari Cleo adalah Hermanto Tanoko yang merupakan konglomerat RI yang kerap dijuluki \'Crazy Rich\' asal Surabaya. Oleh karena itu, Cleo juga dapat menjadi produk lokal Indonesia pengganti produk Israel.', 'default-merek.png', ' PT. Sariguna Primatirta Tbk', 'aktif'),
+(2, 'Cleo', 'Air Mineral', 'Cleo merupakan air minum dalam kemasan dengan diferensiasi air minum yang didirikan di Indonesia oleh PT. Sariguna Primatirta Tbk pada tahun 2004. Awalnya produk Cleo hanya dipasarkan di Jawa Timur saja, namun perusahaan ini kemudian berekspansi dengan mendirikan sejumlah pabrik di luar Jawa Timur.\r\n\r\nPemilik dari Cleo adalah Hermanto Tanoko yang merupakan konglomerat RI yang kerap dijuluki \'Crazy Rich\' asal Surabaya. Oleh karena itu, Cleo juga dapat menjadi produk lokal Indonesia pengganti produk Israel.', 'default-merek.png', 'PT. Sariguna Primatirta Tbk', 'aktif'),
 (3, 'Sasa', 'Bumbu Masakan', 'Didirikan pada tahun 1968, PT Sasa Inti adalah perusahaan makanan sehat dan bumbu terkemuka asal Indonesia. Perusahaan ini terkenal karena memproduksi MSG pertama kalinya, yang dibuat melalui proses fermentasi.\r\n\r\nTentunya produk dari PT Sasa Inti dapat menjadi alternatif produk lokal Indonesia, dengan variasi produk yang beragam seperti Tepung Bumbu, Santan, Bumbu Instan, Kaldu, dan bumbu-bumbu lainnya.', 'default-merek.png', 'PT Sasa Inti', 'aktif'),
 (4, 'Ajinomoto', 'Bumbu Masakan', 'PT. Ajinomoto Indonesia adalah perusahaan yang memproduksi berbagai bumbu penyedap masakan. Perusahaan ini memiliki kantor pusat di Jepang di mana Ajinomoto pusat merupakan salah satu dari 36 perusahaan makanan dan minuman terbesar di dunia.\r\n\r\nSalah satu produk yang terkenal dari Ajinomoto yakni Masako. mendapatkan penghargaan Favorite Halal Brand dari kategori bumbu, perisa, dan bahan tambahan pangan, dalam Halal Award 2023 yang diselenggarakan oleh LPPOM MUI.', 'default-merek.png', 'PT. Ajinomoto Indonesia', 'aktif'),
 (5, 'Sariayu', 'Perawatan Tubuh', 'Sariayu Martha Tilaar merupakan produk kosmetik lokal pertama dari PT Martina Berto, Tbk. Berawal dari salon di garasi rumah yang didirikan pada tahun 1971, terciptalah produk kecantikan Sariayu Martha Tilaar yang diluncurkan pada tahun 1977.\r\n\r\nSaat ini hampir semua produk Sariayu telah mendapatkan sertifikat halal\r\ntermasuk Sariayu Hijab Hair Care Series, Sariayu Putih Langsat Series, Sariayu\r\nColor Trend dan yang terbaru yaitu Sariayu Two Way Cake dan Sariayu Lipstik. Tentunya dengan memilih produk Sariayu, konsumen tidak hanya mendukung produk lokal tetapi juga dapat menemukan produk yang cocok dengan jenis kulit mereka.', 'default-merek.png', 'PT Martina Berto, Tbk', 'aktif'),
@@ -226,7 +226,7 @@ INSERT INTO `merek` (`id_merek`, `nama_merek`, `kategori_produk`, `deskripsi`, `
 (7, 'Scarlett', 'Perawatan Tubuh', 'Scarlett Whitening adalah salah satu produk perawatan kecantikan yang berasal dari Indonesia. Scarlett Whitening didirikan pada tahun 2017 oleh Felicya Angelista, yakni seorang publik figur yang pernah menghiasi layar kaca Indonesia, baik melalui film maupun sinetron.\r\n\r\nTentunya, produk ini tidak kalah bagus dari produk-produk Israel dan bisa menjadi produk lokal Indonesia yang baik dengan berbagai produk perawatan kulit, mulai dari sabun hingga lotion, yang dirancang untuk menjaga kulit tetap sehat dan terawat.\r\n', 'default-merek.png', 'Felicya Angelista', 'nonaktif'),
 (8, 'Kapal Api', 'Kopi', 'Kapal api merupakan merek kopi terkenal asal Indonesia yang didirikan oleh  PT Santos Jaya Abadi. Saat ini produk kapal api sudah mulai dikenal ke mancanegara mulai dari Arab Saudi, Malaysia, Uni Emirat Arab dan lainnya.\r\n\r\nKapal Api juga aktif dalam mendukung program-program keberlanjutan dan membantu petani kopi lokal. Dengan rasa kopi yang khas dan beragam pilihan produk, Kapal Api adalah salah satu pilihan utama bagi para pecinta kopi di Indonesia.', 'default-merek.png', 'PT Santos Jaya Abadi', 'aktif'),
 (9, 'Excelso', 'Kopi', 'Excelso merupakan sebuah waralaba kedai kopi yang berasal dari Indonesia. Perusahan lokal ini didirikan oleh PT. Excelso Multirasa pada tahun 1991. Kedai kopi seperti Excelso juga memainkan peran penting dalam mempromosikan budaya kopi lokal dan menciptakan lapangan kerja.\r\n\r\nExcelso menjadi tempat bagi para pecinta kopi untuk berkumpul, berdiskusi, dan menikmati kopi dengan kualitas terbaik. Sebagai sebuah merek kopi lokal yang telah mengukir nama baik di dalam negeri, Excelso adalah salah satu pilihan utama bagi mereka yang ingin menikmati kopi berkualitas tinggi yang dihasilkan di Indonesia.', 'default-merek.png', 'PT. Excelso Multirasa', 'nonaktif'),
-(10, 'Ultra Milk', 'Susu', 'Ultra Milk merupakan produsen minuman yang berasal dari Indonesia. Perusahaan lokal ini berdiri pada tahun 1958 di Bandung, Jawa Barat. Merek ini menawarkan berbagai jenis susu, mulai dari susu coklat hingga susu rendah lemak.\r\n\r\nProduk-produk Ultra Milk terkenal karena kualitasnya yang tinggi dan tersedia dalam berbagai ukuran. Dengan dukungan konsumen yang besar, Ultra Milk adalah salah satu pilihan utama untuk susu lokal Indonesia sehingga dapat menggantikan produk susu dari Israel.', 'default-merek.png', '-', 'aktif');
+(10, 'Ultra Milk', 'Susu', 'Ultra Milk merupakan produsen minuman yang berasal dari Indonesia. Perusahaan lokal ini berdiri pada tahun 1958 di Bandung, Jawa Barat. Merek ini menawarkan berbagai jenis susu, mulai dari susu coklat hingga susu rendah lemak.\r\n\r\nProduk-produk Ultra Milk terkenal karena kualitasnya yang tinggi dan tersedia dalam berbagai ukuran. Dengan dukungan konsumen yang besar, Ultra Milk adalah salah satu pilihan utama untuk susu lokal Indonesia sehingga dapat menggantikan produk susu dari Israel.', 'default-merek.png', 'P.T. ULTRAJAYA MILK INDUSTRY', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -271,8 +271,8 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `email`, `no_hp`, `alamat`, `deskripsi`, `status`) VALUES
-(1, 'PT. KOMINDO BIZOLUSI', '-', '213514201', 'Jalan Musi No 28, Jakarta Pusat, Indonesia 10150', '', 'aktif'),
-(2, 'CV. Amaly Food', '-', '313986744', 'JL. Sunan Prapen II no. 76 Gresik Jawa Timur', '', 'aktif'),
+(1, 'PT. KOMINDO BIZOLUSI', 'komindo@mail.id', '213514201', 'Jalan Musi No 28, Jakarta Pusat, Indonesia 10150', 'tidak ada deskripsi', 'aktif'),
+(2, 'CV. Amaly Food', 'rrr@mail.sch', '313986744', 'JL. Sunan Prapen II no. 76 Gresik Jawa Timur', 'deskripsi tidak ada ya', 'aktif'),
 (3, 'CV PT AMMM', 'amm@g.co', '40404040', 'jalan error 404', 'jkjkj', 'nonaktif'),
 (4, 'PT 123 Terbuka', '123@gmail', '123', 'jalan 123', 'tidak ada deskripsi', 'aktif'),
 (5, 'CV 123 Terbuka', '321@gmail', '321', 'jalan 321', 'ada deskripsi', 'nonaktif'),
@@ -301,13 +301,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `no_hp`, `email`, `foto_user`, `kode_gudang`, `status`) VALUES
-(1, 'aliali', 'a83170b4de61c936ff8e99ca758dec0d', '01010101', 'aliali0101@gmail.com', '20231227142731_YnNzwR3Q_zhongli.jpg', 1, 'aktif'),
-(2, 'abu', '2c6101a64935a3bbd5c67f2fb461c4f3', '1234509876', 'abuabu@email.com', 'traveller_sinis.png', 2, 'aktif'),
+(1, 'aliali', 'ed9c6b92b65cb04655c6e93e6c476545', '222222222', 'qqqqq@gmail.com', '20231230024518_N8H7QZH5_wallpaperflare.com_wallpaper.jpg', 1, 'aktif'),
+(2, 'abuabu', '2c6101a64935a3bbd5c67f2fb461c4f3', '1234509876', 'abuabu@email.com', 'traveller_sinis.png', 2, 'aktif'),
 (3, 'siti', '6e3efc8c14f930d71f7cb946adabdd31', '0000', 'email.com', 'luffy-bg000.jpg', 3, 'nonaktif'),
 (4, 'nur', '93868666d04f24c4ebb01c8bf71d5776', '7777777', 'nur@sch.id', 'wanderer.png', 4, 'aktif'),
-(7, 'us', '144cce165e9b405a014d015e9059a7fd', '', '', '20231225101408_AyEo01qn_baby_pales.jpg', 2, 'aktif'),
+(7, 'us', '144cce165e9b405a014d015e9059a7fd', '001010110', '01@eml.go', '20231225101408_AyEo01qn_baby_pales.jpg', 2, 'aktif'),
 (8, 'as', '05f7088afd7bcdd7cc818c7ebe7b56cc', '2222', '2@g.c', 'default-user.png', 35, 'nonaktif'),
-(9, 'us', 'df483402b9bfeb234717a32c6e86280e', '', '', 'default-user.png', 2, 'nonaktif');
+(9, 'us', 'df483402b9bfeb234717a32c6e86280e', '45450000', 'hi@gg.co.id', 'default-user.png', 2, 'nonaktif');
 
 -- --------------------------------------------------------
 

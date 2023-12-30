@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\GudangModel;
 use CodeIgniter\Controller;
 
 class UserAllController extends BaseController
@@ -14,6 +15,7 @@ class UserAllController extends BaseController
  public function __construct()
  {
   $this->userModell = new UserModel();
+  $this->gudangModell = new GudangModel();
   // $this->gudangModell = new \App\Models\GudangModel();
   $this->cekOtorisasi();
  }
@@ -25,15 +27,58 @@ class UserAllController extends BaseController
    // Tidak perlu memanggil `exit()` karena `return` sudah akan menghentikan eksekusi selanjutnya
   }
  }
+ public function penggantiSession()
+ {
+  $id = session()->get('id_user');
+  $userSaatIni = $this->userModell->getUserSaatIni($id);
+  $isiKodeNama = '';
+  $isiIdGambar = '';
+  $isiIdNama = '';
+  $isiKodeGambar = '';
+  $isiKodeJenis = '';
+  if ($userSaatIni) {
+   $kode = $userSaatIni->kode_gudang;
+   $isiIdGambar = $userSaatIni->foto_user;
+   $isiIdNama = $userSaatIni->username;
+   $kodeSaatIni = $this->gudangModell->getKodeGudangSaatIni($kode);
+   if ($kodeSaatIni) {
+    $isiKodeNama = $kodeSaatIni->nama_gudang;
+    $isiKodeGambar = $kodeSaatIni->foto_gudang;
+    $isiKodeJenis  = $kodeSaatIni->jenis;
+    $data = [
+     'isiIdGambar' => $isiIdGambar,
+     'isiKodeNama' => $isiKodeNama,
+     'isiIdNama' => $isiIdNama,
+     'isiKodeGambar' => $isiKodeGambar,
+     'isiKodeJenis' => $isiKodeJenis,
+    ];
+    return $data;
+   }
+  }
+ }
+
 
  public function index()
  {
+  // Memanggil fungsi penggantiSession untuk mendapatkan nilai-nilai yang dikembalikan
+  $dataPenggantiSession = $this->penggantiSession();
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiIdGambar = $dataPenggantiSession['isiIdGambar'];
+  $isiKodeNama = $dataPenggantiSession['isiKodeNama'];
+  $isiIdNama = $dataPenggantiSession['isiIdNama'];
+  $isiKodeGambar = $dataPenggantiSession['isiKodeGambar'];
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
   $id = session()->get('id_user');
   $data = [
    'title' => 'Kelola User',
    'useraktif' => $this->userModell->getUserId($id),
    'infouser' => $this->userModell->getViewInfoUser($id),
    'usersaatini' => $this->userModell->getUserSaatIni($id),
+   'nama_gudang' => $isiKodeNama,
+   'foto_gudang' => $isiKodeGambar,
+   'foto_user' => $isiIdGambar,
+   'username' => $isiIdNama,
+   'jenis' => $isiKodeJenis,
   ];
   // $data['user'] = $this->userModell->findAll();
   return view('userAllView', $data);
@@ -128,6 +173,7 @@ class UserAllController extends BaseController
 
   return redirect()->to(base_url('LoginController/logOut'));
  }
+
  // cek username
  public function checkUsername()
  {
@@ -151,15 +197,6 @@ class UserAllController extends BaseController
   $foto = $this->request->getFile('foto');
   if ($foto) {
    $namaFoto = $foto->getName();
-  } else {
-   $namaFoto = '';
-  }
-  // $foto->move('path/to/destination', $foto->getRandomName());
-
-  // cek foto kosong/tidak yang akan di move
-  if ($namaFoto == '') {
-   $namaFoto = 'default-user.png';
-  } else {
    function generate_random_string($length = 8)
    {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -171,29 +208,26 @@ class UserAllController extends BaseController
    }
    $namaFoto = date('YmdHis') . '_' . generate_random_string(8) . '_' . $namaFoto;
    $foto->move('gambar_user', $namaFoto);
-  }
-  // cek file gambar default atau tidak yang akan di unlink
-  $cekgambar = $this->userModell->find($id);
-  $cekgambarlog = $cekgambar['foto_user'];
-  // cek jika gambar tidak default
-  if ($cekgambar['foto_user'] != 'default-user.png') {
-   $gambarlama = $hiddenFoto;
-   // cek gambar apakah gambar diupdate atau tidak
-   if ($cekgambar['foto_user'] != $gambarlama) {
-    // hapus file foto merek di local storage
+   // cek file gambar default atau tidak yang akan di unlink
+   $cekgambar = $this->userModell->find($id);
+   $cekgambarlog = $cekgambar['foto_user'];
+   log_message('info', 'Nilai $cekgambarlog: ' . print_r($cekgambarlog, true));
+   // cek jika gambar tidak default
+   if ($cekgambar['foto_user'] != 'default-user.png') {
     unlink('gambar_user/' . $cekgambar['foto_user']);
-   } else {
-    $namaFoto = $gambarlama;
    }
+  } else {
+   $namaFoto = $hiddenFoto;
   }
+  // $foto->move('path/to/destination', $foto->getRandomName());
+
 
   $cekjumlahuser = $this->userModell->getHitungUsername($cekUsername);
   $hasilcekjumlahuser = $cekjumlahuser->hitung;
   // log_message('info', 'Nilai $id: ' . print_r($id, true));
   // log_message('info', 'Nilai $hasilcekjumlahuser: ' . print_r($hasilcekjumlahuser, true));
   // log_message('info', 'Nilai $cekUsername: ' . print_r($cekUsername, true));
-  log_message('info', 'Nilai $gambarlama: ' . print_r($gambarlama, true));
-  log_message('info', 'Nilai $cekgambarlog: ' . print_r($cekgambarlog, true));
+  log_message('info', 'Nilai $namaFoto: ' . print_r($namaFoto, true));
   if ($cekUsername != $cekusertabel) {
    // mengecek pada writable logs lalu search nama variabelnya
    if ($hasilcekjumlahuser == '0') {

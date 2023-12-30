@@ -4,15 +4,21 @@
 namespace App\Controllers;
 
 use App\Models\SupplierModel;
+use App\Models\GudangModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 
 class SupplierController extends BaseController
 {
  protected $supplierModell;
+ protected $gudangModell, $userModell;
+
 
  public function __construct()
  {
   $this->supplierModell = new SupplierModel();
+  $this->gudangModell = new GudangModel();
+  $this->userModell = new UserModel();
   // $this->supplierModell = new \App\Models\SupplierModel();
   $this->cekOtorisasi();
  }
@@ -39,10 +45,54 @@ class SupplierController extends BaseController
   }
  }
 
+ public function penggantiSession()
+ {
+  $id = session()->get('id_user');
+  $userSaatIni = $this->userModell->getUserSaatIni($id);
+  $isiKodeNama = '';
+  $isiIdGambar = '';
+  $isiIdNama = '';
+  $isiKodeGambar = '';
+  $isiKodeJenis = '';
+  if ($userSaatIni) {
+   $kode = $userSaatIni->kode_gudang;
+   $isiIdGambar = $userSaatIni->foto_user;
+   $isiIdNama = $userSaatIni->username;
+   $kodeSaatIni = $this->gudangModell->getKodeGudangSaatIni($kode);
+   if ($kodeSaatIni) {
+    $isiKodeNama = $kodeSaatIni->nama_gudang;
+    $isiKodeGambar = $kodeSaatIni->foto_gudang;
+    $isiKodeJenis = $kodeSaatIni->jenis;
+    $data = [
+     'isiIdGambar' => $isiIdGambar,
+     'isiKodeNama' => $isiKodeNama,
+     'isiIdNama' => $isiIdNama,
+     'isiKodeGambar' => $isiKodeGambar,
+     'isiKodeJenis' => $isiKodeJenis,
+    ];
+    return $data;
+   }
+  }
+ }
+
+
  public function index()
  {
+  // Memanggil fungsi penggantiSession untuk mendapatkan nilai-nilai yang dikembalikan
+  $dataPenggantiSession = $this->penggantiSession();
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiIdGambar = $dataPenggantiSession['isiIdGambar'];
+  $isiKodeNama = $dataPenggantiSession['isiKodeNama'];
+  $isiIdNama = $dataPenggantiSession['isiIdNama'];
+  $isiKodeGambar = $dataPenggantiSession['isiKodeGambar'];
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
   $data = [
-   'title' => 'Kelola Supplier'
+   'title' => 'Kelola Supplier',
+   'nama_gudang' => $isiKodeNama,
+   'foto_gudang' => $isiKodeGambar,
+   'foto_user' => $isiIdGambar,
+   'username' => $isiIdNama,
+   'jenis' => $isiKodeJenis,
   ];
   if (session('jenis') == 'besar') {
    $data['supplier'] = $this->supplierModell->findAll();

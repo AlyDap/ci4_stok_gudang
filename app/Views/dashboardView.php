@@ -3,8 +3,13 @@
 
 
 <!-- Cek session dengan var_dump -->
-<!-- <?= var_dump(session('foto_user')) ?> -->
-<!-- <?= var_dump(session('nama_gudang')) ?> -->
+<!-- <?= $nama_gudang; ?>
+<br>
+<?= $foto_gudang; ?>
+<br>
+<?= var_dump($foto_user) ?>
+<br>
+<?= var_dump($username) ?> -->
 
 
 <!-- kotak kotak dashboard -->
@@ -13,7 +18,7 @@
  <div class="d-flex">
   <div class="toast-body">
    Selamat Datang<strong>
-    <?= session()->get('username'); ?>
+    <?= $username ?>
    </strong>
   </div>
   <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
