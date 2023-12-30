@@ -52,4 +52,48 @@ class BarangModel extends Model
  {
   return $this->db->query("SELECT * FROM `barang` WHERE status = 'aktif'")->getResultArray();
  }
+ public function getBarangBarangOn()
+ {
+  return $this->db->query("SELECT
+  b.kode_barang AS 'kode_barang',
+  b.nama_barang AS 'nama_barang',
+  b.satuan AS 'satuan',
+  b.harga_beli AS 'harga_beli',
+  b.harga_jual_satuan AS 'harga_jual_satuan',
+  b.harga_jual_bijian AS 'harga_jual_bijian',
+  b.jumlah_per_satuan AS 'jumlah_per_satuan',
+  b.foto_barang AS 'foto_barang',
+  b.id_merek AS 'id_merek',
+  b.status AS 'status',
+  s.jumlah AS 'jumlah_barang',
+  m.nama_merek AS 'nama_merek'
+FROM
+  `stok_barang` AS s,
+  merek AS m,
+  barang AS b
+WHERE
+  s.kode_barang = b.kode_barang AND m.id_merek = b.id_merek AND b.status = 'aktif'")->getResultArray();
+ }
+ public function getBarangBarang()
+ {
+  return $this->db->query("SELECT
+  b.kode_barang AS 'kode_barang',
+  b.nama_barang AS 'nama_barang',
+  b.satuan AS 'satuan',
+  b.harga_beli AS 'harga_beli',
+  b.harga_jual_satuan AS 'harga_jual_satuan',
+  b.harga_jual_bijian AS 'harga_jual_bijian',
+  b.jumlah_per_satuan AS 'jumlah_per_satuan',
+  b.foto_barang AS 'foto_barang',
+  b.id_merek AS 'id_merek',
+  b.status AS 'status',
+  s.jumlah AS 'jumlah_barang',
+  m.nama_merek AS 'nama_merek'
+FROM
+  `stok_barang` AS s,
+  merek AS m,
+  barang AS b
+WHERE
+  s.kode_barang = b.kode_barang AND m.id_merek = b.id_merek")->getResultArray();
+ }
 }
