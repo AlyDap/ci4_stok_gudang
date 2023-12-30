@@ -97,9 +97,9 @@ class BarangController extends BaseController
    'jenis' => $isiKodeJenis,
   ];
   if ($isiKodeJenis == 'besar') {
-   $data['barang'] = $this->barangModell->findAll();
+   $data['barang'] = $this->barangModell->getBarangBarang();
   } else if ($isiKodeJenis == 'kecil') {
-   $data['barang'] = $this->barangModell->getBarangOn();
+   $data['barang'] = $this->barangModell->getBarangBarangOn();
   }
   return view('adminBesar/barangView', $data);
  }

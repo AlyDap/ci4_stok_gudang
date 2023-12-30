@@ -56,3 +56,20 @@ __construct
     'jenis' => $isiKodeJenis,
 
 //ganti title pada merek
+//jumlah_min_persatuan (tabel barang)
+//input tabel barang masuk & keluar serta detailnya
+
+//copy paste info edit data
+
+<?= $row['kode_barang']; ?>,
+<?= $row['nama_barang']; ?>,
+<?= $row['satuan']; ?>,
+<?= $row['harga_beli']; ?>,
+<?= $row['harga_jual_satuan']; ?>,
+<?= $row['harga_jual_bijian']; ?>,
+<?= $row['jumlah_per_satuan']; ?>,
+<?= $row['foto_barang']; ?>,
+<?= $row['id_merek']; ?>,
+<?= $row['status']; ?>,
+<?= $row['jumlah_barang']; ?>,
+<?= $row['nama_merek']; ?>,

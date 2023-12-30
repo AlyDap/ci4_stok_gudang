@@ -26,7 +26,7 @@
 </div>
 
 <div class="row">
- <!-- ITEMS -->
+ <!-- ITEMS BARANG-->
  <div class="<?= $collg ?> col-6">
   <!-- small box -->
   <div class="small-box bg-info">
@@ -37,7 +37,7 @@
    <div class="icon">
     <i class="fi fi-rr-box-alt" style="font-size: 63px;"></i>
    </div>
-   <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+   <a href="<?= base_url('BarangController'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
   </div>
  </div>
  <!-- BRAND MEREK -->

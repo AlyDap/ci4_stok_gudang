@@ -59,21 +59,43 @@
        <?= $row['satuan']; ?>
       </td>
       <td>
-       <?= $row['jumlah_per_satuan']; ?>
+       <?= $row['jumlah_barang']; ?>
       </td>
       <td>
-       <?= $row['id_merek']; ?>
+       <?= $row['nama_merek']; ?>
       </td>
       <td>
        <?= $row['status']; ?>
       </td>
       <td>
        <!-- Tombol Info -->
-       <span type="button" class="badge rounded-pill text-bg-primary" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="infoData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['keterangan']; ?>`,`<?= $row['status']; ?>`)" id="btn-info">
+       <span type="button" class="badge rounded-pill text-bg-primary" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="infoData(<?= $row['kode_barang']; ?>,
+<?= $row['nama_barang']; ?>,
+<?= $row['satuan']; ?>,
+<?= $row['harga_beli']; ?>,
+<?= $row['harga_jual_satuan']; ?>,
+<?= $row['harga_jual_bijian']; ?>,
+<?= $row['jumlah_per_satuan']; ?>,
+<?= $row['foto_barang']; ?>,
+<?= $row['id_merek']; ?>,
+<?= $row['status']; ?>,
+<?= $row['jumlah_barang']; ?>,
+<?= $row['nama_merek']; ?>,)" id="btn-info">
         <i class="fi fi-rr-info"></i>
        </span>
        <!-- Tombol Edit -->
-       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_gudang']; ?>,`<?= $row['nama_gudang']; ?>`,`<?= $row['alamat']; ?>`,`<?= $row['jenis']; ?>`,`<?= $row['foto_gudang']; ?>`,`<?= $row['keterangan']; ?>`,`<?= $row['status']; ?>`)" id="btn-edit">
+       <span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(<?= $row['kode_barang']; ?>,
+<?= $row['nama_barang']; ?>,
+<?= $row['satuan']; ?>,
+<?= $row['harga_beli']; ?>,
+<?= $row['harga_jual_satuan']; ?>,
+<?= $row['harga_jual_bijian']; ?>,
+<?= $row['jumlah_per_satuan']; ?>,
+<?= $row['foto_barang']; ?>,
+<?= $row['id_merek']; ?>,
+<?= $row['status']; ?>,
+<?= $row['jumlah_barang']; ?>,
+<?= $row['nama_merek']; ?>,)" id="btn-edit">
         <i class="fi fi-rr-edit"></i>
        </span>
       </td>
@@ -83,34 +105,34 @@
   </table>
  </div>
 <?php else : ?>
- <p>Tidak ada data gudang.</p>
+ <p>Tidak ada data Barang.</p>
 <?php endif; ?>
 
-<!-- TAMBAH GUDANG -->
+<!-- TAMBAH Barang -->
 <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  <div class="modal-dialog">
   <div class="modal-content">
    <div class="modal-header">
-    <h1 class="modal-title fs-5" id="exampleModalLabel">Gudang Baru</h1>
+    <h1 class="modal-title fs-5" id="exampleModalLabel">Barang Baru</h1>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="btn-close"></button>
    </div>
-   <form method="post" action="<?= base_url('/GudangController/store'); ?>" enctype="multipart/form-data">
+   <form method="post" action="<?= base_url('/BarangController/store'); ?>" enctype="multipart/form-data">
     <div class="modal-body">
 
-     <input type="hidden" class="form-control" id="kode_gudang" name="kode_gudang" value="">
+     <input type="hidden" class="form-control" id="kode_barang" name="kode_barang" value="">
 
      <div class="mb-3">
-      <label for="nama_gudang" class="col-form-label">Nama Gudang</label>
-      <input type="text" required class="form-control" id="nama_gudang" name="nama_gudang" placeholder="masukan nama gudang ...">
+      <label for="nama_barang" class="col-form-label">Nama Barang</label>
+      <input type="text" required class="form-control" id="nama_barang" name="nama_barang" placeholder="masukan nama Barang ...">
      </div>
 
      <div class="mb-3">
       <label for="alamat" class="col-form-label">Alamat</label>
-      <input type="text" required class="form-control" id="alamat" name="alamat" placeholder="masukan alamat gudang ...">
+      <input type="text" required class="form-control" id="alamat" name="alamat" placeholder="masukan alamat Barang ...">
      </div>
 
      <div class="mb-3">
-      <label for="jenis" class="col-form-label">Jenis Gudang</label>
+      <label for="jenis" class="col-form-label">Merek Barang</label>
       <input type="text" required class="form-control" id="jenis-text" disabled>
       <select class="form-select" size="2" aria-label="Size 3 select example" id="jenis" name="jenis">
        <option selected value="kecil">kecil</option>
@@ -183,8 +205,8 @@ tombol reset saat edit belum bisa
  const modalExample = document.querySelector('#exampleModal');
  const modelTitle = document.querySelector('#exampleModalLabel');
 
- const elKode = document.querySelector('#kode_gudang');
- const elNama = document.querySelector('#nama_gudang');
+ const elKode = document.querySelector('#kode_barang');
+ const elNama = document.querySelector('#nama_barang');
  const elAlamat = document.querySelector('#alamat');
  const elJenis = document.querySelector('#jenis');
  const elFoto = document.querySelector('#input_foto');
@@ -255,7 +277,7 @@ tombol reset saat edit belum bisa
   }
  })
 
- function editData(kode, nama_gudang, alamat, jenis, foto_gudang, keterangan, status) {
+ function editData(kode, nama_barang, alamat, jenis, foto_gudang, keterangan, status) {
   btnForm.style.display = 'block';
   btnReset.style.display = 'none';
   btnReset2.style.display = 'block';
@@ -268,7 +290,7 @@ tombol reset saat edit belum bisa
 
   modelTitle.innerHTML = 'Edit Gudang';
   elKode.value = kode;
-  elNama.value = nama_gudang;
+  elNama.value = nama_barang;
   elAlamat.value = alamat;
   elJenis.value = jenis;
   elKeterangan.value = keterangan;
@@ -281,7 +303,7 @@ tombol reset saat edit belum bisa
 
   elHasilFoto.src = ambilGambar(foto_gudang);
 
-  reNama = nama_gudang;
+  reNama = nama_barang;
   reAlamat = alamat;
   reJenis = jenis;
   reKeterangan = keterangan;
@@ -304,7 +326,7 @@ tombol reset saat edit belum bisa
   return pathGambarGudang;
  }
 
- function infoData(kode, nama_gudang, alamat, jenis, foto_gudang, keterangan, status) {
+ function infoData(kode, nama_barang, alamat, jenis, foto_gudang, keterangan, status) {
   btnForm.style.display = 'none';
   btnReset.style.display = 'none';
   btnReset2.style.display = 'none';
@@ -317,7 +339,7 @@ tombol reset saat edit belum bisa
 
   modelTitle.innerHTML = 'Info Gudang';
   elKode.value = kode;
-  elNama.value = nama_gudang;
+  elNama.value = nama_barang;
   elAlamat.value = alamat;
   elJenisText.value = jenis;
   // elFoto.value = foto_gudang;

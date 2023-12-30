@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2023 at 03:46 AM
+-- Generation Time: Dec 30, 2023 at 03:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,34 +48,34 @@ INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan`, `harga_beli`, `har
 (1, 'Le Minerale kecil 330 ml', 'dus', 100000, 20000, 3000, 24, 'lemineralekecil.jpeg', 1, 'aktif'),
 (2, 'Le Minerale tanggung 600 ml', 'dus', 150000, 30000, 5000, 24, 'lemineraletanggung.jpg', 1, 'aktif'),
 (3, 'Le Minerale besar 1500 ml', 'dus', 200000, 50000, 8000, 12, 'lemineralebesar.jpg', 1, 'nonaktif'),
-(4, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(5, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(6, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(7, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(8, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(9, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(10, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(11, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(12, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(13, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(14, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(15, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(16, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(17, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(18, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(19, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(20, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(21, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(22, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(23, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(24, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(25, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(26, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(27, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(28, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(29, 'n', 's', 0, 1, 2, 3, 'f', 1, 'nonaktif'),
-(30, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif'),
-(31, 'n', 's', 0, 1, 2, 3, 'f', 1, 'aktif');
+(4, 'Cleo kecil', 'dus', 10000, 15000, 1500, 24, 'cleo-mini.jpg', 2, 'nonaktif'),
+(5, 'cleo tanggung', 'dus', 30000, 45000, 4000, 24, 'cleo-sedang.png', 2, 'aktif'),
+(6, 'cleo galon 19 Liter', 'bijian', 40000, 50000, 50000, 1, 'cleo-galon.jpg', 2, 'aktif'),
+(7, 'bubuk msg sasa 100g', 'dus', 25000, 35000, 2000, 20, 'sasa-100g.png', 3, 'aktif'),
+(8, 'bubuk msg sasa 1kg', 'dus', 50000, 60000, 5000, 15, 'sasa-1kg.png', 3, 'nonaktif'),
+(9, 'Saori saos tiram', 'dus', 50000, 60000, 1000, 100, 'saori-saos-tiram.jpg', 4, 'nonaktif'),
+(10, 'sajiku serba guna', 'dus', 60000, 75000, 2000, 50, 'sajiku-serba-guna.jpg', 4, 'aktif'),
+(11, 'acne care facial foam 75g', 'dus', 200000, 230000, 23000, 15, 'sariayu-acne.png', 5, 'aktif'),
+(12, 'intensive acne serum 12ml', 'dus', 250000, 280000, 28000, 15, 'sariayu-intens.png', 5, 'aktif'),
+(13, 'krem masker jerawat 100g', 'dus', 300000, 330000, 35000, 15, 'sariayu-krem.png', 5, 'nonaktif'),
+(14, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
+(15, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(16, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(17, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(18, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
+(19, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
+(20, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(21, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(22, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(23, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
+(24, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
+(25, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(26, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(27, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(28, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
+(29, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
+(30, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
+(31, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif');
 
 -- --------------------------------------------------------
 
@@ -176,10 +176,9 @@ INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `keterang
 (2, 'Gudang Kecil 1', 'kecil', 'Gang Buntu', 'ini adalah gudang cabang ...', '2.jpg', 'aktif'),
 (3, 'Gudang Kecil 2', 'kecil', 'Gang 1', 'ini adalah gudang cabang ...', 'default-gudang.png', 'nonaktif'),
 (4, 'Gudang Kecil 3', 'kecil', 'Gang 3', 'ini adalah gudang cabang ...', '3.jpeg', 'aktif'),
-(19, 'inp171', 'kecil', '177', 'ini adalah gudang cabang ...', 'default-gudang.png', 'nonaktif'),
-(34, '1', 'kecil', '2', 'ini adalah gudang cabang ...', '20231222072116_BFoFuRP2_OIP.jpeg', 'aktif'),
-(35, '2', 'kecil', '3', 'keterangan apa itu?', 'default-gudang.png', 'aktif'),
-(36, 'ahhh', 'kecil', 'heheh', 'Ini adalah gudang cabang ... keee', 'default-gudang.png', 'aktif');
+(19, 'gudangan', 'kecil', '177', 'ini adalah gudang cabang ...', 'default-gudang.png', 'nonaktif'),
+(34, 'gudang cilikkk', 'kecil', '2', 'ini adalah gudang cabang ...', '20231222072116_BFoFuRP2_OIP.jpeg', 'aktif'),
+(35, 'gedang', 'kecil', '3', 'keterangan apa itu?', 'default-gudang.png', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -235,6 +234,7 @@ INSERT INTO `merek` (`id_merek`, `nama_merek`, `kategori_produk`, `deskripsi`, `
 --
 
 CREATE TABLE `stok_barang` (
+  `id_stok` int(11) NOT NULL,
   `kode_barang` int(11) NOT NULL,
   `satuan` text NOT NULL,
   `jumlah` int(11) NOT NULL,
@@ -245,10 +245,33 @@ CREATE TABLE `stok_barang` (
 -- Dumping data for table `stok_barang`
 --
 
-INSERT INTO `stok_barang` (`kode_barang`, `satuan`, `jumlah`, `kode_gudang`) VALUES
-(1, 'dus', 20, 1),
-(2, 'dus', 10, 1),
-(3, 'dus', 5, 1);
+INSERT INTO `stok_barang` (`id_stok`, `kode_barang`, `satuan`, `jumlah`, `kode_gudang`) VALUES
+(1, 1, 'dus', 20, 1),
+(2, 2, 'dus', 10, 1),
+(3, 3, 'dus', 5, 1),
+(4, 4, 'dus', 20, 1),
+(5, 5, 'dus', 18, 1),
+(6, 6, 'bijian', 30, 1),
+(7, 7, 'dus', 30, 1),
+(8, 8, 'dus', 10, 1),
+(9, 9, 'dus', 25, 1),
+(10, 10, 'dus', 25, 1),
+(11, 11, 'dus', 15, 1),
+(12, 12, 'dus', 15, 1),
+(13, 13, 'dus', 10, 1),
+(14, 1, 'dus', 10, 2),
+(15, 2, 'dus', 10, 2),
+(16, 3, 'dus', 5, 2),
+(17, 4, 'dus', 20, 2),
+(18, 5, 'dus', 18, 2),
+(19, 6, 'bijian', 30, 2),
+(20, 7, 'dus', 30, 2),
+(21, 8, 'dus', 10, 2),
+(22, 9, 'dus', 25, 2),
+(23, 10, 'dus', 25, 2),
+(24, 11, 'dus', 15, 2),
+(25, 12, 'dus', 15, 2),
+(26, 13, 'dus', 10, 2);
 
 -- --------------------------------------------------------
 
@@ -375,6 +398,7 @@ ALTER TABLE `merek`
 -- Indexes for table `stok_barang`
 --
 ALTER TABLE `stok_barang`
+  ADD PRIMARY KEY (`id_stok`),
   ADD KEY `kode_barang` (`kode_barang`),
   ADD KEY `kode_gudang` (`kode_gudang`);
 
@@ -424,6 +448,12 @@ ALTER TABLE `gudang`
 --
 ALTER TABLE `merek`
   MODIFY `id_merek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `stok_barang`
+--
+ALTER TABLE `stok_barang`
+  MODIFY `id_stok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `supplier`
