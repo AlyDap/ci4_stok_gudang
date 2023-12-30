@@ -31,14 +31,19 @@ class MerekController extends BaseController
  }
  public function cekOtorisasiBesar()
  {
-  if (session('jenis') != 'besar') {
+  $dataPenggantiSession = $this->penggantiSession();
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
+
+  if ($isiKodeJenis != 'besar') {
    redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548')->send();
    exit(); // Menghentikan eksekusi setelah redirect
   }
  }
  public function cekOtorisasiKecil()
  {
-  if (session('jenis') != 'kecil') {
+  $dataPenggantiSession = $this->penggantiSession();
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
+  if ($isiKodeJenis != 'kecil') {
    redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548')->send();
    exit(); // Menghentikan eksekusi setelah redirect
   }
@@ -92,9 +97,9 @@ class MerekController extends BaseController
    'username' => $isiIdNama,
    'jenis' => $isiKodeJenis,
   ];
-  if (session('jenis') == 'besar') {
+  if ($isiKodeJenis == 'besar') {
    $data['merek'] = $this->merekModell->findAll();
-  } else if (session('jenis') == 'kecil') {
+  } else if ($isiKodeJenis == 'kecil') {
    $data['merek'] = $this->merekModell->getMerekOn();
   }
   return view('adminBesar/merekView', $data);

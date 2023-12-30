@@ -82,10 +82,10 @@
     <!-- <i class="ion ion-pie-graph"></i> -->
     <i class="fi fi-rr-chart-histogram" style="font-size: 63px;"></i>
    </div>
-   <a href="<?= base_url('SupplierController'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+   <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
   </div>
  </div>
- <?php if (session()->get('jenis') == ('besar')) { ?>
+ <?php if ($jenis == 'besar') { ?>
   <!-- WAREHOUSE -->
   <div class="col-lg-2 col-6">
    <!-- small box -->

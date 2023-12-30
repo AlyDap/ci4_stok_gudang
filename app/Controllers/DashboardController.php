@@ -68,7 +68,7 @@ class DashboardController extends BaseController
    // 'nama_gudang' => $isiKodeNama,
    // 'foto_gudang' => $isiKodeGambar,
   ];
-  if (session('jenis') == 'besar') {
+  if ($isiKodeJenis == 'besar') {
    $data = [
     'title' => 'Dashboard Besar',
     'jBarang' => $this->barangModell->jumlahBarang(),
@@ -84,7 +84,7 @@ class DashboardController extends BaseController
     'jenis' => $isiKodeJenis,
    ];
    return view('dashboardView', $data);
-  } else if (session('jenis') == 'kecil') {
+  } else if ($isiKodeJenis == 'kecil') {
    $data = [
     'title' => 'Dashboard Kecil',
     'jBarang' => $this->barangModell->jumlahBarangOn(),
@@ -107,40 +107,67 @@ class DashboardController extends BaseController
  }
  public function produk()
  {
-  // return redirect()->to(base_url('LoginController'));
-  // if (session('jenis') != 'd') return redirect()->to('/loginController');
+  $dataPenggantiSession = $this->penggantiSession();
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiIdGambar = $dataPenggantiSession['isiIdGambar'];
+  $isiKodeNama = $dataPenggantiSession['isiKodeNama'];
+  $isiIdNama = $dataPenggantiSession['isiIdNama'];
+  $isiKodeGambar = $dataPenggantiSession['isiKodeGambar'];
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
   $data = [
-   'title' => 'Produk Besar'
+   'title' => 'Produk Besar',
+   'nama_gudang' => $isiKodeNama,
+   'foto_gudang' => $isiKodeGambar,
+   'foto_user' => $isiIdGambar,
+   'username' => $isiIdNama,
+   'jenis' => $isiKodeJenis,
   ];
-  if (session('jenis') == 'besar') {
+  if ($isiKodeJenis == 'besar') {
    return view('adminBesar/produkView', $data);
   } else {
-   // if (session('jenis') == 'kecil') return view('dashboardView2');
+   // if ($isiKodeJenis == 'kecil') return view('dashboardView2');
    // return view('loginView');
    return redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548');
   }
  }
  public function transaksi()
  {
-  // return redirect()->to(base_url('LoginController'));
-  // if (session('jenis') != 'd') return redirect()->to('/loginController');
+  $dataPenggantiSession = $this->penggantiSession();
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiIdGambar = $dataPenggantiSession['isiIdGambar'];
+  $isiKodeNama = $dataPenggantiSession['isiKodeNama'];
+  $isiIdNama = $dataPenggantiSession['isiIdNama'];
+  $isiKodeGambar = $dataPenggantiSession['isiKodeGambar'];
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
   $data = [
-   'title' => 'Transaksi Besar'
+   'title' => 'Transaksi Besar',
+   'nama_gudang' => $isiKodeNama,
+   'foto_gudang' => $isiKodeGambar,
+   'foto_user' => $isiIdGambar,
+   'username' => $isiIdNama,
+   'jenis' => $isiKodeJenis,
   ];
-  if (session('jenis') == 'besar') {
+  if ($isiKodeJenis == 'besar') {
    return view('adminBesar/transaksiView', $data);
   } else {
-   // if (session('jenis') == 'kecil') return view('dashboardView2');
+   // if ($isiKodeJenis == 'kecil') return view('dashboardView2');
    // return view('loginView');
    return redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548');
   }
  }
  public function data()
  {
-  if (session('jenis') == 'besar') {
+  $dataPenggantiSession = $this->penggantiSession();
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiIdGambar = $dataPenggantiSession['isiIdGambar'];
+  $isiKodeNama = $dataPenggantiSession['isiKodeNama'];
+  $isiIdNama = $dataPenggantiSession['isiIdNama'];
+  $isiKodeGambar = $dataPenggantiSession['isiKodeGambar'];
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
+  if ($isiKodeJenis == 'besar') {
    return view('adminBesar/data');
   } else {
-   // if (session('jenis') == 'kecil') return view('dashboardView2');
+   // if ($isiKodeJenis == 'kecil') return view('dashboardView2');
    // return view('loginView');
    return redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548');
   }

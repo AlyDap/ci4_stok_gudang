@@ -200,6 +200,13 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col-sm-2 mb-3 mb-sm-0">
+		<a class="btn btn-warning px-3" href="<?= base_url('DashboardController'); ?>" style="padding-top: 7px;">
+			<i class="fi fi-rr-left text-xl"></i>
+		</a>
+	</div>
+</div>
 
 
 <script>

@@ -22,7 +22,9 @@ class UserController extends BaseController
 
  public function cekOtorisasi()
  {
-  if (session('jenis') != 'besar') {
+  $dataPenggantiSession = $this->penggantiSession();
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
+  if ($isiKodeJenis != 'besar') {
    redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548')->send();
    exit(); // Menghentikan eksekusi setelah redirect
   }
