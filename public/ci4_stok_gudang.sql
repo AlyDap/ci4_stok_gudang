@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2023 at 01:50 AM
+-- Generation Time: Dec 31, 2023 at 01:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,25 +57,7 @@ INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan`, `harga_beli`, `har
 (10, 'sajiku serba guna', 'dus', 60000, 75000, 2000, 50, 'sajiku-serba-guna.jpg', 4, 'aktif'),
 (11, 'acne care facial foam 75g', 'dus', 200000, 230000, 23000, 15, 'sariayu-acne.png', 5, 'aktif'),
 (12, 'intensive acne serum 12ml', 'dus', 250000, 280000, 28000, 15, 'sariayu-intens.png', 5, 'aktif'),
-(13, 'krem masker jerawat 100g', 'dus', 300000, 330000, 35000, 15, 'sariayu-krem.png', 5, 'nonaktif'),
-(14, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
-(15, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(16, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(17, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(18, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
-(19, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
-(20, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(21, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(22, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(23, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
-(24, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
-(25, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(26, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(27, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(28, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
-(29, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'nonaktif'),
-(30, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif'),
-(31, 'n', 's', 0, 1, 2, 3, 'default-barang.png', 1, 'aktif');
+(13, 'krem masker jerawat 100g', 'dus', 300000, 330000, 35000, 15, 'sariayu-krem.png', 5, 'nonaktif');
 
 -- --------------------------------------------------------
 
@@ -251,10 +233,7 @@ INSERT INTO `gudang` (`kode_gudang`, `nama_gudang`, `jenis`, `alamat`, `keterang
 (1, 'Gudang Utama', 'besar', 'JL BESAR', 'ini adalah gudang utama 1', '1.png', 'aktif'),
 (2, 'Gudang Kecil 1', 'kecil', 'Gang Buntu', 'ini adalah gudang cabang ...', '2.jpg', 'aktif'),
 (3, 'Gudang Kecil 2', 'kecil', 'Gang 1', 'ini adalah gudang cabang ...', 'default-gudang.png', 'nonaktif'),
-(4, 'Gudang Kecil 3', 'kecil', 'Gang 3', 'ini adalah gudang cabang ...', '3.jpeg', 'aktif'),
-(19, 'gudangan', 'kecil', '177', 'ini adalah gudang cabang ...', 'default-gudang.png', 'nonaktif'),
-(34, 'gudang cilikkk', 'kecil', '2', 'ini adalah gudang cabang ...', '20231222072116_BFoFuRP2_OIP.jpeg', 'aktif'),
-(35, 'gedang', 'kecil', '3', 'keterangan apa itu?', 'default-gudang.png', 'aktif');
+(4, 'Gudang Kecil 3', 'kecil', 'Gang 3', 'ini adalah gudang cabang ...', '3.jpeg', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -310,7 +289,6 @@ INSERT INTO `merek` (`id_merek`, `nama_merek`, `kategori_produk`, `deskripsi`, `
 --
 
 CREATE TABLE `stok_barang` (
-  `id_stok` int(11) NOT NULL,
   `kode_barang` int(11) NOT NULL,
   `satuan` text NOT NULL,
   `jumlah` int(11) NOT NULL,
@@ -321,33 +299,59 @@ CREATE TABLE `stok_barang` (
 -- Dumping data for table `stok_barang`
 --
 
-INSERT INTO `stok_barang` (`id_stok`, `kode_barang`, `satuan`, `jumlah`, `kode_gudang`) VALUES
-(1, 1, 'dus', 20, 1),
-(2, 2, 'dus', 10, 1),
-(3, 3, 'dus', 5, 1),
-(4, 4, 'dus', 20, 1),
-(5, 5, 'dus', 18, 1),
-(6, 6, 'bijian', 30, 1),
-(7, 7, 'dus', 30, 1),
-(8, 8, 'dus', 10, 1),
-(9, 9, 'dus', 25, 1),
-(10, 10, 'dus', 25, 1),
-(11, 11, 'dus', 15, 1),
-(12, 12, 'dus', 15, 1),
-(13, 13, 'dus', 10, 1),
-(14, 1, 'dus', 10, 2),
-(15, 2, 'dus', 10, 2),
-(16, 3, 'dus', 5, 2),
-(17, 4, 'dus', 20, 2),
-(18, 5, 'dus', 18, 2),
-(19, 6, 'bijian', 30, 2),
-(20, 7, 'dus', 30, 2),
-(21, 8, 'dus', 10, 2),
-(22, 9, 'dus', 25, 2),
-(23, 10, 'dus', 25, 2),
-(24, 11, 'dus', 15, 2),
-(25, 12, 'dus', 15, 2),
-(26, 13, 'dus', 10, 2);
+INSERT INTO `stok_barang` (`kode_barang`, `satuan`, `jumlah`, `kode_gudang`) VALUES
+(1, 'dus', 20, 1),
+(2, 'dus', 10, 1),
+(3, 'dus', 5, 1),
+(4, 'dus', 20, 1),
+(5, 'dus', 18, 1),
+(6, 'bijian', 30, 1),
+(7, 'dus', 30, 1),
+(8, 'dus', 10, 1),
+(9, 'dus', 25, 1),
+(10, 'dus', 25, 1),
+(11, 'dus', 15, 1),
+(12, 'dus', 15, 1),
+(13, 'dus', 10, 1),
+(1, 'dus', 10, 2),
+(2, 'dus', 10, 2),
+(3, 'dus', 5, 2),
+(4, 'dus', 20, 2),
+(5, 'dus', 18, 2),
+(6, 'bijian', 30, 2),
+(7, 'dus', 30, 2),
+(8, 'dus', 10, 2),
+(9, 'dus', 25, 2),
+(10, 'dus', 25, 2),
+(11, 'dus', 15, 2),
+(12, 'dus', 15, 2),
+(13, 'dus', 10, 2),
+(1, 'dus', 10, 3),
+(2, 'dus', 11, 3),
+(3, 'dus', 12, 3),
+(4, 'dus', 13, 3),
+(5, 'dus', 14, 3),
+(6, 'bijian', 15, 3),
+(7, 'dus', 16, 3),
+(8, 'dus', 17, 3),
+(9, 'dus', 18, 3),
+(10, 'dus', 19, 3),
+(11, 'dus', 18, 3),
+(12, 'dus', 17, 3),
+(13, 'dus', 16, 3),
+(1, 'dus', 0, 4),
+(2, 'dus', 1, 4),
+(3, 'dus', 2, 4),
+(4, 'dus', 3, 4),
+(5, 'dus', 4, 4),
+(6, 'bijian', 5, 4),
+(7, 'dus', 6, 4),
+(8, 'dus', 7, 4),
+(9, 'dus', 8, 4),
+(10, 'dus', 9, 4),
+(11, 'dus', 8, 4),
+(12, 'dus', 7, 4),
+(13, 'dus', 6, 4);
 
 -- --------------------------------------------------------
 
@@ -404,8 +408,8 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `no_hp`, `email`, `foto_
 (2, 'abuabu', '2c6101a64935a3bbd5c67f2fb461c4f3', '1234509876', 'abuabu@email.com', 'traveller_sinis.png', 2, 'aktif'),
 (3, 'siti', '6e3efc8c14f930d71f7cb946adabdd31', '0000', 'email.com', 'luffy-bg000.jpg', 3, 'nonaktif'),
 (4, 'nur', '93868666d04f24c4ebb01c8bf71d5776', '7777777', 'nur@sch.id', 'wanderer.png', 4, 'aktif'),
-(7, 'us', '144cce165e9b405a014d015e9059a7fd', '001010110', '01@eml.go', '20231225101408_AyEo01qn_baby_pales.jpg', 2, 'aktif'),
-(8, 'as', '05f7088afd7bcdd7cc818c7ebe7b56cc', '2222', '2@g.c', 'default-user.png', 35, 'nonaktif'),
+(7, 'us', '144cce165e9b405a014d015e9059a7fd', '001010110', '01@eml.go', '20231225101408_AyEo01qn_baby_pales.jpg', 3, 'aktif'),
+(8, 'as', '05f7088afd7bcdd7cc818c7ebe7b56cc', '2222', '2@g.c', 'default-user.png', 4, 'nonaktif'),
 (9, 'us', 'df483402b9bfeb234717a32c6e86280e', '45450000', 'hi@gg.co.id', 'default-user.png', 2, 'nonaktif');
 
 -- --------------------------------------------------------
@@ -474,7 +478,6 @@ ALTER TABLE `merek`
 -- Indexes for table `stok_barang`
 --
 ALTER TABLE `stok_barang`
-  ADD PRIMARY KEY (`id_stok`),
   ADD KEY `kode_barang` (`kode_barang`),
   ADD KEY `kode_gudang` (`kode_gudang`);
 
@@ -524,12 +527,6 @@ ALTER TABLE `gudang`
 --
 ALTER TABLE `merek`
   MODIFY `id_merek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `stok_barang`
---
-ALTER TABLE `stok_barang`
-  MODIFY `id_stok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `supplier`
