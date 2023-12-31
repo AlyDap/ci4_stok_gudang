@@ -136,4 +136,14 @@ FROM
 WHERE
   s.kode_barang = b.kode_barang AND m.id_merek = b.id_merek")->getResultArray();
 	}
+
+	public function getKodeTerbaru()
+	{
+		return $this->db->query("SELECT * FROM `barang` ORDER BY kode_barang DESC LIMIT 1")->getRow();
+	}
+
+	public function inputStokBaru($data)
+	{
+		return $this->db->table('stok_barang')->insert($data);
+	}
 }

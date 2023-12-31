@@ -111,16 +111,16 @@ class BarangController extends BaseController
  {
   $this->cekOtorisasiBesar();
 
-  $id = $this->request->getVar('id_merek');
-  $foto2 = $this->request->getVar('logo2');
+  $id = $this->request->getVar('kode_barang');
+  $foto2 = $this->request->getVar('foto_barang2');
   // ambil gambar
-  $gambar = $this->request->getFile('logo');
+  $gambar = $this->request->getFile('foto_barang');
   // ambil nama file
   $namagambar = $gambar->getName();
   // dd($namagambar);
 
   if ($namagambar == '') {
-   $namagambar = 'default-merek.png';
+   $namagambar = 'default-barang.png';
   } else {
    // Create a function to generate a random alphanumeric string
    function generate_random_string($length = 8)
@@ -138,37 +138,58 @@ class BarangController extends BaseController
    // Membuat nama file unik dengan timestamp
    $namagambar = date('YmdHis') . '_' . generate_random_string(8) . '_' . $namagambar;
 
-   // Pindahkan file ke folder public/logo dengan nama unik
-   $gambar->move('gambar_merek', $namagambar);
+   // Pindahkan file ke folder public/foto_barang dengan nama unik
+   $gambar->move('gambar_barang', $namagambar);
   }
 
   if ($id == '') { // Jika id tidak ada maka jalankan perintah add
 
    $data = [
+    'kode_barang' => $this->request->getPost('kode_barang'),
+    'nama_barang' => $this->request->getPost('nama_barang'),
+    'satuan' => $this->request->getPost('satuan'),
+    'harga_beli' => $this->request->getPost('harga_beli'),
+    'harga_jual_satuan' => $this->request->getPost('harga_jual_satuan'),
+    'harga_jual_bijian' => $this->request->getPost('harga_jual_bijian'),
+    'jumlah_per_satuan' => $this->request->getPost('jumlah_per_satuan'),
+    'foto_barang' => $namagambar,
     'id_merek' => $this->request->getPost('id_merek'),
-    'nama_merek' => $this->request->getPost('nama_merek'),
-    'kategori_produk' => $this->request->getPost('kategori_produk'),
-    'deskripsi' => $this->request->getPost('deskripsi'),
-    'logo' => $namagambar,
-    'pemilik' => $this->request->getPost('pemilik'),
     'status' => $this->request->getPost('status'),
    ];
-   $this->merekModell->insert($data);
+   $this->barangModell->insert($data);
+
+   // masukan jumlah stok barang baru
+   $kodeBaru = $this->barangModell->getKodeTerbaru();
+   $kodeBaru = $kodeBaru->kode_barang;
+
+   $semuaKodeGudang = $this->gudangModell->getSemuaKodeGudang();
+   if ($semuaKodeGudang) {
+    foreach ($semuaKodeGudang as $row) {
+     $data = [
+      'kode_barang' => $kodeBaru,
+      'satuan' => $this->request->getPost('satuan'),
+      'jumlah' => '0',
+      'kode_gudang' => $row['kode_gudang'],
+     ];
+     $this->barangModell->inputStokBaru($data);
+    }
+   }
+
    // 
   } else { // Jika id ada maka jalankan perintah update
 
    // cek file gambar default atau tidak
-   $cekgambar = $this->merekModell->find($id);
+   $cekgambar = $this->barangModell->find($id);
 
    // cek jika gambar tidak default
-   if ($cekgambar['logo'] != 'default-merek.png') {
+   if ($cekgambar['foto_barang'] != 'default-barang.png') {
 
-    $gambarlama = $this->request->getVar('logo2');
+    $gambarlama = $this->request->getVar('foto_barang2');
     // cek gambar apakah gambar diupdate atau tidak
-    if ($cekgambar['logo'] != $gambarlama) {
+    if ($cekgambar['foto_barang'] != $gambarlama) {
 
      // hapus file foto merek di local storage
-     unlink('gambar_merek/' . $cekgambar['logo']);
+     unlink('gambar_barang/' . $cekgambar['foto_barang']);
     } else {
      $namagambar = $gambarlama;
     }
@@ -184,15 +205,17 @@ class BarangController extends BaseController
 
  public function update($id, $namagambar)
  {
-
   $data = [
-   'nama_merek' => $this->request->getVar('nama_merek'),
-   'kategori_produk' => $this->request->getVar('kategori_produk'),
-   'deskripsi' => $this->request->getVar('deskripsi'),
-   'logo' => $namagambar,
-   'pemilik' => $this->request->getPost('pemilik'),
-   'status' => $this->request->getVar('status'),
+   'nama_barang' => $this->request->getPost('nama_barang'),
+   'satuan' => $this->request->getPost('satuan'),
+   'harga_beli' => $this->request->getPost('harga_beli'),
+   'harga_jual_satuan' => $this->request->getPost('harga_jual_satuan'),
+   'harga_jual_bijian' => $this->request->getPost('harga_jual_bijian'),
+   'jumlah_per_satuan' => $this->request->getPost('jumlah_per_satuan'),
+   'foto_barang' => $namagambar,
+   'id_merek' => $this->request->getPost('id_merek'),
+   'status' => $this->request->getPost('status'),
   ];
-  $this->merekModell->update($id, $data);
+  $this->barangModell->update($id, $data);
  }
 }

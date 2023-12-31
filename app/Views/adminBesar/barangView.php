@@ -18,10 +18,14 @@
 			<!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
 			Lihat Stok
 		</a>
-		<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-add" class="right-0">
-			<!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
-			Tambah Barang
-		</button>
+		<?php
+		if ($jenis == 'besar') {
+		?>
+			<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-add" class="right-0">
+				<!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
+				Tambah Barang
+			</button>
+		<?php } ?>
 	</div>
 
 </div>
@@ -84,7 +88,10 @@
 								<i class="fi fi-rr-info"></i>
 							</span>
 							<!-- Tombol Edit -->
-							<span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(
+							<?php
+							if ($jenis == 'besar') {
+							?>
+								<span type="button" class="badge rounded-pill text-bg-warning" style="padding-top: 5px;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editData(
 `<?= $row['kode_barang']; ?>`,
 `<?= $row['nama_barang']; ?>`,
 `<?= $row['satuan']; ?>`,
@@ -96,8 +103,10 @@
 `<?= $row['id_merek']; ?>`,
 `<?= $row['status']; ?>`,
 `<?= $row['nama_merek']; ?>`,)" id="btn-edit">
-								<i class="fi fi-rr-edit"></i>
-							</span>
+									<i class="fi fi-rr-edit"></i>
+								</span>
+							<?php } ?>
+
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -391,6 +400,7 @@ tombol reset saat edit belum bisa
 		elHasilFoto.src = reHasilFoto;
 		// hapus inputan pada type file foto
 		elFoto.value = "";
+		console.log('Nilai hiddenFoto: ' + elHiddenFoto.value);
 	}
 
 	btnReset2.addEventListener('click', function() {
@@ -416,6 +426,9 @@ tombol reset saat edit belum bisa
 		} else {
 			elHasilFoto.src = previousImageUrl; // Jika tidak ada file yang dipilih, kosongkan elemen img
 		}
+		elHiddenFoto.value = '';
+		console.log('Nilai hiddenFoto: ' + elHiddenFoto.value);
+
 	});
 </script>
 

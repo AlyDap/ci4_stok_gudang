@@ -62,4 +62,8 @@ class GudangModel extends Model
  {
   return $this->db->query('SELECT * FROM `gudang` where `kode_gudang` = "' . $id . '"')->getRow();
  }
+ public function getSemuaKodeGudang()
+ {
+  return $this->db->query('SELECT kode_gudang FROM `gudang`')->getResultArray();
+ }
 }
