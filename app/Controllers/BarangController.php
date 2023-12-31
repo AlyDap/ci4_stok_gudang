@@ -6,11 +6,12 @@ namespace App\Controllers;
 use App\Models\GudangModel;
 use App\Models\UserModel;
 use App\Models\BarangModel;
+use App\Models\MerekModel;
 use CodeIgniter\Controller;
 
 class BarangController extends BaseController
 {
- protected $barangModell;
+ protected $barangModell, $merekModell;
  protected $gudangModell, $userModell;
 
  public function __construct()
@@ -18,6 +19,7 @@ class BarangController extends BaseController
   $this->barangModell = new BarangModel();
   $this->gudangModell = new GudangModel();
   $this->userModell = new UserModel();
+  $this->merekModell = new MerekModel();
   // $this->barangModell = new \App\Models\MerekModel();
   $this->cekOtorisasi();
  }
@@ -95,6 +97,7 @@ class BarangController extends BaseController
    'foto_user' => $isiIdGambar,
    'username' => $isiIdNama,
    'jenis' => $isiKodeJenis,
+   'merekaktif' => $this->merekModell->getMerekOn(),
   ];
   if ($isiKodeJenis == 'besar') {
    $data['barang'] = $this->barangModell->getBarangBarang();
