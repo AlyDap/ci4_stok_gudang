@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2023 at 03:29 PM
+-- Generation Time: Dec 31, 2023 at 01:50 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,9 +45,9 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan`, `harga_beli`, `harga_jual_satuan`, `harga_jual_bijian`, `jumlah_per_satuan`, `foto_barang`, `id_merek`, `status`) VALUES
-(1, 'Le Minerale kecil 330 ml', 'dus', 100000, 20000, 3000, 24, 'lemineralekecil.jpeg', 1, 'aktif'),
-(2, 'Le Minerale tanggung 600 ml', 'dus', 150000, 30000, 5000, 24, 'lemineraletanggung.jpg', 1, 'aktif'),
-(3, 'Le Minerale besar 1500 ml', 'dus', 200000, 50000, 8000, 12, 'lemineralebesar.jpg', 1, 'nonaktif'),
+(1, 'Le Minerale kecil 330 ml', 'dus', 100000, 120000, 3000, 24, 'lemineralekecil.jpeg', 1, 'aktif'),
+(2, 'Le Minerale tanggung 600 ml', 'dus', 150000, 180000, 5000, 24, 'lemineraletanggung.jpg', 1, 'aktif'),
+(3, 'Le Minerale besar 1500 ml', 'dus', 200000, 250000, 8000, 12, 'lemineralebesar.jpg', 1, 'nonaktif'),
 (4, 'Cleo kecil', 'dus', 10000, 15000, 1500, 24, 'cleo-mini.jpg', 2, 'nonaktif'),
 (5, 'cleo tanggung', 'dus', 30000, 45000, 4000, 24, 'cleo-sedang.png', 2, 'aktif'),
 (6, 'cleo galon 19 Liter', 'bijian', 40000, 50000, 50000, 1, 'cleo-galon.jpg', 2, 'aktif'),
@@ -86,9 +86,24 @@ INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan`, `harga_beli`, `har
 CREATE TABLE `barang_keluar` (
   `no_barang_keluar` int(11) NOT NULL,
   `tgl_keluar` datetime NOT NULL DEFAULT current_timestamp(),
+  `total_harga` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `kode_gudang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `barang_keluar`
+--
+
+INSERT INTO `barang_keluar` (`no_barang_keluar`, `tgl_keluar`, `total_harga`, `id_user`, `kode_gudang`) VALUES
+(1, '2023-11-11 21:12:22', 4000000, 1, 1),
+(2, '2023-11-15 20:15:37', 2500000, 2, 2),
+(3, '2023-11-25 18:28:17', 340000, 1, 1),
+(4, '0000-00-00 00:00:00', 875000, 2, 2),
+(5, '2023-12-05 10:20:31', 1305000, 2, 2),
+(6, '2023-12-12 09:10:30', 1100000, 1, 1),
+(7, '2024-01-02 17:28:37', 1680000, 2, 2),
+(8, '2024-01-04 07:11:12', 1680000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +124,14 @@ CREATE TABLE `barang_masuk` (
 --
 
 INSERT INTO `barang_masuk` (`no_barang_masuk`, `tanggal_masuk`, `total_harga`, `id_user`, `kode_gudang`) VALUES
-(1, '2023-11-13 07:16:42', 4500000, 1, 1);
+(1, '2023-11-03 07:16:42', 4500000, 1, 1),
+(2, '2023-11-14 08:22:12', 3500000, 2, 2),
+(3, '2023-11-21 06:32:10', 2050000, 1, 1),
+(4, '2023-11-22 15:45:23', 650000, 2, 2),
+(5, '2023-12-01 11:22:30', 1050000, 2, 2),
+(6, '2023-12-11 12:17:10', 1975000, 1, 1),
+(7, '2024-01-01 16:41:51', 3750000, 2, 2),
+(8, '2024-01-03 07:17:20', 3750000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -123,9 +145,40 @@ CREATE TABLE `detail_barang_keluar` (
   `satuan` text NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga_per_satuan` int(11) NOT NULL,
-  `total_harga` int(11) NOT NULL,
-  `keterangan` text NOT NULL
+  `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `detail_barang_keluar`
+--
+
+INSERT INTO `detail_barang_keluar` (`no_barang_keluar`, `kode_barang`, `satuan`, `jumlah`, `harga_per_satuan`, `total_harga`) VALUES
+(1, 1, 'dus', 10, 120000, 1200000),
+(1, 2, 'dus', 10, 180000, 1800000),
+(1, 3, 'dus', 4, 250000, 1000000),
+(2, 1, 'dus', 5, 120000, 600000),
+(2, 2, 'dus', 5, 180000, 900000),
+(2, 3, 'dus', 4, 250000, 1000000),
+(3, 4, 'dus', 10, 15000, 150000),
+(3, 5, 'dus', 2, 45000, 90000),
+(3, 6, 'bijian', 2, 50000, 100000),
+(4, 4, 'dus', 15, 15000, 225000),
+(4, 5, 'dus', 10, 45000, 450000),
+(4, 6, 'bijian', 4, 50000, 200000),
+(5, 7, 'dus', 15, 35000, 525000),
+(5, 8, 'dus', 4, 60000, 240000),
+(5, 9, 'dus', 4, 60000, 240000),
+(5, 10, 'dus', 4, 75000, 300000),
+(6, 7, 'dus', 10, 35000, 350000),
+(6, 8, 'dus', 5, 60000, 300000),
+(6, 9, 'dus', 5, 60000, 300000),
+(6, 10, 'dus', 2, 75000, 150000),
+(7, 11, 'dus', 2, 230000, 460000),
+(7, 12, 'dus', 2, 280000, 560000),
+(7, 13, 'dus', 2, 330000, 660000),
+(8, 11, 'dus', 2, 230000, 460000),
+(8, 12, 'dus', 2, 280000, 560000),
+(8, 13, 'dus', 2, 330000, 660000);
 
 -- --------------------------------------------------------
 
@@ -149,7 +202,30 @@ CREATE TABLE `detail_barang_masuk` (
 INSERT INTO `detail_barang_masuk` (`no_barang_masuk`, `kode_barang`, `satuan`, `jumlah`, `harga`, `total_harga`) VALUES
 (1, 1, 'dus', 20, 100000, 2000000),
 (1, 2, 'dus', 10, 150000, 1500000),
-(1, 3, 'dus', 5, 200000, 1000000);
+(1, 3, 'dus', 5, 200000, 1000000),
+(2, 1, 'dus', 10, 100000, 1000000),
+(2, 2, 'dus', 10, 150000, 1500000),
+(2, 3, 'dus', 5, 200000, 1000000),
+(3, 4, 'dus', 25, 10000, 250000),
+(3, 5, 'dus', 20, 30000, 600000),
+(3, 6, 'bijian', 30, 40000, 1200000),
+(4, 4, 'dus', 15, 10000, 150000),
+(4, 5, 'dus', 10, 30000, 300000),
+(4, 6, 'bijian', 50, 40000, 200000),
+(5, 7, 'dus', 10, 25000, 250000),
+(5, 8, 'dus', 5, 50000, 250000),
+(5, 9, 'dus', 5, 50000, 250000),
+(5, 10, 'dus', 5, 60000, 300000),
+(6, 7, 'dus', 15, 25000, 375000),
+(6, 8, 'dus', 10, 50000, 500000),
+(6, 9, 'dus', 10, 50000, 500000),
+(6, 10, 'dus', 10, 60000, 600000),
+(7, 11, 'dus', 5, 200000, 1000000),
+(7, 12, 'dus', 5, 250000, 1250000),
+(7, 13, 'dus', 5, 300000, 1500000),
+(8, 11, 'dus', 5, 200000, 1000000),
+(8, 12, 'dus', 5, 250000, 1250000),
+(8, 13, 'dus', 5, 300000, 1500000);
 
 -- --------------------------------------------------------
 
@@ -429,13 +505,13 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT for table `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  MODIFY `no_barang_keluar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_barang_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `no_barang_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `no_barang_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `gudang`
