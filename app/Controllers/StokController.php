@@ -110,4 +110,20 @@ class StokController extends BaseController
   }
   return view('stokView', $data);
  }
+
+ // json grafik stok
+ public function viewGrafikStokPerGudang()
+ {
+  $dataPenggantiSession = $this->penggantiSession();
+  $isiKodeGudang = $dataPenggantiSession['isiKodeGudang'];
+  $dataStok = $this->barangModell->getStokNama($isiKodeGudang);
+  $kode = $this->request->getPost('kode_gudang');
+  $data = [
+   'datastok' => $dataStok,
+  ];
+  $response = [
+   'data' => view('stokView', $data)
+  ];
+  echo json_encode($response);
+ }
 }

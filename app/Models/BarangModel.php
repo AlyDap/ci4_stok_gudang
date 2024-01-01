@@ -159,14 +159,17 @@ WHERE
 		s.jumlah AS jumlah,
 		s.kode_gudang AS kode_gudang,
 		b.nama_barang AS nama_barang,
-		g.nama_gudang AS nama_gudang
+		g.nama_gudang AS nama_gudang,
+		m.nama_merek as nama_merek
 FROM
 		`stok_barang` AS s,
 		barang AS b,
-		gudang AS g
+		gudang AS g,
+		merek as m
 WHERE
 		s.kode_gudang = '" . $id . "' AND s.kode_barang = b.kode_barang AND s.kode_gudang = g.kode_gudang
-ORDER BY
+		and m.id_merek = b.id_merek
+		ORDER BY
 		kode_barang;")->getResultArray();
 	}
 	public function getStokNamaSemua()
@@ -177,14 +180,17 @@ ORDER BY
 		s.jumlah AS jumlah,
 		s.kode_gudang AS kode_gudang,
 		b.nama_barang AS nama_barang,
-		g.nama_gudang AS nama_gudang
+		g.nama_gudang AS nama_gudang,
+		m.nama_merek as nama_merek
 FROM
 		`stok_barang` AS s,
 		barang AS b,
-		gudang AS g
+		gudang AS g,
+		merek as m
 WHERE
 		s.kode_barang = b.kode_barang AND s.kode_gudang = g.kode_gudang
+		and m.id_merek = b.id_merek
 ORDER BY
-		kode_barang;")->getResultArray();
+		kode_barang")->getResultArray();
 	}
 }

@@ -72,6 +72,7 @@ if ($jenis == 'kecil') {
     <thead>
      <tr>
       <th scope="col">No</th>
+      <th scope="col">Merek</th>
       <th scope="col">Nama barang</th>
       <th scope="col">Satuan</th>
       <th scope="col">Jumlah</th>
@@ -79,11 +80,9 @@ if ($jenis == 'kecil') {
     </thead>
     <tbody>
      <?php foreach ($stok as $row) : ?>
-      <!-- saya akan membuat select sendiri untuk tabel barang karena ada jumlah dan merek yang tabelnya terpisah dengan isi field:
-     'kode_barang', 'nama_barang', 'satuan', 'harga_beli', 'harga_jual_satuan', 'harga_jual_bijian', 'jumlah_per_satuan', 'foto_barang', 'id_merek', 'status', 
-     'jumlah_barang', 'nama_merek' -->
       <tr>
        <th scope="row"> <?= $no++; ?> </th>
+       <td> <?= $row['nama_merek']; ?> </td>
        <td> <?= $row['nama_barang']; ?> </td>
        <td> <?= $row['satuan']; ?> </td>
        <td> <?= $row['jumlah']; ?> </td>
@@ -123,23 +122,22 @@ if ($jenis == 'besar') {
      <thead>
       <tr>
        <th scope="col">No</th>
+       <th scope="col">Nama Gudang</th>
+       <th scope="col">Merek</th>
        <th scope="col">Nama barang</th>
        <th scope="col">Satuan</th>
        <th scope="col">Jumlah</th>
-       <th scope="col">Merek</th>
       </tr>
      </thead>
      <tbody>
       <?php foreach ($stok_semua as $row) : ?>
-       <!-- saya akan membuat select sendiri untuk tabel barang karena ada jumlah dan merek yang tabelnya terpisah dengan isi field:
-     'kode_barang', 'nama_barang', 'satuan', 'harga_beli', 'harga_jual_satuan', 'harga_jual_bijian', 'jumlah_per_satuan', 'foto_barang', 'id_merek', 'status', 
-     'jumlah_barang', 'nama_merek' -->
        <tr>
         <th scope="row"> <?= $no++; ?> </th>
+        <td> <?= $row['nama_gudang']; ?> </td>
+        <td> <?= $row['nama_merek']; ?> </td>
         <td> <?= $row['nama_barang']; ?> </td>
         <td> <?= $row['satuan']; ?> </td>
         <td> <?= $row['jumlah']; ?> </td>
-        <td> <?= $row['nama_gudang']; ?> </td>
        </tr>
       <?php endforeach; ?>
      </tbody>
