@@ -146,4 +146,45 @@ WHERE
 	{
 		return $this->db->table('stok_barang')->insert($data);
 	}
+
+	public function getStok($id)
+	{
+		return $this->db->query("SELECT * FROM `stok_barang` where kode_gudang ='" . $id . "' ORDER BY kode_barang ")->getResultArray();
+	}
+	public function getStokNama($id)
+	{
+		return $this->db->query("SELECT
+		s.kode_barang AS kode_barang,
+		s.satuan AS satuan,
+		s.jumlah AS jumlah,
+		s.kode_gudang AS kode_gudang,
+		b.nama_barang AS nama_barang,
+		g.nama_gudang AS nama_gudang
+FROM
+		`stok_barang` AS s,
+		barang AS b,
+		gudang AS g
+WHERE
+		s.kode_gudang = '" . $id . "' AND s.kode_barang = b.kode_barang AND s.kode_gudang = g.kode_gudang
+ORDER BY
+		kode_barang;")->getResultArray();
+	}
+	public function getStokNamaSemua()
+	{
+		return $this->db->query("SELECT
+		s.kode_barang AS kode_barang,
+		s.satuan AS satuan,
+		s.jumlah AS jumlah,
+		s.kode_gudang AS kode_gudang,
+		b.nama_barang AS nama_barang,
+		g.nama_gudang AS nama_gudang
+FROM
+		`stok_barang` AS s,
+		barang AS b,
+		gudang AS g
+WHERE
+		s.kode_barang = b.kode_barang AND s.kode_gudang = g.kode_gudang
+ORDER BY
+		kode_barang;")->getResultArray();
+	}
 }

@@ -103,12 +103,15 @@
 					<?php if ($jenis == 'besar') {
 					?>
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="<?= base_url('DashboardController/produk'); ?>">Produk</a>
+							<a class="nav-link " aria-current="page" href="<?= base_url('DashboardController/produk'); ?>">Produk</a>
 						</li>
 
 					<?php } ?>
 					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('DashboardController/transaksi'); ?>"> Transaksi </a>
+						<a class="nav-link " aria-current="page" href="<?= base_url('StokController'); ?>">Stok</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="<?= base_url('DashboardController/transaksi'); ?>"> Transaksi </a>
 					</li>
 					<!-- <li class="nav-item dropdown">
            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -125,7 +128,7 @@
            </ul>
          </li> -->
 					<li class="nav-item">
-						<a class="nav-link disabled" aria-disabled="true">
+						<a class="nav-link " aria-disabled="true" href="#">
 							<!-- <p class="time gaprint"> -->
 							<span id="waktu" class="jam">
 								<!-- </p> -->
@@ -140,7 +143,7 @@
 							<i class="fi fi-rr-user"></i>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="<?= base_url('UserAllController'); ?>">Info</a></li>
+							<li><a class="dropdown-item" href="<?= base_url('UserAllController'); ?>">Info Akun</a></li>
 							<li><a class="dropdown-item" href="#">Setting</a></li>
 							<li><a class="dropdown-item" href="<?= base_url('DashboardController/data'); ?>">Data</a></li>
 							<li>
