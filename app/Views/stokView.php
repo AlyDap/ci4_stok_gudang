@@ -1,7 +1,11 @@
 <?= $this->extend('navbarView') ?>
 <?= $this->section('content') ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<!--  
+Kurang:
+select untuk sum setiap kudang berdasarkan barang
+setiap select gudang maka grafik akan berubah
+-->
 <?php
 if ($jenis == 'besar') {
 ?>
@@ -20,7 +24,7 @@ if ($jenis == 'besar') {
     <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
     Stok Gudang Saya
    </button>
-   <button class="btn btn-primary" type="button" id="btn-stok-semua" class="right-0">
+   <button class="btn btn-primary mx-1" type="button" id="btn-stok-semua" class="right-0">
     <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
     Stok Semua Gudang
    </button>
@@ -31,9 +35,9 @@ if ($jenis == 'besar') {
   </div>
  </div>
  <!-- lihat tabel / grafik -->
- <div class="btn-hasli-pilihan input-group" style="text-align: right; display: content; margin-bottom: 9px;">
+ <div class="btn-hasli-pilihan input-group" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 9px;">
   <div class="pilih-gudang">
-   <span class="input-group-text" id="basic-addon3">Pilih Gudang</span>
+   <!-- <span class="input-group-text" id="basic-addon3">Pilih Gudang</span> -->
    <select class="form-select" id="kode_gudang" name="kode_gudang">
     <option value="semua">Semua Gudang</option>
     <?php foreach ($gudang as $g) { ?>
@@ -41,12 +45,10 @@ if ($jenis == 'besar') {
     <?php } ?>
    </select>
   </div>
-  <a href="#" class="btn btn-warning" type="button" id="tabel-stok" class="right-0">
-   <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
+  <a href="#" class="btn btn-warning mx-2" type="button" id="tabel-stok" class="right-0">
    Lihat Tabel
   </a>
   <button class="btn btn-primary" type="button" id="grafik-stok" class="right-0">
-   <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
    Lihat Grafik
   </button>
  </div>
@@ -76,8 +78,8 @@ if ($jenis == 'kecil') {
 <!-- gudang sendiri dan semuanya -->
 <div class="lihat-tabel">
 
- <!-- GUDANG SENDIRI -->
- <div class="gudang-sendiri">
+ <!-- TABEL SENDIRI -->
+ <div class="lihat-tabel-sendiri">
   <?php if (!empty($stok)) :
    $no = 1;
   ?>
@@ -123,11 +125,11 @@ if ($jenis == 'kecil') {
   <?php endif; ?>
  </div>
 
- <!-- GUDANG SEMUA -->
+ <!-- TABEL SEMUA -->
  <?php
  if ($jenis == 'besar') {
  ?>
-  <div class="gudang-semua">
+  <div class="lihat-tabel-semua">
    <?php if (!empty($stok_semua)) :
     $no = 1;
    ?>
@@ -183,44 +185,88 @@ if ($jenis == 'kecil') {
 if ($jenis == 'besar') {
 ?>
  <div class="lihat-grafik">
-  <?php if (!empty($grafik_stok_pergudang)) {
-   foreach ($grafik_stok_pergudang as $key => $value) {
-    $barang1[] = $value['nama_barang'];
-    $jumlah1[] = $value['jumlah'];
-   }
-  ?>
-   <!-- masih dalam if -->
-   <canvas id="myChart1"></canvas>
+  <!-- GRAFIK SENDIRI -->
+  <div class="lihat-grafik-sendiri">
+   <?php if (!empty($grafik_stok_pergudang)) {
+    foreach ($grafik_stok_pergudang as $key => $value) {
+     $barang1[] = $value['nama_barang'];
+     $jumlah1[] = $value['jumlah'];
+    }
+   ?>
+    <!-- masih dalam if -->
+    <canvas id="myChart1"></canvas>
 
-   <script>
-    $(document).ready(function() {
-     const ctx1 = document.getElementById('myChart1');
-     // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
-     new Chart(ctx1, {
-      type: 'bar',
-      data: {
-       labels: <?= json_encode($barang1); ?>,
-       datasets: [{
-        label: 'Stok Tersedia',
-        data: <?= json_encode($jumlah1); ?>,
-        borderWidth: 1
-       }]
-      },
-      options: {
-       scales: {
-        y: {
-         beginAtZero: true
+    <script>
+     $(document).ready(function() {
+      const ctx1 = document.getElementById('myChart1');
+      // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
+      new Chart(ctx1, {
+       type: 'bar',
+       data: {
+        labels: <?= json_encode($barang1); ?>,
+        datasets: [{
+         label: 'Stok Tersedia',
+         data: <?= json_encode($jumlah1); ?>,
+         borderWidth: 1
+        }]
+       },
+       options: {
+        scales: {
+         y: {
+          beginAtZero: true
+         }
         }
        }
-      }
+      });
      });
-    });
-   </script>
+    </script>
 
-  <?php
-  } else { ?>
-   <p>Tidak ada Stok Gudang</p>
-  <?php } ?>
+   <?php
+   } else { ?>
+    <p>Tidak ada Stok Gudang</p>
+   <?php } ?>
+  </div>
+  <!-- GRAFIK SEMUA -->
+  <div class="lihat-grafik-semua">
+   <?php if (!empty($grafik_stok_pergudang)) {
+    foreach ($grafik_stok_pergudang as $key => $value) {
+     $barang2[] = $value['nama_barang'];
+     $jumlah2[] = $value['jumlah'];
+    }
+   ?>
+    <!-- masih dalam if -->
+    <canvas id="myChart2"></canvas>
+
+    <script>
+     $(document).ready(function() {
+      const ctx1 = document.getElementById('myChart2');
+      // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
+      new Chart(ctx1, {
+       type: 'pie',
+       data: {
+        labels: <?= json_encode($barang2); ?>,
+        datasets: [{
+         label: 'Stok Tersedia',
+         data: <?= json_encode($jumlah2); ?>,
+         borderWidth: 1
+        }]
+       },
+       options: {
+        scales: {
+         y: {
+          beginAtZero: true
+         }
+        }
+       }
+      });
+     });
+    </script>
+
+   <?php
+   } else { ?>
+    <p>Tidak ada Stok Gudang</p>
+   <?php } ?>
+  </div>
  </div>
 <?php } ?>
 
@@ -237,104 +283,162 @@ if ($jenis == 'besar') {
   const headerStokSemua = document.getElementById('stok-semua')
 
   // tombol
-  const btnTabel = document.querySelector('#tabel-stok')
-  const btnGrafik = document.querySelector('#grafik-stok')
   const btnStokSendiri = document.querySelector('#btn-stok-sendiri')
   const btnStokSemua = document.querySelector('#btn-stok-semua')
+  const btnTabel = document.querySelector('#tabel-stok')
+  const btnGrafik = document.querySelector('#grafik-stok')
 
   // div
   const divLihatTabel = document.querySelectorAll('.lihat-tabel')
   const divLihatGrafik = document.querySelectorAll('.lihat-grafik')
-  const divStokSendiri = document.querySelectorAll('.gudang-sendiri')
-  const divStokSemua = document.querySelectorAll('.gudang-semua')
+  const divLihatTabelSendiri = document.querySelectorAll('.lihat-tabel-sendiri')
+  const divLihatTabelSemua = document.querySelectorAll('.lihat-tabel-semua')
+  const divLihatGrafikSendiri = document.querySelectorAll('.lihat-grafik-sendiri')
+  const divLihatGrafikSemua = document.querySelectorAll('.lihat-grafik-semua')
 
+  // cek inputan select gudang
+  const pilihGudang = document.querySelectorAll('.pilih-gudang')
+  const btnpilihGudang = document.querySelector('#kode_gudang')
   // variabel perubahan
   var pilihan = 'sendiri'
   var hasil = 'tabel'
   var perubahan = pilihan + hasil;
 
   headerStokSendiri.style.display = 'block'
-
   headerStokSemua.style.display = 'none'
-  divStokSemua.forEach(element => {
+
+  // sembuyinkan tabelsemua saat pertamakali muncul
+  divLihatTabelSemua.forEach(element => {
    element.style.display = 'none'
   });
-
-
-  btnStokSendiri.addEventListener('click', function() {
-   pilihan = 'sendiri'
-   perubahan = pilihan + hasil
-   console.log(perubahan)
-   headerStokSendiri.style.display = 'block'
-   divStokSendiri.forEach(element => {
-    element.style.display = 'block'
-   });
-
-   headerStokSemua.style.display = 'none'
-   divStokSemua.forEach(element => {
-    element.style.display = 'none'
-   });
-
-  })
-
-  btnStokSemua.addEventListener('click', function() {
-   pilihan = 'semua'
-   perubahan = pilihan + hasil
-   console.log(perubahan)
-   headerStokSendiri.style.display = 'none'
-   divStokSendiri.forEach(element => {
-    element.style.display = 'none'
-   });
-   headerStokSemua.style.display = 'block'
-   divStokSemua.forEach(element => {
-    element.style.display = 'block'
-   });
-  })
-
-
   // sembuyinkan grafik saat pertamakali muncul
   divLihatGrafik.forEach(element => {
    element.style.display = 'none'
   })
-  // tombol pada lihat tabel dan grafik
-  btnGrafik.addEventListener('click', function() {
-   hasil = 'grafik'
+  // sembuyikan inputan select
+  pilihGudang.forEach(e => {
+   e.style.display = 'none'
+  })
+
+
+  function tombol() {
+   if (perubahan == 'sendiritabel') {
+    // tampilkan
+    headerStokSendiri.style.display = 'block'
+    divLihatTabel.forEach(element => {
+     element.style.display = 'block'
+    });
+    divLihatTabelSendiri.forEach(element => {
+     element.style.display = 'block'
+    });
+    // sembunyikan
+    headerStokSemua.style.display = 'none'
+    divLihatTabelSemua.forEach(element => {
+     element.style.display = 'none'
+    });
+    divLihatGrafik.forEach(element => {
+     element.style.display = 'none'
+    });
+    pilihGudang.forEach(e => {
+     e.style.display = 'none'
+    })
+
+   } else if (perubahan == 'sendirigrafik') {
+    // tampilkan
+    headerStokSendiri.style.display = 'block'
+    divLihatGrafik.forEach(element => {
+     element.style.display = 'block'
+    });
+    divLihatGrafikSendiri.forEach(element => {
+     element.style.display = 'block'
+    });
+    // sembunyikan
+    headerStokSemua.style.display = 'none'
+    divLihatTabel.forEach(element => {
+     element.style.display = 'none'
+    });
+    divLihatGrafikSemua.forEach(element => {
+     element.style.display = 'none'
+    });
+    pilihGudang.forEach(e => {
+     e.style.display = 'none'
+    })
+
+   } else if (perubahan == 'semuatabel') {
+    // tampilkan
+    headerStokSemua.style.display = 'block'
+    divLihatTabel.forEach(element => {
+     element.style.display = 'block'
+    });
+    divLihatTabelSemua.forEach(element => {
+     element.style.display = 'block'
+    });
+    // sembunyikan
+    headerStokSendiri.style.display = 'none'
+    divLihatGrafik.forEach(element => {
+     element.style.display = 'none'
+    });
+    divLihatTabelSendiri.forEach(element => {
+     element.style.display = 'none'
+    });
+    pilihGudang.forEach(e => {
+     e.style.display = 'none'
+    })
+
+   } else if (perubahan == 'semuagrafik') {
+    // tampilkan
+    headerStokSemua.style.display = 'block'
+    divLihatGrafik.forEach(element => {
+     element.style.display = 'block'
+    });
+    divLihatGrafikSemua.forEach(element => {
+     element.style.display = 'block'
+    });
+    pilihGudang.forEach(e => {
+     e.style.display = 'block'
+    })
+    // sembunyikan
+    headerStokSendiri.style.display = 'none'
+    divLihatTabel.forEach(element => {
+     element.style.display = 'none'
+    });
+    divLihatGrafikSendiri.forEach(element => {
+     element.style.display = 'none'
+    });
+
+   }
+  }
+
+
+  // Stok Gudang Saya
+  btnStokSendiri.addEventListener('click', function() {
+   pilihan = 'sendiri'
    perubahan = pilihan + hasil
    console.log(perubahan)
-   divLihatGrafik.forEach(element => {
-    element.style.display = 'block'
-   })
-   divLihatTabel.forEach(element => {
-    element.style.display = 'none'
-   })
+   tombol()
   })
+  // Stok Semua Gudang 
+  btnStokSemua.addEventListener('click', function() {
+   pilihan = 'semua'
+   perubahan = pilihan + hasil
+   console.log(perubahan)
+   tombol()
+  })
+  // LIHAT TABEL
   btnTabel.addEventListener('click', function() {
    hasil = 'tabel'
    perubahan = pilihan + hasil
    console.log(perubahan)
-   divLihatTabel.forEach(element => {
-    element.style.display = 'block'
-   })
-   divLihatGrafik.forEach(element => {
-    element.style.display = 'none'
-   })
+   tombol()
+  })
+  // LIHAT GRAFIK
+  btnGrafik.addEventListener('click', function() {
+   hasil = 'grafik'
+   perubahan = pilihan + hasil
+   console.log(perubahan)
+   tombol()
   })
 
-  // cek
-  const pilihGudang = document.querySelectorAll('.pilih-gudang')
-  const btnpilihGudang = document.querySelector('#kode_gudang')
-  $(document).ready(function() {
-   if (perubahan == 'sendiritabel') {
-
-   } else if (perubahan == 'sendirigrafik') {
-
-   } else if (perubahan == 'semuatabel') {
-
-   } else if (perubahan == 'semuagrafik') {
-
-   }
-
-  });
  <?php } ?>
 
 
