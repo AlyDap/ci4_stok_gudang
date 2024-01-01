@@ -38,7 +38,7 @@ if ($jenis == 'besar') {
  <div class="btn-hasli-pilihan input-group" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 9px;">
   <div class="pilih-gudang">
    <!-- <span class="input-group-text" id="basic-addon3">Pilih Gudang</span> -->
-   <select class="form-select" id="kode_gudang" name="kode_gudang">
+   <select class="form-select" id="kode_gudang" name="kode_gudang" onclick="viewgrafik()">
     <option value="semua">Semua Gudang</option>
     <?php foreach ($gudang as $g) { ?>
      <option value="<?= $g['kode_gudang'] ?>"><?= $g['nama_gudang'] ?></option>
@@ -228,8 +228,8 @@ if ($jenis == 'besar') {
   </div>
   <!-- GRAFIK SEMUA -->
   <div class="lihat-grafik-semua">
-   <?php if (!empty($grafik_stok_pergudang)) {
-    foreach ($grafik_stok_pergudang as $key => $value) {
+   <?php if (!empty($grafik_stok_semuagudang)) {
+    foreach ($grafik_stok_semuagudang as $key => $value) {
      $barang2[] = $value['nama_barang'];
      $jumlah2[] = $value['jumlah'];
     }
@@ -242,7 +242,7 @@ if ($jenis == 'besar') {
       const ctx1 = document.getElementById('myChart2');
       // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
       new Chart(ctx1, {
-       type: 'pie',
+       type: 'bar',
        data: {
         labels: <?= json_encode($barang2); ?>,
         datasets: [{
@@ -267,6 +267,9 @@ if ($jenis == 'besar') {
     <p>Tidak ada Stok Gudang</p>
    <?php } ?>
   </div>
+ </div>
+ <div class="grafikberubah">
+
  </div>
 <?php } ?>
 
@@ -438,27 +441,40 @@ if ($jenis == 'besar') {
    console.log(perubahan)
    tombol()
   })
-
  <?php } ?>
+</script>
 
+<!-- grafik -->
+<script>
+ // Mendapatkan elemen select
+ let selectElement = document.getElementById('kode_gudang');
 
- // KHSUSUS JENIS BESAR
- // var pilihan='sendiri' / 'semua'
- // var hasil='tabel' / 'grafik'
- // var perubahan=pilihan+hasil;
+ // Menambahkan event listener untuk mendengarkan perubahan pada select
+ selectElement.addEventListener('change', function() {
+  // Mengambil value yang dipilih
+  let selectedValue = selectElement.value;
 
- // javascript akan dijalankan ulang jika:
- // id="btn-stok-sendiri" btnStokSendiri
- // saat 'stok gudang saya' diklik maka pilihan='sendiri'
- // id="btn-stok-semua" btnStokSemua
- // saat 'stok semua gudang' diklik maka pilihan='semua'
- // id="tabel-stok" btnTabel
- // 'lihat tabel' hasil = tabel
- // id="grafik-stok" btnGrafik
- // 'lihat grafik' hasil = grafik
+  // Melakukan sesuatu dengan selectedValue, misalnya mencetak ke console
+  console.log('Pilihan select:', selectedValue);
+ });
 
- // var perubahan akan membawa data untuk selanjutnya menampilkan tabel / gudang 
- // baik yang sendiri maupun semua
+ function viewgrafik() {
+  let selectedValue2 = selectElement.value;
+  $.ajax({
+   type: "POST",
+   url: "<?= base_url('StokController/viewGrafikStokPerGudang') ?>",
+   data: {
+    selectedValue2: selectedValue2,
+   },
+   dataType: "JSON",
+   success: function(response) {
+    if (response.data) {
+     $('.grafikberubah').html(response.data);
+     console.log(response.data);
+    }
+   }
+  })
+ }
 </script>
 
 

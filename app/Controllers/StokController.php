@@ -106,6 +106,7 @@ class StokController extends BaseController
    'stok_semua' => $this->barangModell->getStokNamaSemua(),
    'gudang' => $this->gudangModell->findAll(),
    'grafik_stok_pergudang' => $this->grafikStokModel->getGrafikJumlahStokPerGudang($isiKodeGudang),
+   'grafik_stok_semuagudang' => $this->grafikStokModel->getGrafikJumlahStokSemuaGudang(),
   ];
   if ($isiKodeJenis == 'besar') {
    // $data['barang'] = $this->barangModell->getBarangBarang();
@@ -120,13 +121,20 @@ class StokController extends BaseController
  {
   $dataPenggantiSession = $this->penggantiSession();
   $isiKodeGudang = $dataPenggantiSession['isiKodeGudang'];
-  $dataStok = $this->barangModell->getStokNama($isiKodeGudang);
-  $kode = $this->request->getPost('kode_gudang');
-  $data = [
-   'datastok' => $dataStok,
-  ];
+  $selectedValue2 = $this->request->getPost('selectedValue2');
+  $Gudang = $this->gudangModell->find($selectedValue2);
+  if ($Gudang) {
+   $data = [
+    'grafik_stok_semuagudang2' => $this->grafikStokModel->getGrafikJumlahStokPerGudang($selectedValue2),
+   ];
+  } else {
+   $data = [
+    'grafik_stok_semuagudang2' => $this->grafikStokModel->getGrafikJumlahStokSemuaGudang(),
+   ];
+  }
+
   $response = [
-   'data' => view('stokView', $data)
+   'data' => view('hasilStokView', $data)
   ];
   echo json_encode($response);
  }

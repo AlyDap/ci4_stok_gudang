@@ -1,0 +1,160 @@
+MODELLL:
+1--
+	public function getGrafikJumlahStokPerGudang($id)
+	{
+		return $this->db->query("SELECT
+		s.kode_barang AS kode_barang,
+		s.satuan AS satuan,
+		s.jumlah AS jumlah,
+		s.kode_gudang AS kode_gudang,
+		b.nama_barang AS nama_barang,
+		g.nama_gudang AS nama_gudang,
+		m.nama_merek as nama_merek
+FROM
+		`stok_barang` AS s,	barang AS b,	gudang AS g,	merek as m
+WHERE
+		s.kode_gudang = '" . $id . "' AND s.kode_barang = b.kode_barang AND s.kode_gudang = g.kode_gudang
+		and m.id_merek = b.id_merek
+		ORDER BY	kode_barang;")->getResultArray();
+	}
+2--
+public function getGrafikJumlahStokSemuaGudang()
+	{
+		return $this->db->query("SELECT
+		s.kode_barang AS kode_barang,
+		s.satuan AS satuan,
+		SUM(s.jumlah) AS jumlah,
+		s.kode_gudang AS kode_gudang,
+		b.nama_barang AS nama_barang,
+		g.nama_gudang AS nama_gudang,
+		m.nama_merek AS nama_merek
+FROM
+		`stok_barang` AS s,	barang AS b,	gudang AS g,	merek AS m
+WHERE
+		s.kode_barang = b.kode_barang AND s.kode_gudang = g.kode_gudang AND m.id_merek = b.id_merek
+GROUP BY	s.kode_barang
+ORDER BY	kode_barang;")->getResultArray();
+	}
+_______________________________________________________________________________________________
+CONTROLLER:
+1--
+ public function index()
+ {
+  // Memanggil fungsi penggantiSession untuk mendapatkan nilai-nilai yang dikembalikan
+  $dataPenggantiSession = $this->penggantiSession();
+
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiKodeGudang = $dataPenggantiSession['isiKodeGudang'];
+
+  $data = [
+   'title' => 'Stok Barang',
+   'grafik_stok_pergudang' => $this->grafikStokModel->getGrafikJumlahStokPerGudang($isiKodeGudang),
+  ];
+
+  return view('stokView', $data);
+ }
+
+2--
+ // json grafik stok
+ public function viewGrafikStokPerGudang()
+ {
+  $selectedValue = $this->request->getPost('selectedValue');
+  $Gudang = $this->gudangModell->find($selectedValue);
+  if ($Gudang) {
+   $data = [
+    'grafik_stok_semuagudang' => $this->grafikStokModel->getGrafikJumlahStokPerGudang($selectedValue),
+   ];
+  } else {
+   $data = [
+    'grafik_stok_semuagudang' => $this->grafikStokModel->getGrafikJumlahStokSemuaGudang(),
+   ];
+  }
+
+  $response = [
+   'data' => view('hasilStokView', $data)
+  ];
+  echo json_encode($response);
+ }
+
+
+
+_______________________________________________________________________________________________
+VIEW:
+
+1--stokView.php
+ <div class="grafikberubah">
+
+ </div>
+
+   <select class="form-select" id="kode_gudang" name="kode_gudang" onclick="viewgrafik()">
+    <option value="semua">Semua Gudang</option>
+    <?php foreach ($gudang as $g) { ?>
+     <option value="<?= $g['kode_gudang'] ?>"><?= $g['nama_gudang'] ?></option>
+    <?php } ?>
+   </select>
+
+script:
+ function viewgrafik() {
+  let selectedValue = selectElement.value;
+  $.ajax({
+   type: "POST",
+   url: "<?= base_url('StokController/viewGrafikStokPerGudang') ?>",
+   data: {
+    selectedValue: selectedValue,
+   },
+   dataType: "JSON",
+   success: function(response) {
+    if (response.data) {
+     $('.grafikberubah').html(response.data);
+     console.log(response.data);
+    }
+   }
+  })
+ }
+
+
+2--hasilStokView.php
+<?php if (!empty($grafik_stok_semuagudang)) {
+ foreach ($grafik_stok_semuagudang as $key => $value) {
+  $nama_barang[] = $value['nama_barang'];
+  $jumlah[] = $value['jumlah'];
+ }
+
+?>
+ <canvas id="myChart-select"></canvas>
+
+ <script>
+  // $(document).ready(function() Untuk Refresh code script grafik setiap kali klik lihat
+  $(document).ready(function() {
+   const ctxsemua = document.getElementById('myChart-select');
+   // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
+   new Chart(ctxsemua, {
+    type: 'bar',
+    data: {
+     labels: <?= json_encode($nama_barang); ?>,
+     datasets: [{
+      label: 'Produk Yang Terjual',
+      data: <?= json_encode($jumlah); ?>,
+      borderWidth: 1
+     }]
+    },
+    options: {
+     scales: {
+      y: {
+       beginAtZero: true
+      }
+     }
+    }
+   });
+  });
+ </script>
+
+
+<?php
+} else {
+?>
+ <div class="alert alert-dark" role="alert" style="text-align: center;">
+  Stok Barang Tidak Ditemukan<br>&#128522; -- Terimakasih -- &#128522;
+ </div>
+<?php
+} ?>
