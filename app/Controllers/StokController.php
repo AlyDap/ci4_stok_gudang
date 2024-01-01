@@ -7,11 +7,12 @@ use App\Models\GudangModel;
 use App\Models\UserModel;
 use App\Models\BarangModel;
 use App\Models\MerekModel;
+use App\Models\GrafikStokModel;
 use CodeIgniter\Controller;
 
 class StokController extends BaseController
 {
- protected $barangModell, $merekModell;
+ protected $barangModell, $merekModell, $grafikStokModel;
  protected $gudangModell, $userModell;
 
  public function __construct()
@@ -20,6 +21,7 @@ class StokController extends BaseController
   $this->gudangModell = new GudangModel();
   $this->userModell = new UserModel();
   $this->merekModell = new MerekModel();
+  $this->grafikStokModel = new GrafikStokModel();
   // $this->barangModell = new \App\Models\MerekModel();
   $this->cekOtorisasi();
  }
@@ -102,6 +104,7 @@ class StokController extends BaseController
    'merekaktif' => $this->merekModell->getMerekOn(),
    'stok' => $this->barangModell->getStokNama($isiKodeGudang),
    'stok_semua' => $this->barangModell->getStokNamaSemua(),
+   'grafik_stok_pergudang' => $this->grafikStokModel->getGrafikJumlahStokPerGudang($isiKodeGudang),
   ];
   if ($isiKodeJenis == 'besar') {
    // $data['barang'] = $this->barangModell->getBarangBarang();

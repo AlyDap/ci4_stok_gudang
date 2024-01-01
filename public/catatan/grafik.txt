@@ -1,0 +1,78 @@
+__________________________________________________________________________
+MODEL:
+	public function getGrafikJumlahStokPerGudang($id)
+	{
+		return $this->db->query("SELECT
+		s.kode_barang AS kode_barang,
+		s.satuan AS satuan,
+		s.jumlah AS jumlah,
+		s.kode_gudang AS kode_gudang,
+		b.nama_barang AS nama_barang,
+		g.nama_gudang AS nama_gudang
+FROM
+		`stok_barang` AS s, barang AS b, gudang AS g
+WHERE
+		s.kode_gudang = '" . $id . "' AND s.kode_barang = b.kode_barang 
+		AND s.kode_gudang = g.kode_gudang 
+		ORDER BY kode_barang;")->getResultArray();
+	}
+__________________________________________________________________________
+CONTROLLER:
+ public function index()
+ {
+  // Memanggil fungsi penggantiSession untuk mendapatkan nilai-nilai yang dikembalikan
+  $dataPenggantiSession = $this->penggantiSession();
+
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiKodeGudang = $dataPenggantiSession['isiKodeGudang'];
+
+  $data = [
+   'title' => 'Stok Barang',
+   'grafik_stok_pergudang' => $this->grafikStokModel->getGrafikJumlahStokPerGudang($isiKodeGudang),
+  ];
+
+  return view('stokView', $data);
+ }
+_________________________________________________________________________
+VIEW:
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- grafik_stok_pergudang -->
+<?php if (!empty($grafik_stok_pergudang)) {
+ foreach ($grafik_stok_pergudang as $key => $value) {
+  $barang1[] = $value['nama_barang'];
+  $jumlah1[] = $value['jumlah'];
+ }
+?>
+ <!-- masih dalam if -->
+ <canvas id="myChart1"></canvas>
+
+ <script>
+  $(document).ready(function() {
+   const ctx1 = document.getElementById('myChart1');
+   // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
+   new Chart(ctx1, {
+    type: 'bar',
+    data: {
+     labels: <?= json_encode($barang1); ?>,
+     datasets: [{
+      label: 'Produk Yang Terjual',
+      data: <?= json_encode($jumlah); ?>,
+      borderWidth: 1
+     }]
+    },
+    options: {
+     scales: {
+      y: {
+       beginAtZero: true
+      }
+     }
+    }
+   });
+  });
+ </script>
+
+<?php
+} else { ?>
+ <p>Tidak ada Stok Gudang</p>
+<?php } ?>

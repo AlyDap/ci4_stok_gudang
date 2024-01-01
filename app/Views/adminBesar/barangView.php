@@ -14,7 +14,7 @@
 	<!-- </div> -->
 	<div class="">
 
-		<a href="#" class="btn btn-warning" type="button" class="right-0">
+		<a href="<?= base_url('StokController'); ?>" class="btn btn-warning" type="button" class="right-0">
 			<!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
 			Lihat Stok
 		</a>
