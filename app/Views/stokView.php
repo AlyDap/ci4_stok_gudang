@@ -31,7 +31,16 @@ if ($jenis == 'besar') {
   </div>
  </div>
  <!-- lihat tabel / grafik -->
- <div class="btn-hasli-pilihan" style="text-align: right; display: content; margin-bottom: 9px;">
+ <div class="btn-hasli-pilihan input-group" style="text-align: right; display: content; margin-bottom: 9px;">
+  <div class="pilih-gudang">
+   <span class="input-group-text" id="basic-addon3">Pilih Gudang</span>
+   <select class="form-select" id="kode_gudang" name="kode_gudang">
+    <option value="semua">Semua Gudang</option>
+    <?php foreach ($gudang as $g) { ?>
+     <option value="<?= $g['kode_gudang'] ?>"><?= $g['nama_gudang'] ?></option>
+    <?php } ?>
+   </select>
+  </div>
   <a href="#" class="btn btn-warning" type="button" id="tabel-stok" class="right-0">
    <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
    Lihat Tabel
@@ -225,19 +234,24 @@ if ($jenis == 'besar') {
   new DataTable('#example2');
   // judul
   const headerStokSendiri = document.getElementById('stok-sendiri')
+  const headerStokSemua = document.getElementById('stok-semua')
+
   // tombol
   const btnTabel = document.querySelector('#tabel-stok')
   const btnGrafik = document.querySelector('#grafik-stok')
   const btnStokSendiri = document.querySelector('#btn-stok-sendiri')
+  const btnStokSemua = document.querySelector('#btn-stok-semua')
 
   // div
   const divLihatTabel = document.querySelectorAll('.lihat-tabel')
   const divLihatGrafik = document.querySelectorAll('.lihat-grafik')
   const divStokSendiri = document.querySelectorAll('.gudang-sendiri')
-  const btnStokSemua = document.querySelector('#btn-stok-semua')
-  const headerStokSemua = document.getElementById('stok-semua')
   const divStokSemua = document.querySelectorAll('.gudang-semua')
 
+  // variabel perubahan
+  var pilihan = 'sendiri'
+  var hasil = 'tabel'
+  var perubahan = pilihan + hasil;
 
   headerStokSendiri.style.display = 'block'
 
@@ -248,6 +262,9 @@ if ($jenis == 'besar') {
 
 
   btnStokSendiri.addEventListener('click', function() {
+   pilihan = 'sendiri'
+   perubahan = pilihan + hasil
+   console.log(perubahan)
    headerStokSendiri.style.display = 'block'
    divStokSendiri.forEach(element => {
     element.style.display = 'block'
@@ -260,8 +277,10 @@ if ($jenis == 'besar') {
 
   })
 
-
   btnStokSemua.addEventListener('click', function() {
+   pilihan = 'semua'
+   perubahan = pilihan + hasil
+   console.log(perubahan)
    headerStokSendiri.style.display = 'none'
    divStokSendiri.forEach(element => {
     element.style.display = 'none'
@@ -279,6 +298,9 @@ if ($jenis == 'besar') {
   })
   // tombol pada lihat tabel dan grafik
   btnGrafik.addEventListener('click', function() {
+   hasil = 'grafik'
+   perubahan = pilihan + hasil
+   console.log(perubahan)
    divLihatGrafik.forEach(element => {
     element.style.display = 'block'
    })
@@ -287,6 +309,9 @@ if ($jenis == 'besar') {
    })
   })
   btnTabel.addEventListener('click', function() {
+   hasil = 'tabel'
+   perubahan = pilihan + hasil
+   console.log(perubahan)
    divLihatTabel.forEach(element => {
     element.style.display = 'block'
    })
@@ -294,6 +319,22 @@ if ($jenis == 'besar') {
     element.style.display = 'none'
    })
   })
+
+  // cek
+  const pilihGudang = document.querySelectorAll('.pilih-gudang')
+  const btnpilihGudang = document.querySelector('#kode_gudang')
+  $(document).ready(function() {
+   if (perubahan == 'sendiritabel') {
+
+   } else if (perubahan == 'sendirigrafik') {
+
+   } else if (perubahan == 'semuatabel') {
+
+   } else if (perubahan == 'semuagrafik') {
+
+   }
+
+  });
  <?php } ?>
 
 
@@ -303,9 +344,13 @@ if ($jenis == 'besar') {
  // var perubahan=pilihan+hasil;
 
  // javascript akan dijalankan ulang jika:
+ // id="btn-stok-sendiri" btnStokSendiri
  // saat 'stok gudang saya' diklik maka pilihan='sendiri'
+ // id="btn-stok-semua" btnStokSemua
  // saat 'stok semua gudang' diklik maka pilihan='semua'
+ // id="tabel-stok" btnTabel
  // 'lihat tabel' hasil = tabel
+ // id="grafik-stok" btnGrafik
  // 'lihat grafik' hasil = grafik
 
  // var perubahan akan membawa data untuk selanjutnya menampilkan tabel / gudang 

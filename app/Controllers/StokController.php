@@ -104,6 +104,7 @@ class StokController extends BaseController
    'merekaktif' => $this->merekModell->getMerekOn(),
    'stok' => $this->barangModell->getStokNama($isiKodeGudang),
    'stok_semua' => $this->barangModell->getStokNamaSemua(),
+   'gudang' => $this->gudangModell->findAll(),
    'grafik_stok_pergudang' => $this->grafikStokModel->getGrafikJumlahStokPerGudang($isiKodeGudang),
   ];
   if ($isiKodeJenis == 'besar') {
