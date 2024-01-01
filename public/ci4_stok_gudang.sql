@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2023 at 06:28 PM
+-- Generation Time: Jan 01, 2024 at 05:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -313,19 +313,19 @@ INSERT INTO `stok_barang` (`kode_barang`, `satuan`, `jumlah`, `kode_gudang`) VAL
 (11, 'dus', 15, 1),
 (12, 'dus', 15, 1),
 (13, 'dus', 10, 1),
-(1, 'dus', 10, 2),
-(2, 'dus', 10, 2),
-(3, 'dus', 5, 2),
-(4, 'dus', 20, 2),
-(5, 'dus', 18, 2),
-(6, 'bijian', 30, 2),
-(7, 'dus', 30, 2),
-(8, 'dus', 10, 2),
-(9, 'dus', 25, 2),
-(10, 'dus', 25, 2),
-(11, 'dus', 15, 2),
-(12, 'dus', 15, 2),
-(13, 'dus', 10, 2),
+(1, 'dus', 18, 2),
+(2, 'dus', 5, 2),
+(3, 'dus', 10, 2),
+(4, 'dus', 22, 2),
+(5, 'dus', 9, 2),
+(6, 'bijian', 13, 2),
+(7, 'dus', 25, 2),
+(8, 'dus', 15, 2),
+(9, 'dus', 20, 2),
+(10, 'dus', 28, 2),
+(11, 'dus', 7, 2),
+(12, 'dus', 21, 2),
+(13, 'dus', 14, 2),
 (1, 'dus', 10, 3),
 (2, 'dus', 11, 3),
 (3, 'dus', 12, 3),

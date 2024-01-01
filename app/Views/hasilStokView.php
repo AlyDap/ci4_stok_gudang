@@ -17,7 +17,7 @@
     data: {
      labels: <?= json_encode($nama_barang); ?>,
      datasets: [{
-      label: 'Produk Yang Terjual',
+      label: 'Stok Tersedia',
       data: <?= json_encode($jumlah); ?>,
       borderWidth: 1
      }]
@@ -37,8 +37,6 @@
 <?php
 } else {
 ?>
- <div class="alert alert-dark" role="alert" style="text-align: center;">
-  Stok Barang Tidak Ditemukan<br>&#128522; -- Terimakasih -- &#128522;
- </div>
+ <!-- <h1>.......</h1> -->
 <?php
 } ?>

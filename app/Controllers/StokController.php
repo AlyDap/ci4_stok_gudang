@@ -128,9 +128,15 @@ class StokController extends BaseController
     'grafik_stok_semuagudang2' => $this->grafikStokModel->getGrafikJumlahStokPerGudang($selectedValue2),
    ];
   } else {
-   $data = [
-    'grafik_stok_semuagudang2' => $this->grafikStokModel->getGrafikJumlahStokSemuaGudang(),
-   ];
+   if ($selectedValue2 == 'semua') {
+    $data = [
+     'grafik_stok_semuagudang2' => $this->grafikStokModel->getGrafikJumlahStokSemuaGudang(),
+    ];
+   } else {
+    $data = [
+     'grafik_stok_semuagudang2' => '',
+    ];
+   }
   }
 
   $response = [

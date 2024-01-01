@@ -227,48 +227,8 @@ if ($jenis == 'besar') {
    <?php } ?>
   </div>
   <!-- GRAFIK SEMUA -->
-  <div class="lihat-grafik-semua">
-   <?php if (!empty($grafik_stok_semuagudang)) {
-    foreach ($grafik_stok_semuagudang as $key => $value) {
-     $barang2[] = $value['nama_barang'];
-     $jumlah2[] = $value['jumlah'];
-    }
-   ?>
-    <!-- masih dalam if -->
-    <canvas id="myChart2"></canvas>
-
-    <script>
-     $(document).ready(function() {
-      const ctx1 = document.getElementById('myChart2');
-      // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
-      new Chart(ctx1, {
-       type: 'bar',
-       data: {
-        labels: <?= json_encode($barang2); ?>,
-        datasets: [{
-         label: 'Stok Tersedia',
-         data: <?= json_encode($jumlah2); ?>,
-         borderWidth: 1
-        }]
-       },
-       options: {
-        scales: {
-         y: {
-          beginAtZero: true
-         }
-        }
-       }
-      });
-     });
-    </script>
-
-   <?php
-   } else { ?>
-    <p>Tidak ada Stok Gudang</p>
-   <?php } ?>
-  </div>
  </div>
- <div class="grafikberubah">
+ <div class="lihat-grafik-semua">
 
  </div>
 <?php } ?>
@@ -433,6 +393,8 @@ if ($jenis == 'besar') {
    perubahan = pilihan + hasil
    console.log(perubahan)
    tombol()
+   selectElement.value = ''
+   viewgrafik()
   })
   // LIHAT GRAFIK
   btnGrafik.addEventListener('click', function() {
@@ -440,6 +402,8 @@ if ($jenis == 'besar') {
    perubahan = pilihan + hasil
    console.log(perubahan)
    tombol()
+   selectElement.value = 'semua'
+   viewgrafik()
   })
  <?php } ?>
 </script>
@@ -469,7 +433,7 @@ if ($jenis == 'besar') {
    dataType: "JSON",
    success: function(response) {
     if (response.data) {
-     $('.grafikberubah').html(response.data);
+     $('.lihat-grafik-semua').html(response.data);
      console.log(response.data);
     }
    }
