@@ -103,7 +103,7 @@
 					<?php if ($jenis == 'besar') {
 					?>
 						<li class="nav-item">
-							<a class="nav-link " aria-current="page" href="<?= base_url('DashboardController/produk'); ?>">Produk</a>
+							<a class="nav-link " aria-current="page" href="<?= base_url('BarangController'); ?>">Barang</a>
 						</li>
 
 					<?php } ?>
@@ -111,7 +111,7 @@
 						<a class="nav-link " aria-current="page" href="<?= base_url('StokController'); ?>">Stok</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="<?= base_url('DashboardController/transaksi'); ?>"> Transaksi </a>
+						<a class="nav-link " href="<?= base_url('TransaksiController'); ?>"> Transaksi </a>
 					</li>
 					<!-- <li class="nav-item dropdown">
            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

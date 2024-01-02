@@ -82,7 +82,7 @@
     <!-- <i class="ion ion-pie-graph"></i> -->
     <i class="fi fi-rr-chart-histogram" style="font-size: 63px;"></i>
    </div>
-   <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+   <a href="<?= base_url('TransaksiController'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
   </div>
  </div>
  <?php if ($jenis == 'besar') { ?>

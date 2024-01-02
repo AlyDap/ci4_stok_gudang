@@ -14,10 +14,6 @@
 	<!-- </div> -->
 	<div class="">
 
-		<a href="<?= base_url('StokController'); ?>" class="btn btn-warning" type="button" class="right-0">
-			<!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
-			Lihat Stok
-		</a>
 		<?php
 		if ($jenis == 'besar') {
 		?>
@@ -26,6 +22,10 @@
 				Tambah Barang
 			</button>
 		<?php } ?>
+		<a href="<?= base_url('StokController'); ?>" class="btn btn-danger" type="button" class="right-0">
+			<!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
+			Lihat Stok
+		</a>
 	</div>
 
 </div>
