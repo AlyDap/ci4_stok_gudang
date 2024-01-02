@@ -161,7 +161,7 @@ class TransaksiController extends BaseController
   }
 
   $response = [
-   'data' => view('hasilTransaksiView', $data)
+   'data' => view('hasilTransaksiView2', $data)
   ];
   echo json_encode($response);
  }

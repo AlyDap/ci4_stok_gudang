@@ -37,7 +37,7 @@
 
 <!-- DIV TRANSAKSI MASUK -->
 <div class="row barang-masuk">
- <div class="col-sm-6 mb-3 mb-sm-0">
+ <div class="col-sm-6 mb-3 mb-sm-0 barang-mas">
   <div class="card">
    <div class="card-body">
     <h5 id="barang-judul">Transaksi Barang Masuk</h5>
@@ -101,16 +101,16 @@
   </div>
  </div>
  <!-- Masuk ke hasilTransaksiView -->
- <div class="col-sm-6">
+ <!-- <div class=""> -->
 
-  <div class="hasilTransaksiView">
-  </div>
+ <div class="col-sm-6 hasilTransaksiView">
  </div>
+ <!-- </div> -->
 
 </div>
 <!-- DIV TRANSAKSI KELUAR -->
 <div class="row barang-keluar">
- <div class="col-sm-6 mb-3 mb-sm-0">
+ <div class="col-sm-6 mb-3 mb-sm-0 barang-kel">
   <div class="card">
    <div class="card-body">
     <h5 id="barang-judul">Transaksi Barang Keluar</h5>
@@ -172,11 +172,11 @@
   </div>
  </div>
  <!-- Masuk ke hasilTransaksiView -->
- <div class="col-sm-6">
+ <!-- <div class=""> -->
 
-  <div class="hasilTransaksiView2">
-  </div>
+ <div class="col-sm-6 hasilTransaksiView2">
  </div>
+ <!-- </div> -->
 
 </div>
 
@@ -184,33 +184,60 @@
 <script>
  // datatables
  new DataTable('#example1');
- new DataTable('#example2');
+ // new DataTable('#example2');
  new DataTable('#example3');
- new DataTable('#example4');
+ // new DataTable('#example4');
  const divMasuk = document.querySelectorAll('.barang-masuk')
+ const divMas = document.querySelectorAll('.barang-mas')
+ const divUk = document.querySelectorAll('.hasilTransaksiView')
  const divKeluar = document.querySelectorAll('.barang-keluar')
- divKeluar.forEach(e => {
+ const divKel = document.querySelectorAll('.barang-kel')
+ const divAr = document.querySelectorAll('.hasilTransaksiView2')
+ divAr.forEach(e => {
+  e.style.display = 'none'
+ })
+ divKel.forEach(e => {
   e.style.display = 'none'
  })
  var noTransaksiMasuk = ''
  var noTransaksiKeluar = ''
 
  $('#stok-masuk').on('click', function() {
-  divMasuk.forEach(e => {
-   e.style.display = 'block'
-  })
-  divKeluar.forEach(e => {
-   e.style.display = 'none'
-  })
+  tampilkanMasuk()
  });
  $('#stok-keluar').on('click', function() {
-  divKeluar.forEach(e => {
+  tampilkanKeluar()
+ });
+
+ function tampilkanMasuk() {
+  divMas.forEach(e => {
    e.style.display = 'block'
   })
-  divMasuk.forEach(e => {
+  divUk.forEach(e => {
+   e.style.display = 'block'
+  })
+  divKel.forEach(e => {
    e.style.display = 'none'
   })
- });
+  divAr.forEach(e => {
+   e.style.display = 'none'
+  })
+ }
+
+ function tampilkanKeluar() {
+  divMas.forEach(e => {
+   e.style.display = 'none'
+  })
+  divUk.forEach(e => {
+   e.style.display = 'none'
+  })
+  divKel.forEach(e => {
+   e.style.display = 'block'
+  })
+  divAr.forEach(e => {
+   e.style.display = 'block'
+  })
+ }
 
 
  // Ketika tombol detail transaksi diklik
@@ -220,6 +247,7 @@
 
   // Melakukan sesuatu dengan nilai no_trans yang telah diambil
   console.log('Nilai no_trans:', noTransaksiMasuk);
+  tampilkanMasuk()
   viewDetailMasuk();
   // Anda dapat menyimpan nilai ini ke variabel JavaScript lainnya atau melakukan operasi yang diinginkan.
  });
@@ -229,6 +257,7 @@
 
   noTransaksiKeluar = $(this).find('.no-transaksi2').val();
   console.log('Nilai no_trans:', noTransaksiKeluar);
+  tampilkanKeluar()
   viewDetailKeluar();
  });
 
@@ -261,7 +290,7 @@
    dataType: "JSON",
    success: function(response) {
     if (response.data) {
-     $('.hasilTransaksiView').html(response.data);
+     $('.hasilTransaksiView2').html(response.data);
      console.log(response.data);
     }
    }

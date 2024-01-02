@@ -7,7 +7,7 @@
      $noo = 1;
     ?>
      <div class="table-responsive">
-      <table class="table" id="example2">
+      <table class="table">
        <thead>
         <tr>
          <th scope="col">No</th>
