@@ -66,4 +66,8 @@ class GudangModel extends Model
  {
   return $this->db->query('SELECT kode_gudang FROM `gudang`')->getResultArray();
  }
+ public function getKodeTerbaru()
+ {
+  return $this->db->query("SELECT * FROM `gudang` ORDER BY kode_gudang DESC LIMIT 1")->getRow();
+ }
 }

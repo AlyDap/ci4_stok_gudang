@@ -5,16 +5,18 @@ namespace App\Controllers;
 
 use App\Models\GudangModel;
 use App\Models\UserModel;
+use App\Models\BarangModel;
 use CodeIgniter\Controller;
 
 class GudangController extends BaseController
 {
- protected $gudangModell, $userModell;
+ protected $gudangModell, $userModell, $barangModell;
 
  public function __construct()
  {
   $this->gudangModell = new GudangModel();
   $this->userModell = new UserModel();
+  $this->barangModell = new BarangModel();
   // $this->gudangModell = new \App\Models\GudangModel();
   $this->cekOtorisasi();
  }
@@ -128,7 +130,23 @@ class GudangController extends BaseController
     'status' => $this->request->getPost('status'),
    ];
    $this->gudangModell->insert($data);
-   // 
+
+   // input stok_barang pada gudang baru
+   $kodeBaru = $this->gudangModell->getKodeTerbaru();
+   $kodeBaru = $kodeBaru->kode_gudang;
+
+   $semuaKodeBarang = $this->barangModell->findAll();
+   if (!empty($semuaKodeBarang)) {
+    foreach ($semuaKodeBarang as $row) {
+     $data = [
+      'kode_barang' => $row['kode_barang'],
+      'satuan' => $row['satuan'],
+      'jumlah' => '0',
+      'kode_gudang' => $kodeBaru,
+     ];
+     $this->barangModell->inputStokBaru($data);
+    }
+   }
   } else { // Jika id ada maka jalankan perintah update
 
    // cek file gambar default atau tidak

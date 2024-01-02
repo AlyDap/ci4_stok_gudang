@@ -163,7 +163,7 @@ class BarangController extends BaseController
    $kodeBaru = $kodeBaru->kode_barang;
 
    $semuaKodeGudang = $this->gudangModell->getSemuaKodeGudang();
-   if ($semuaKodeGudang) {
+   if (!empty($semuaKodeGudang)) {
     foreach ($semuaKodeGudang as $row) {
      $data = [
       'kode_barang' => $kodeBaru,

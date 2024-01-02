@@ -38,7 +38,7 @@ if ($jenis == 'besar') {
  <div class="btn-hasli-pilihan input-group" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 9px;">
   <div class="pilih-gudang">
    <!-- <span class="input-group-text" id="basic-addon3">Pilih Gudang</span> -->
-   <select class="form-select" id="kode_gudang" name="kode_gudang" onclick="viewgrafik()">
+   <select class="form-select" id="kode_gudang" name="kode_gudang">
     <option value="semua">Semua Gudang</option>
     <?php foreach ($gudang as $g) { ?>
      <option value="<?= $g['kode_gudang'] ?>"><?= $g['nama_gudang'] ?></option>
@@ -420,6 +420,7 @@ if ($jenis == 'besar') {
 
   // Melakukan sesuatu dengan selectedValue, misalnya mencetak ke console
   console.log('Pilihan select:', selectedValue);
+  viewgrafik()
  });
 
  function viewgrafik() {

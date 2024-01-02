@@ -141,6 +141,10 @@ WHERE
 	{
 		return $this->db->query("SELECT * FROM `barang` ORDER BY kode_barang DESC LIMIT 1")->getRow();
 	}
+	public function getSemuaKodeBarang()
+	{
+		return $this->db->query('SELECT kode_barang FROM `barang`')->getResultArray();
+	}
 
 	public function inputStokBaru($data)
 	{
