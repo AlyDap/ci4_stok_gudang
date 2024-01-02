@@ -8,12 +8,18 @@ use App\Models\UserModel;
 use App\Models\BarangModel;
 use App\Models\MerekModel;
 use App\Models\GrafikStokModel;
+use App\Models\TransaksiMasukModel;
+use App\Models\TransaksiMasukDetailModel;
+use App\Models\TransaksiKeluarModel;
+use App\Models\TransaksiKeluarDetailModel;
 use CodeIgniter\Controller;
 
 class TransaksiController extends BaseController
 {
  protected $barangModell, $merekModell, $grafikStokModel;
  protected $gudangModell, $userModell;
+ protected $transaksiMasukModell, $transaksiMasukDetailModell;
+ protected $transaksiKeluarModell, $transaksiKeluarDetailModell;
 
  public function __construct()
  {
@@ -22,6 +28,10 @@ class TransaksiController extends BaseController
   $this->userModell = new UserModel();
   $this->merekModell = new MerekModel();
   $this->grafikStokModel = new GrafikStokModel();
+  $this->transaksiMasukModell = new TransaksiMasukModel();
+  $this->transaksiMasukDetailModell = new TransaksiMasukDetailModel();
+  $this->transaksiKeluarModell = new TransaksiKeluarModel();
+  $this->transaksiKeluarDetailModell = new TransaksiKeluarDetailModel();
   // $this->barangModell = new \App\Models\MerekModel();
   $this->cekOtorisasi();
  }
@@ -101,6 +111,10 @@ class TransaksiController extends BaseController
    'foto_user' => $isiIdGambar,
    'username' => $isiIdNama,
    'jenis' => $isiKodeJenis,
+   'transaksiMasuk' => $this->transaksiMasukModell->getTransaksiMasuk(),
+   'transaksiMasukDetail' => $this->transaksiMasukDetailModell->getTransaksiMasukDetail(),
+   'transaksiKeluar' => $this->transaksiKeluarModell->getTransaksiKeluar(),
+   'transaksiKeluarDetail' => $this->transaksiKeluarDetailModell->getTransaksiKeluarDetail(),
   ];
   if ($isiKodeJenis == 'besar') {
    // $data['barang'] = $this->barangModell->getBarangBarang();
@@ -110,6 +124,45 @@ class TransaksiController extends BaseController
   return view('transaksiView', $data);
  }
 
- // json grafik stok
+ // json tabel detail transaksi masuk
+ public function viewDetailTransaksiMasuk()
+ {
+  $dataPenggantiSession = $this->penggantiSession();
+  $isiKodeGudang = $dataPenggantiSession['isiKodeGudang'];
+  $viewTransaksiMasuk = $this->request->getPost('viewTransaksiMasuk');
+  if (!empty($viewTransaksiMasuk)) {
+   $data = [
+    'data_detail_masuk' => $this->transaksiMasukDetailModell->getTransaksiMasukDetailById($viewTransaksiMasuk),
+   ];
+  } else {
+   $data = [
+    'data_detail_masuk' => '',
+   ];
+  }
 
+  $response = [
+   'data' => view('hasilTransaksiView', $data)
+  ];
+  echo json_encode($response);
+ }
+ public function viewDetailTransaksiKeluar()
+ {
+  $dataPenggantiSession = $this->penggantiSession();
+  $isiKodeGudang = $dataPenggantiSession['isiKodeGudang'];
+  $viewTransaksiKeluar = $this->request->getPost('viewTransaksiKeluar');
+  if (!empty($viewTransaksiKeluar)) {
+   $data = [
+    'data_detail_keluar' => $this->transaksiKeluarDetailModell->getTransaksiKeluarDetailById($viewTransaksiKeluar),
+   ];
+  } else {
+   $data = [
+    'data_detail_keluar' => '',
+   ];
+  }
+
+  $response = [
+   'data' => view('hasilTransaksiView', $data)
+  ];
+  echo json_encode($response);
+ }
 }
