@@ -133,6 +133,7 @@ class TransaksiController extends BaseController
   if (!empty($viewTransaksiMasuk)) {
    $data = [
     'data_detail_masuk' => $this->transaksiMasukDetailModell->getTransaksiMasukDetailById($viewTransaksiMasuk),
+    'data_rekap_masuk' => $this->transaksiMasukModell->getTransaksiMasukById($viewTransaksiMasuk),
    ];
   } else {
    $data = [
@@ -153,6 +154,7 @@ class TransaksiController extends BaseController
   if (!empty($viewTransaksiKeluar)) {
    $data = [
     'data_detail_keluar' => $this->transaksiKeluarDetailModell->getTransaksiKeluarDetailById($viewTransaksiKeluar),
+    'data_rekap_keluar' => $this->transaksiKeluarModell->getTransaksiKeluarById($viewTransaksiKeluar),
    ];
   } else {
    $data = [

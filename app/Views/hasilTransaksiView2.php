@@ -6,6 +6,10 @@
     <?php if (!empty($data_detail_keluar)) :
      $noo = 1;
     ?>
+     <h6>No Transaksi Barang Keluar: <?= $data_rekap_keluar->no_barang_keluar ?> </h6>
+     <h6>Waktu: <?= $data_rekap_keluar->tanggal_keluar ?> </h6>
+     <h6>User: <?= $data_rekap_keluar->username ?> </h6>
+     <h6>Gudang: <?= $data_rekap_keluar->nama_gudang ?> </h6>
      <div class="table-responsive">
       <table class="table">
        <thead>
@@ -15,7 +19,7 @@
          <th scope="col">Satuan</th>
          <th scope="col">Jumlah</th>
          <th scope="col">Harga</th>
-         <th scope="col">Total Harga</th>
+         <th scope="col">Total</th>
         </tr>
        </thead>
        <tbody>
@@ -29,6 +33,13 @@
           <td> <?= $row['total_harga']; ?> </td>
          </tr>
         <?php endforeach; ?>
+        <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <th colspan="2" class="text-right">Total Harga</th>
+         <th><?= $data_rekap_keluar->total_harga ?> </th>
+        </tr>
        </tbody>
       </table>
      </div>
