@@ -189,12 +189,45 @@
    <input type="hidden" class="form-control" id="no_barang_masuk" name="no_barang_masuk" value="">
    <input type="hidden" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value="">
    <input type="hidden" class="form-control" id="id_user" name="id_user" value="<?= session('id_user') ?>">
+   <input type="hidden" class="form-control" id="kode_gudang" name="kode_gudang" value="<?= $isiKodeGudang ?>">
 
-   <h1><?= $username ?></h1>
+   <!-- <h1><?= $isiKodeGudang ?></h1> -->
    <div class="input-group mb-3">
-    <span class="input-group-text" id="inputGroup-sizing-default">Default</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    <span class="input-group-text" id="inputGroup-sizing-default">Supplier</span>
+    <!-- <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
+    <select class="form-select" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="id_supplier" id="id_supplier">
+     <option selected value="">Pilih Supplier</option>
+     <?php if (!empty($supplierOn)) {
+      foreach ($supplierOn as $s) {
+     ?>
+       <option value="<?= $s['id_supplier'] ?>"><?= $s['nama_supplier'] ?></option>
+     <?php
+      }
+     } ?>
+    </select>
    </div>
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Barang</span>
+    <!-- <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
+    <select class="form-select" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="kode_barang" id="kode_barang">
+     <option selected value="">Pilih Barang</option>
+     <?php if (!empty($barangOn)) {
+      foreach ($barangOn as $s) {
+     ?>
+       <option value="<?= $s['kode_barang'] ?>"><?= $s['nama_barang'] ?> (Stok : )</option>
+     <?php
+      }
+     } ?>
+    </select>
+   </div>
+
+
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default-2">Total Harga</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-2" readonly name="total_harga" id="total_harga">
+   </div>
+
+
   </form>
  </div>
 </div>

@@ -7,6 +7,7 @@ use App\Models\GudangModel;
 use App\Models\UserModel;
 use App\Models\BarangModel;
 use App\Models\MerekModel;
+use App\Models\SupplierModel;
 use App\Models\GrafikStokModel;
 use App\Models\TransaksiMasukModel;
 use App\Models\TransaksiMasukDetailModel;
@@ -17,7 +18,7 @@ use CodeIgniter\Controller;
 class TransaksiController extends BaseController
 {
  protected $barangModell, $merekModell, $grafikStokModel;
- protected $gudangModell, $userModell;
+ protected $gudangModell, $userModell, $supplierModell;
  protected $transaksiMasukModell, $transaksiMasukDetailModell;
  protected $transaksiKeluarModell, $transaksiKeluarDetailModell;
 
@@ -27,6 +28,7 @@ class TransaksiController extends BaseController
   $this->gudangModell = new GudangModel();
   $this->userModell = new UserModel();
   $this->merekModell = new MerekModel();
+  $this->supplierModell = new SupplierModel();
   $this->grafikStokModel = new GrafikStokModel();
   $this->transaksiMasukModell = new TransaksiMasukModel();
   $this->transaksiMasukDetailModell = new TransaksiMasukDetailModel();
@@ -111,10 +113,13 @@ class TransaksiController extends BaseController
    'foto_user' => $isiIdGambar,
    'username' => $isiIdNama,
    'jenis' => $isiKodeJenis,
+   'isiKodeGudang' => $isiKodeGudang,
    'transaksiMasuk' => $this->transaksiMasukModell->getTransaksiMasuk(),
    'transaksiMasukDetail' => $this->transaksiMasukDetailModell->getTransaksiMasukDetail(),
    'transaksiKeluar' => $this->transaksiKeluarModell->getTransaksiKeluar(),
    'transaksiKeluarDetail' => $this->transaksiKeluarDetailModell->getTransaksiKeluarDetail(),
+   'supplierOn' => $this->supplierModell->getSupplierOn(),
+   'barangOn' => $this->barangModell->getBarangOn(),
   ];
   if ($isiKodeJenis == 'besar') {
    // $data['barang'] = $this->barangModell->getBarangBarang();
