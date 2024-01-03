@@ -117,7 +117,7 @@
  <?php } ?>
 </div>
 <br>
-
+<h1>Grafik Stok Masuk dan Stok Keluar</h1>
 <br>
 
 

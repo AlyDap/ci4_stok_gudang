@@ -167,4 +167,10 @@ class TransaksiController extends BaseController
   ];
   echo json_encode($response);
  }
+ public function storeMasuk()
+ {
+ }
+ public function storeKeluar()
+ {
+ }
 }

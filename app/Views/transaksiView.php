@@ -1,7 +1,7 @@
 <?= $this->extend('navbarView') ?>
 <?= $this->section('content') ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<!-- TAMPILAN GUDANG KECIL DAN BESAR MASIH SAMA -->
 <div class="" style="text-align: center; display: content;">
  <h2 id="judul">Transaksi Barang
  </h2>
@@ -27,15 +27,15 @@
  </div>
 </div>
 <div class="btn-hasli-pilihan input-group" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 9px;">
- <a href="#" class="btn btn-outline-primary mx-2" type="button" id="tabel-stok" class="right-0">
+ <a class="btn btn-outline-primary mx-2" type="button" id="tambah-masuk" class="right-0">
   Tambah Stok Masuk
  </a>
- <a href="#" class="btn btn-outline-warning" type="button" id="grafik-stok" class="right-0">
+ <a class="btn btn-outline-warning" type="button" id="tambah-keluar" class="right-0">
   Tambah Stok Keluar
  </a>
 </div>
 
-<!-- DIV TRANSAKSI MASUK -->
+<!-- DIV TABEL TRANSAKSI MASUK -->
 <div class="row barang-masuk">
  <div class="col-sm-6 mb-3 mb-sm-0 barang-mas">
   <div class="card">
@@ -108,7 +108,8 @@
  <!-- </div> -->
 
 </div>
-<!-- DIV TRANSAKSI KELUAR -->
+
+<!-- DIV TABEL TRANSAKSI KELUAR -->
 <div class="row barang-keluar">
  <div class="col-sm-6 mb-3 mb-sm-0 barang-kel">
   <div class="card">
@@ -180,6 +181,40 @@
 
 </div>
 
+<!-- DIV INPUT TRANSAKSI MASUK -->
+<div class="card input-masuk">
+ <div class="card-body">
+  <form method="post" action="<?= base_url('/TransaksiController/storeMasuk'); ?>">
+   <h5>Input Stok Masuk</h5>
+   <input type="hidden" class="form-control" id="no_barang_masuk" name="no_barang_masuk" value="">
+   <input type="hidden" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value="">
+   <input type="hidden" class="form-control" id="id_user" name="id_user" value="<?= session('id_user') ?>">
+
+   <h1><?= $username ?></h1>
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Default</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+   </div>
+  </form>
+ </div>
+</div>
+<!-- DIV INPUT TRANSAKSI KELUAR -->
+<div class="card input-keluar">
+ <div class="card-body">
+  <h5>Input Stok Keluar</h5>
+  <div class="input-group mb-3">
+   <span class="input-group-text">$</span>
+   <span class="input-group-text">0.00</span>
+   <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+  </div>
+
+  <div class="input-group">
+   <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+   <span class="input-group-text">$</span>
+   <span class="input-group-text">0.00</span>
+  </div>
+ </div>
+</div>
 
 <script>
  // datatables
@@ -193,12 +228,21 @@
  const divKeluar = document.querySelectorAll('.barang-keluar')
  const divKel = document.querySelectorAll('.barang-kel')
  const divAr = document.querySelectorAll('.hasilTransaksiView2')
+ const divInputMasuk = document.querySelectorAll('.input-masuk')
+ const divInputKeluar = document.querySelectorAll('.input-keluar')
  divAr.forEach(e => {
   e.style.display = 'none'
  })
  divKel.forEach(e => {
   e.style.display = 'none'
  })
+ divInputMasuk.forEach(e => {
+  e.style.display = 'none'
+ })
+ divInputKeluar.forEach(e => {
+  e.style.display = 'none'
+ })
+
  var noTransaksiMasuk = ''
  var noTransaksiKeluar = ''
 
@@ -207,6 +251,12 @@
  });
  $('#stok-keluar').on('click', function() {
   tampilkanKeluar()
+ });
+ $('#tambah-masuk').on('click', function() {
+  inputkanMasuk()
+ });
+ $('#tambah-keluar').on('click', function() {
+  inputkanKeluar()
  });
 
  function tampilkanMasuk() {
@@ -220,6 +270,12 @@
    e.style.display = 'none'
   })
   divAr.forEach(e => {
+   e.style.display = 'none'
+  })
+  divInputMasuk.forEach(e => {
+   e.style.display = 'none'
+  })
+  divInputKeluar.forEach(e => {
    e.style.display = 'none'
   })
  }
@@ -236,6 +292,54 @@
   })
   divAr.forEach(e => {
    e.style.display = 'block'
+  })
+  divInputMasuk.forEach(e => {
+   e.style.display = 'none'
+  })
+  divInputKeluar.forEach(e => {
+   e.style.display = 'none'
+  })
+ }
+
+ function inputkanKeluar() {
+  divMas.forEach(e => {
+   e.style.display = 'none'
+  })
+  divUk.forEach(e => {
+   e.style.display = 'none'
+  })
+  divKel.forEach(e => {
+   e.style.display = 'none'
+  })
+  divAr.forEach(e => {
+   e.style.display = 'none'
+  })
+  divInputMasuk.forEach(e => {
+   e.style.display = 'none'
+  })
+  divInputKeluar.forEach(e => {
+   e.style.display = 'block'
+  })
+ }
+
+ function inputkanMasuk() {
+  divMas.forEach(e => {
+   e.style.display = 'none'
+  })
+  divUk.forEach(e => {
+   e.style.display = 'none'
+  })
+  divKel.forEach(e => {
+   e.style.display = 'none'
+  })
+  divAr.forEach(e => {
+   e.style.display = 'none'
+  })
+  divInputMasuk.forEach(e => {
+   e.style.display = 'block'
+  })
+  divInputKeluar.forEach(e => {
+   e.style.display = 'none'
   })
  }
 
