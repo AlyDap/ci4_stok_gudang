@@ -42,7 +42,7 @@
    <div class="card-body">
     <h5 id="barang-judul">Transaksi Barang Masuk</h5>
     <div class="lihat-tabel-sendiri">
-     <?php if (!empty($transaksiMasuk)) :
+     <?php if (!empty($transaksiMasukGudang)) :
       $no = 1;
      ?>
       <div class="table-responsive">
@@ -55,12 +55,12 @@
           <th scope="col">Total Harga</th>
           <th scope="col">User</th>
           <th scope="col">Supplier</th>
-          <th scope="col">Gudang</th>
+          <!-- <th scope="col">Gudang</th> -->
           <th scope="col">Aksi</th>
          </tr>
         </thead>
         <tbody>
-         <?php foreach ($transaksiMasuk as $row) : ?>
+         <?php foreach ($transaksiMasukGudang as $row) : ?>
           <tr>
            <th scope="row"> <?= $no++; ?> </th>
            <td> <?= $row['no_barang_masuk']; ?> </td>
@@ -68,7 +68,7 @@
            <td> <?= $row['total_harga']; ?> </td>
            <td> <?= $row['username']; ?> </td>
            <td> <?= $row['nama_supplier']; ?> </td>
-           <td> <?= $row['nama_gudang']; ?> </td>
+           <!-- <td> <?= $row['nama_gudang']; ?> </td> -->
            <td> <span type="button" class="badge rounded-pill text-bg-primary btn-detail-transaksi" style="padding-top: 5px;">
              <i class="fi fi-rr-info">
               <input type="hidden" class="no-transaksi" value="<?= $row['no_barang_masuk']; ?>">
@@ -116,7 +116,7 @@
    <div class="card-body">
     <h5 id="barang-judul">Transaksi Barang Keluar</h5>
     <div class="lihat-tabel-sendiri">
-     <?php if (!empty($transaksiKeluar)) :
+     <?php if (!empty($transaksiKeluarGudang)) :
       $no2 = 1;
      ?>
       <div class="table-responsive">
@@ -128,19 +128,19 @@
           <th scope="col">Tanggal</th>
           <th scope="col">Total Harga</th>
           <th scope="col">User</th>
-          <th scope="col">Gudang</th>
+          <!-- <th scope="col">Gudang</th> -->
           <th scope="col">Aksi</th>
          </tr>
         </thead>
         <tbody>
-         <?php foreach ($transaksiKeluar as $row) : ?>
+         <?php foreach ($transaksiKeluarGudang as $row) : ?>
           <tr>
            <th scope="row"> <?= $no2++; ?> </th>
            <td> <?= $row['no_barang_keluar']; ?> </td>
            <td> <?= $row['tanggal_keluar']; ?> </td>
            <td> <?= $row['total_harga']; ?> </td>
            <td> <?= $row['username']; ?> </td>
-           <td> <?= $row['nama_gudang']; ?> </td>
+           <!-- <td> <?= $row['nama_gudang']; ?> </td> -->
            <td> <span type="button" class="badge rounded-pill text-bg-primary btn-detail-transaksi2" style="padding-top: 5px;">
              <i class="fi fi-rr-info">
               <input type="hidden" class="no-transaksi2" value="<?= $row['no_barang_keluar']; ?>">

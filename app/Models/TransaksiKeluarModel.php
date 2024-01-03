@@ -54,6 +54,20 @@ WHERE
   bm.id_user = u.id_user AND bm.kode_gudang = g.kode_gudang
 ORDER BY bm.tanggal_keluar DESC ")->getResultArray();
   }
+  public function getTransaksiKeluarByGudang($gudang)
+  {
+    return $this->db->query("SELECT
+  bm.no_barang_keluar AS no_barang_keluar,
+  bm.tanggal_keluar AS tanggal_keluar,
+  bm.total_harga AS total_harga,
+  u.username AS username,
+  g.nama_gudang AS nama_gudang
+  FROM
+  barang_keluar AS bm, users AS u, gudang AS g
+WHERE
+  bm.id_user = u.id_user AND bm.kode_gudang = g.kode_gudang
+  and bm.kode_gudang ='" . $gudang . "' ORDER BY bm.tanggal_keluar DESC ")->getResultArray();
+  }
   public function getTransaksiKeluarById($id)
   {
     return $this->db->query("SELECT
