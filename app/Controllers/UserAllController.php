@@ -18,6 +18,7 @@ class UserAllController extends BaseController
   $this->gudangModell = new GudangModel();
   // $this->gudangModell = new \App\Models\GudangModel();
   $this->cekOtorisasi();
+  $this->cekUserOn();
  }
 
  public function cekOtorisasi()
@@ -25,6 +26,15 @@ class UserAllController extends BaseController
   if (!session()->has('id_user')) {
    return redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548');
    // Tidak perlu memanggil `exit()` karena `return` sudah akan menghentikan eksekusi selanjutnya
+  }
+ }
+ public function cekUserOn()
+ {
+  $userOn = $this->userModell->getUserOn(session('id_user'));
+  if (empty($userOn)) {
+   session()->destroy();
+   redirect()->to(base_url('LoginController'))->send();
+   exit(); // Menghentikan eksekusi setelah redirect
   }
  }
  public function penggantiSession()

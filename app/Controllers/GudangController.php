@@ -19,6 +19,7 @@ class GudangController extends BaseController
   $this->barangModell = new BarangModel();
   // $this->gudangModell = new \App\Models\GudangModel();
   $this->cekOtorisasi();
+  $this->cekUserOn();
  }
 
  public function cekOtorisasi()
@@ -27,6 +28,16 @@ class GudangController extends BaseController
   $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
   if ($isiKodeJenis != 'besar') {
    redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548')->send();
+   exit(); // Menghentikan eksekusi setelah redirect
+  }
+ }
+
+ public function cekUserOn()
+ {
+  $userOn = $this->userModell->getUserOn(session('id_user'));
+  if (empty($userOn)) {
+   session()->destroy();
+   redirect()->to(base_url('LoginController'))->send();
    exit(); // Menghentikan eksekusi setelah redirect
   }
  }

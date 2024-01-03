@@ -24,6 +24,7 @@ class StokController extends BaseController
   $this->grafikStokModel = new GrafikStokModel();
   // $this->barangModell = new \App\Models\MerekModel();
   $this->cekOtorisasi();
+  $this->cekUserOn();
  }
 
  public function cekOtorisasi()
@@ -33,6 +34,17 @@ class StokController extends BaseController
    exit(); // Menghentikan eksekusi setelah redirect
   }
  }
+
+ public function cekUserOn()
+ {
+  $userOn = $this->userModell->getUserOn(session('id_user'));
+  if (empty($userOn)) {
+   session()->destroy();
+   redirect()->to(base_url('LoginController'))->send();
+   exit(); // Menghentikan eksekusi setelah redirect
+  }
+ }
+
  public function cekOtorisasiBesar()
  {
   $dataPenggantiSession = $this->penggantiSession();

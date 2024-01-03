@@ -20,6 +20,25 @@ class DashboardController extends BaseController
   // $this->transaksiModell = new TransaksiModel();
   $this->gudangModell = new GudangModel();
   $this->userModell = new UserModel();
+  $this->cekOtorisasi();
+  $this->cekUserOn();
+ }
+ public function cekOtorisasi()
+ {
+  if (!session()->has('id_user')) {
+   redirect()->to(base_url('LoginController'))->with('error', '&#128548 Login Dulu &#128548')->send();
+   exit(); // Menghentikan eksekusi setelah redirect
+  }
+ }
+
+ public function cekUserOn()
+ {
+  $userOn = $this->userModell->getUserOn(session('id_user'));
+  if (empty($userOn)) {
+   session()->destroy();
+   redirect()->to(base_url('LoginController'))->send();
+   exit(); // Menghentikan eksekusi setelah redirect
+  }
  }
 
  public function penggantiSession()

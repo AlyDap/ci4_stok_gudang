@@ -20,6 +20,7 @@ class MerekController extends BaseController
   $this->userModell = new UserModel();
   // $this->merekModell = new \App\Models\MerekModel();
   $this->cekOtorisasi();
+  $this->cekUserOn();
  }
 
  public function cekOtorisasi()
@@ -29,6 +30,17 @@ class MerekController extends BaseController
    exit(); // Menghentikan eksekusi setelah redirect
   }
  }
+
+ public function cekUserOn()
+ {
+  $userOn = $this->userModell->getUserOn(session('id_user'));
+  if (empty($userOn)) {
+   session()->destroy();
+   redirect()->to(base_url('LoginController'))->send();
+   exit(); // Menghentikan eksekusi setelah redirect
+  }
+ }
+
  public function cekOtorisasiBesar()
  {
   $dataPenggantiSession = $this->penggantiSession();

@@ -49,21 +49,27 @@ class LoginController extends BaseController
 		$user = $userModel->checkLogin($username, $password);
 
 		if ($user) {
-			// Login sukses, lanjutkan dengan sesi atau tindakan lain yang diperlukan
-			// Contoh: $this->session->set('user', $user);
-			$session = session();
-			$session->set('kode_gudang', $user['kode_gudang']);
-			$session->set('username', $user['username']);
-			$session->set('foto_user', $user['foto_user']);
-			$session->set('id_user', $user['id_user']);
-			$kode_gudang = $user['kode_gudang'];
-			$gudang = $gudangModel->checkJenis($kode_gudang);
-			if ($gudang) {
-				$session->set('jenis', $gudang['jenis']);
-				$session->set('nama_gudang', $gudang['nama_gudang']);
+			$userOn = $userModel->getUserOn($user['id_user']);
+			if (!empty($userOn)) {
+				// Login sukses, lanjutkan dengan sesi atau tindakan lain yang diperlukan
+				// Contoh: $this->session->set('user', $user);
+				$session = session();
+				$session->set('kode_gudang', $user['kode_gudang']);
+				$session->set('username', $user['username']);
+				$session->set('foto_user', $user['foto_user']);
+				$session->set('id_user', $user['id_user']);
+				$kode_gudang = $user['kode_gudang'];
+				$gudang = $gudangModel->checkJenis($kode_gudang);
+				if ($gudang) {
+					$session->set('jenis', $gudang['jenis']);
+					$session->set('nama_gudang', $gudang['nama_gudang']);
+				}
+				// var_dump(session('nama_gudang'));
+				return redirect()->to(base_url('DashboardController'));
+			} else {
+
+				return redirect()->to(base_url('LoginController'))->with('error', '&#128542 Username Tidak Aktif &#128542');
 			}
-			// var_dump(session('nama_gudang'));
-			return redirect()->to(base_url('DashboardController'));
 		}
 
 		return redirect()->to(base_url('LoginController'))->with('error', '&#128561 Username / Password Salah &#128561');

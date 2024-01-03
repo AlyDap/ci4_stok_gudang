@@ -54,6 +54,11 @@ class UserModel extends Model
 		return false;
 	}
 
+	public function getUserOn($id)
+	{
+		return $this->db->query("SELECT * FROM `users` 
+		WHERE  `id_user` = '" . $id . "' AND `status` = 'aktif'")->getRow();
+	}
 	public function getUserId($id)
 	{
 		return $this->db->query("SELECT * FROM `users` WHERE `id_user` = '" . $id . "'")->getRow();
