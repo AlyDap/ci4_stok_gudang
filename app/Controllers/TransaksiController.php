@@ -120,6 +120,7 @@ class TransaksiController extends BaseController
    'transaksiKeluarDetail' => $this->transaksiKeluarDetailModell->getTransaksiKeluarDetail(),
    'supplierOn' => $this->supplierModell->getSupplierOn(),
    'barangOn' => $this->barangModell->getBarangOn(),
+   'barangOnId' => $this->barangModell->getBarangBarangStokOnById($isiKodeGudang),
   ];
   if ($isiKodeJenis == 'besar') {
    // $data['barang'] = $this->barangModell->getBarangBarang();

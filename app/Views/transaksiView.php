@@ -211,10 +211,10 @@
     <!-- <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
     <select class="form-select" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="kode_barang" id="kode_barang">
      <option selected value="">Pilih Barang</option>
-     <?php if (!empty($barangOn)) {
-      foreach ($barangOn as $s) {
+     <?php if (!empty($barangOnId)) {
+      foreach ($barangOnId as $b) {
      ?>
-       <option value="<?= $s['kode_barang'] ?>"><?= $s['nama_barang'] ?> (Stok : )</option>
+       <option value="<?= $b['kode_barang'] ?>"><?= $b['nama_barang'] ?> (Stok : <?= $b['jumlah_barang'] ?>)</option>
      <?php
       }
      } ?>

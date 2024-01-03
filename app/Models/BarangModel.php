@@ -114,7 +114,7 @@ FROM
 WHERE
   s.kode_barang = b.kode_barang AND m.id_merek = b.id_merek AND b.status = 'aktif'")->getResultArray();
 	}
-	public function getBarangBarangStokOnByIdByKode($id, $kode)
+	public function getBarangBarangStokOnById($gdg)
 	{
 		return $this->db->query("SELECT
   b.kode_barang AS 'kode_barang',
@@ -135,7 +135,9 @@ FROM
   merek AS m,
   barang AS b, gudang as g
 WHERE
-  s.kode_barang = b.kode_barang AND m.id_merek = b.id_merek AND g.kode_gudang=s.kode_gudang AND s.kode_barang ='1' AND s.kode_gudang='1' AND b.status = 'aktif'")->getResultArray();
+  s.kode_barang = b.kode_barang AND m.id_merek = b.id_merek AND g.kode_gudang=s.kode_gudang 
+		AND s.kode_gudang='" . $gdg . "'
+		AND b.status = 'aktif'")->getResultArray();
 	}
 	public function getBarangBarangStok()
 	{
