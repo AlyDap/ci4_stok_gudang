@@ -156,6 +156,7 @@
      <button type="button" class="btn btn-warning" id="btn-reset">Reset</button>
      <button type="button" class="btn btn-warning" id="btn-reset2">Reset</button>
      <button type="submit" class="btn btn-primary" id="btn-form">Save</button>
+     <button type="submit" class="btn btn-primary" id="btn-save">Tambahhh</button>
     </div>
    </form>
   </div>
@@ -178,6 +179,7 @@ tombol reset saat edit belum bisa
  const btnClose = document.getElementsByName('btn-close');
  const btnEdit = document.querySelector('#btn-edit');
  const btnForm = document.querySelector('#btn-form');
+ const btnsave = document.querySelector('#btn-save');
  const btnInfo = document.querySelector('#btn-info');
  const btnReset = document.querySelector('#btn-reset');
  const btnReset2 = document.querySelector('#btn-reset2');
@@ -234,12 +236,13 @@ tombol reset saat edit belum bisa
   elno_hp.value = '';
   elFoto.value = "";
   elStatus.value = "aktif";
-  btnForm.innerHTML = 'Tambah';
+  // btnForm.innerHTML = 'Tambah';
   elHasilFoto.src = "";
  }
 
  btnAdd.addEventListener('click', function() {
-  btnForm.style.display = 'block';
+  btnForm.style.display = 'none';
+  btnsave.style.display = 'block';
   btnReset.style.display = 'block';
   btnReset2.style.display = 'none';
   hilang.forEach(element => {
@@ -272,6 +275,7 @@ tombol reset saat edit belum bisa
 
  function editData(kode, username, kode_gudang, status) {
   btnForm.style.display = 'block';
+  btnsave.style.display = 'none';
   btnReset.style.display = 'none';
   btnReset2.style.display = 'block';
   hilang.forEach(element => {
@@ -323,6 +327,7 @@ tombol reset saat edit belum bisa
 
  function infoData(kode, username, kode_gudang, password, foto_user, no_hp, email, status) {
   btnForm.style.display = 'none';
+  btnsave.style.display = 'none';
   btnReset.style.display = 'none';
   btnReset2.style.display = 'none';
 
@@ -410,6 +415,8 @@ tombol reset saat edit belum bisa
   }
  });
 </script>
+
+<!-- cek kesamaan username  -->
 
 
 <?= $this->endSection('content') ?>

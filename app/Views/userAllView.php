@@ -406,9 +406,8 @@
 	});
 </script>
 
-<!-- // proses cek pasword lama -->
+<!-- // proses cek kesamaan username -->
 <script>
-	// Mendapatkan nilai input password lama
 	// jQuery
 	$(document).ready(function() {
 		$('#btn-update-profil').click(function(e) {

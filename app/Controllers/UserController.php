@@ -168,4 +168,8 @@ class UserController extends BaseController
 
   return $this->response->setJSON($dataGudang);
  }
+ public function checkUsername()
+ {
+  $cekUsername = $this->request->getVar('cekUsername');
+ }
 }
