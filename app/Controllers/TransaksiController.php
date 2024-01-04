@@ -189,6 +189,7 @@ class TransaksiController extends BaseController
   echo json_encode($response);
  }
 
+ // respon select pilih barang
  public function getDataBarang()
  {
   $dataPenggantiSession = $this->penggantiSession();
@@ -199,6 +200,8 @@ class TransaksiController extends BaseController
   // Mengembalikan data dalam format JSON
   return $this->response->setJSON($barangData);
  }
+
+ // stok masuk
  public function storeMasuk()
  {
   $data = [
@@ -259,7 +262,58 @@ class TransaksiController extends BaseController
   // $updateStok = $this->stokModell->updateStok($kode_barang, $satuan, strval($stokUpdate), $kode_gudang);
 
  }
+
+ // stok keluar
  public function storeKeluar()
  {
+  $data = [
+   'no_barang_keluar' => $this->request->getPost('no_barang_keluar'),
+   'tanggal_keluar' => $this->request->getPost('tanggal_keluar'),
+   'total_harga' => $this->request->getPost('total_harga'),
+   'id_user' => $this->request->getPost('id_user'),
+   'kode_gudang' => $this->request->getPost('kode_gudang'),
+  ];
+  $save = $this->transaksiKeluarModell->insert($data);
+  if ($save) {
+   $this->storeKeluarDetail();
+   $this->stokBerkurang();
+   return redirect()->to(base_url('TransaksiController'));
+  }
+ }
+ public function storeKeluarDetail()
+ {
+  $noBarangKeluar = $this->barangModell->getKodeTransaksiKeluarTerbaru();
+  $data = [
+   // 'no_barang_keluar' => '11', //coba ganti
+   'no_barang_keluar' => $noBarangKeluar->no_barang_keluar, //coba ganti
+   'kode_barang' => $this->request->getPost('kode_barang'),
+   'satuan' => $this->request->getPost('satuan'),
+   'jumlah' => $this->request->getPost('jumlah'),
+   'harga' => $this->request->getPost('harga'),
+   'total_harga' => $this->request->getPost('total_harga'),
+  ];
+  $this->transaksiKeluarDetailModell->insert($data);
+ }
+
+ public function stokBerkurang()
+ {
+  $kode_barang = $this->request->getPost('kode_barang');
+  $kode_gudang = $this->request->getPost('kode_gudang');
+
+  // cari stok barang berdar kode barang dan gudang
+  // $cariStok = $this->barangModell->getBarangById($kode_barang, $kode_gudang);
+  $cariIdStok = $this->stokModell->getIdStokByBarangGudang($kode_barang, $kode_gudang);
+
+  $idStok = $cariIdStok->id_stok;
+  $stokSekarang = $cariIdStok->jumlah;
+  $stokKeluar = $this->request->getPost('jumlah');
+  $satuan = $this->request->getPost('satuan');
+  $stokUpdate = intval($stokSekarang) - intval($stokKeluar);
+  $data = [
+   'satuan' => $satuan,
+   'jumlah' => $stokUpdate,
+  ];
+  // update stok
+  $this->stokModell->update($idStok, $data);
  }
 }

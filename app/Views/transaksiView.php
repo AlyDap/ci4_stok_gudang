@@ -51,7 +51,7 @@
          <tr>
           <th scope="col">No</th>
           <th scope="col">Id Masuk</th>
-          <th scope="col">Tanggal</th>
+          <th scope="col">Waktu</th>
           <th scope="col">Total Harga</th>
           <th scope="col">User</th>
           <th scope="col">Supplier</th>
@@ -125,7 +125,7 @@
          <tr>
           <th scope="col">No</th>
           <th scope="col">Id Keluar</th>
-          <th scope="col">Tanggal</th>
+          <th scope="col">Waktu</th>
           <th scope="col">Total Harga</th>
           <th scope="col">User</th>
           <!-- <th scope="col">Gudang</th> -->
@@ -245,21 +245,54 @@
   </form>
  </div>
 </div>
+
 <!-- DIV INPUT TRANSAKSI KELUAR -->
 <div class="card input-keluar">
  <div class="card-body">
-  <h5>Input Stok Keluar</h5>
-  <div class="input-group mb-3">
-   <span class="input-group-text">$</span>
-   <span class="input-group-text">0.00</span>
-   <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-  </div>
+  <form method="post" action="<?= base_url('/TransaksiController/storeKeluar'); ?>">
+   <h5>Input Stok Keluar</h5>
+   <input type="hidden" class="form-control" id="no_barang_keluar2" name="no_barang_keluar" value="">
+   <input type="hidden" class="form-control" id="tanggal_keluar2" name="tanggal_keluar" value="">
+   <input type="hidden" class="form-control" id="id_user2" name="id_user" value="<?= session('id_user') ?>">
+   <input type="hidden" class="form-control" id="kode_gudang2" name="kode_gudang" value="<?= $isiKodeGudang ?>">
 
-  <div class="input-group">
-   <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-   <span class="input-group-text">$</span>
-   <span class="input-group-text">0.00</span>
-  </div>
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Barang</span>
+    <!-- <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
+    <select class="form-select" aria-label="Sizing example input" required aria-describedby="inputGroup-sizing-default" name="kode_barang" id="kode_barang2">
+     <option selected value="">Pilih Barang</option>
+     <?php if (!empty($barangOn1Id)) {
+      foreach ($barangOn1Id as $b) {
+     ?>
+       <option value="<?= $b['kode_barang'] ?>"><?= $b['nama_barang'] ?> (Stok : <?= $b['jumlah_barang'] ?>)</option>
+     <?php
+      }
+     } ?>
+    </select>
+   </div>
+
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default-2">Satuan</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-2" readonly name="satuan" id="satuan2">
+   </div>
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default-3">Harga</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-3" readonly name="harga" id="harga2">
+   </div>
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default-4">Jumlah</span>
+    <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-4" min="1" required readonly name="jumlah" id="jumlah2">
+   </div>
+
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default-5">Total Harga</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-5" readonly name="total_harga" id="total_harga2">
+   </div>
+
+   <button type="button" class="btn btn-outline-warning" id="btn-reset2">Reset</button>
+   <button type="submit" class="btn btn-outline-primary" id="btn-save2">Save</button>
+
+  </form>
  </div>
 </div>
 
@@ -544,6 +577,96 @@
   } else {
    btnsave1.disabled = true; // Disable tombol simpan
   }
+  jumlah1.value = ""
+ });
+</script>
+
+<script src="<?= base_url('js/moment.min.js'); ?>"></script>
+
+<!-- id.js untuk waktu Indonesia -->
+<script src="<?= base_url('js/id.js'); ?>"></script>
+<!-- output -->
+<script>
+ const kode_barang2 = document.querySelector('#kode_barang2')
+ const satuan2 = document.querySelector('#satuan2')
+ const harga2 = document.querySelector('#harga2')
+ const jumlah2 = document.querySelector('#jumlah2')
+ const total_harga2 = document.querySelector('#total_harga2')
+ const btnreset2 = document.querySelector('#btn-reset2')
+ const btnsave2 = document.querySelector('#btn-save2')
+
+ const tanggal_keluar2 = document.querySelector('#tanggal_keluar2')
+
+ // tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+
+
+ $('#kode_barang2').on('change', function() {
+  const selectedKodeBarang2 = $(this).val(); // Ambil nilai kode_barang yang dipilih
+  if (selectedKodeBarang2 != "") {
+   console.log('Memilih: ' + selectedKodeBarang2)
+   $.ajax({
+    url: "<?= base_url('TransaksiController/getDataBarang') ?>", // Ganti dengan URL endpoint untuk mendapatkan data barang
+    method: 'POST',
+    data: {
+     kode_barang: selectedKodeBarang2
+    },
+    success: function(response) {
+     jumlah2.removeAttribute('readonly')
+     jumlah2.setAttribute('max', response.jumlah_barang)
+     satuan2.value = response.satuan;
+     harga2.value = response.harga_beli;
+     tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+
+     // hitungTotalHarga();
+    },
+    error: function(error) {
+     console.error('Error:', error);
+    }
+   });
+  } else {
+   console.log('pilih barang yang ada')
+   satuan2.value = "";
+   harga2.value = "";
+   jumlah2.value = ""
+   jumlah2.setAttribute('readonly', true)
+  }
+ });
+ $('#jumlah2').on('change', function() {
+  total_harga2.value = harga2.value * jumlah2.value
+  console.log(total_harga2.value)
+ });
+ btnreset2.addEventListener('click', function() {
+  jumlah2.setAttribute('readonly', true)
+  btnsave2.setAttribute('disabled', true)
+  document.querySelector('#satuan2').value = '';
+  document.querySelector('#harga2').value = '';
+  document.querySelector('#jumlah2').value = '';
+  document.querySelector('#total_harga2').value = '';
+  document.querySelector('#kode_barang2').value = '';
+  console.log(tanggal_keluar2.value);
+ });
+ $('#btn-save2').on('click', function() {
+  tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+
+  console.log(tanggal_keluar2.value);
+ });
+ btnsave2.setAttribute('disabled', true)
+
+ function periksaKetersediaanInput2() {
+  return kode_barang2.value !== '';
+ }
+
+ // Memantau perubahan pada select supplier
+
+ // Memantau perubahan pada select barang
+ kode_barang2.addEventListener('change', function() {
+  if (periksaKetersediaanInput2()) {
+   btnsave2.disabled = false; // Enable tombol simpan
+  } else {
+   btnsave2.disabled = true; // Disable tombol simpan
+  }
+  jumlah2.value = ""
+
  });
 </script>
 <?= $this->endSection('content') ?>

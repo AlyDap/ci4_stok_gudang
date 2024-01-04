@@ -221,6 +221,10 @@ WHERE
 	{
 		return $this->db->query("SELECT * FROM `barang_masuk` ORDER BY no_barang_masuk DESC LIMIT 1")->getRow();
 	}
+	public function getKodeTransaksiKeluarTerbaru()
+	{
+		return $this->db->query("SELECT * FROM `barang_keluar` ORDER BY no_barang_keluar DESC LIMIT 1")->getRow();
+	}
 	public function getSemuaKodeBarang()
 	{
 		return $this->db->query('SELECT kode_barang FROM `barang`')->getResultArray();
