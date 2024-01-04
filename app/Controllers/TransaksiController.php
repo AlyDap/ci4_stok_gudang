@@ -134,7 +134,8 @@ class TransaksiController extends BaseController
    'transaksiKeluarDetail' => $this->transaksiKeluarDetailModell->getTransaksiKeluarDetail(),
    'supplierOn' => $this->supplierModell->getSupplierOn(),
    'barangOn' => $this->barangModell->getBarangOn(),
-   'barangOnId' => $this->barangModell->getBarangBarangStokOn1ById($isiKodeGudang),
+   'barangOnId' => $this->barangModell->getBarangBarangStokOnById($isiKodeGudang),
+   'barangOn1Id' => $this->barangModell->getBarangBarangStokOn1ById($isiKodeGudang),
   ];
   if ($isiKodeJenis == 'besar') {
    // $data['barang'] = $this->barangModell->getBarangBarang();
@@ -211,6 +212,7 @@ class TransaksiController extends BaseController
   $save = $this->transaksiMasukModell->insert($data);
   if ($save) {
    $this->storeMasukDetail();
+   $this->stokBertambah();
    return redirect()->to(base_url('TransaksiController'));
   }
  }
@@ -228,28 +230,34 @@ class TransaksiController extends BaseController
   ];
   $save = $this->transaksiMasukDetailModell->insert($data);
   if ($save) {
-   $kode_barang = $this->request->getPost('kode_barang');
-   $kode_gudang = $this->request->getPost('kode_gudang');
-
-   // cari stok barang berdar kode barang dan gudang
-   $cariStok = $this->barangModell->getBarangById($kode_barang, $kode_gudang);
-   if ($cariStok) {
-    $stokSekarang = $cariStok['jumlah_barang'];
-    $stokMasuk = $this->request->getPost('jumlah');
-    $satuan = $this->request->getPost('satuan');
-    $stokUpdate = intval($stokSekarang) + intval($stokMasuk);
-    $updateStok = $this->stokModell->updateStok($kode_barang, $satuan, strval($stokUpdate), $kode_gudang);
-    if ($updateStok) { //berhasil updateStok
-     return redirect()->to(base_url('MerekController'));
-    } else { //gagal updatestok
-     return redirect()->to(base_url('DashboardController'));
-    }
-   } else { //gagal cari stok
-    return redirect()->to(base_url('StokController'));
-   }
   } else { //gagal save detail masuk
    return redirect()->to(base_url('BarangController'));
   }
+ }
+
+ public function stokBertambah()
+ {
+  $kode_barang = $this->request->getPost('kode_barang');
+  $kode_gudang = $this->request->getPost('kode_gudang');
+
+  // cari stok barang berdar kode barang dan gudang
+  // $cariStok = $this->barangModell->getBarangById($kode_barang, $kode_gudang);
+  $cariIdStok = $this->stokModell->getIdStokByBarangGudang($kode_barang, $kode_gudang);
+
+  $idStok = $cariIdStok->id_stok;
+  $stokSekarang = $cariIdStok->jumlah;
+  $stokMasuk = $this->request->getPost('jumlah');
+  $satuan = $this->request->getPost('satuan');
+  $stokUpdate = intval($stokSekarang) + intval($stokMasuk);
+  $data = [
+   'satuan' => $satuan,
+   'jumlah' => $stokUpdate,
+  ];
+  // update stok
+  $this->stokModell->update($idStok, $data);
+
+  // $updateStok = $this->stokModell->updateStok($kode_barang, $satuan, strval($stokUpdate), $kode_gudang);
+
  }
  public function storeKeluar()
  {

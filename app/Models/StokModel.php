@@ -8,13 +8,15 @@ class StokModel extends Model
 {
 	protected $DBGroup          = 'default';
 	protected $table            = 'stok_barang';
-	protected $primaryKey       = '';
+	protected $primaryKey       = 'id_stok';
 	protected $useAutoIncrement = true;
 	protected $insertID         = 0;
 	protected $returnType       = 'array';
 	protected $useSoftDeletes   = false;
 	protected $protectFields    = true;
-	protected $allowedFields    = [''];
+	protected $allowedFields    = [
+		'kode_barang', 'satuan', 'jumlah', 'kode_gudang'
+	];
 
 	// Dates
 	protected $useTimestamps = false;
@@ -39,6 +41,12 @@ class StokModel extends Model
 	protected $afterFind      = [];
 	protected $beforeDelete   = [];
 	protected $afterDelete    = [];
+
+	// GET ID STOK BERDASAR KODE BARANG & KODE GUDANG
+	public function getIdStokByBarangGudang($kode_barang, $kode_gudang)
+	{
+		return $this->db->query("SELECT * FROM `stok_barang` where kode_barang = '" . $kode_barang . "' AND kode_gudang = '" . $kode_gudang . "' ")->getRow();
+	}
 
 	// UPDATE STOK MASUK
 	public function updateStok($kode_barang, $satuan, $jumlah, $kode_gudang)
