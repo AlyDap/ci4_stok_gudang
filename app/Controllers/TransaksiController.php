@@ -7,6 +7,7 @@ use App\Models\GudangModel;
 use App\Models\UserModel;
 use App\Models\BarangModel;
 use App\Models\MerekModel;
+use App\Models\StokModel;
 use App\Models\SupplierModel;
 use App\Models\GrafikStokModel;
 use App\Models\TransaksiMasukModel;
@@ -18,7 +19,7 @@ use CodeIgniter\Controller;
 class TransaksiController extends BaseController
 {
  protected $barangModell, $merekModell, $grafikStokModel;
- protected $gudangModell, $userModell, $supplierModell;
+ protected $gudangModell, $userModell, $supplierModell, $stokModell;
  protected $transaksiMasukModell, $transaksiMasukDetailModell;
  protected $transaksiKeluarModell, $transaksiKeluarDetailModell;
 
@@ -28,6 +29,7 @@ class TransaksiController extends BaseController
   $this->gudangModell = new GudangModel();
   $this->userModell = new UserModel();
   $this->merekModell = new MerekModel();
+  $this->stokModell = new StokModel();
   $this->supplierModell = new SupplierModel();
   $this->grafikStokModel = new GrafikStokModel();
   $this->transaksiMasukModell = new TransaksiMasukModel();
@@ -132,7 +134,7 @@ class TransaksiController extends BaseController
    'transaksiKeluarDetail' => $this->transaksiKeluarDetailModell->getTransaksiKeluarDetail(),
    'supplierOn' => $this->supplierModell->getSupplierOn(),
    'barangOn' => $this->barangModell->getBarangOn(),
-   'barangOnId' => $this->barangModell->getBarangBarangStokOnById($isiKodeGudang),
+   'barangOnId' => $this->barangModell->getBarangBarangStokOn1ById($isiKodeGudang),
   ];
   if ($isiKodeJenis == 'besar') {
    // $data['barang'] = $this->barangModell->getBarangBarang();
@@ -185,8 +187,64 @@ class TransaksiController extends BaseController
   ];
   echo json_encode($response);
  }
+
+ public function getDataBarang()
+ {
+  $dataPenggantiSession = $this->penggantiSession();
+  $isiKodeGudang = $dataPenggantiSession['isiKodeGudang'];
+  $kode_barang = $this->request->getPost('kode_barang');
+
+  $barangData = $this->barangModell->getBarangById($kode_barang, $isiKodeGudang);
+  // Mengembalikan data dalam format JSON
+  return $this->response->setJSON($barangData);
+ }
  public function storeMasuk()
  {
+  $data = [
+   'no_barang_masuk' => $this->request->getPost('no_barang_masuk'),
+   'tanggal_masuk' => $this->request->getPost('tanggal_masuk'),
+   'total_harga' => $this->request->getPost('total_harga'),
+   'id_user' => $this->request->getPost('id_user'),
+   'id_supplier' => $this->request->getPost('id_supplier'),
+   'kode_gudang' => $this->request->getPost('kode_gudang'),
+  ];
+  $save = $this->transaksiMasukModell->insert($data);
+  if ($save) {
+   $this->storeMasukDetail();
+   return redirect()->to(base_url('TransaksiController'));
+  }
+ }
+ public function storeMasukDetail()
+ {
+  $noBarangMasuk = $this->barangModell->getKodeTerbaru();
+  $data = [
+   'no_barang_masuk' => $noBarangMasuk,
+   'kode_barang' => $this->request->getPost('kode_barang'),
+   'satuan' => $this->request->getPost('satuan'),
+   'jumlah' => $this->request->getPost('jumlah'),
+   'harga' => $this->request->getPost('harga'),
+   'total_harga' => $this->request->getPost('total_harga'),
+  ];
+  $save = $this->transaksiMasukDetailModell->insert($data);
+  if ($save) {
+   $kode_barang = $this->request->getPost('kode_barang');
+   $kode_gudang = $this->request->getPost('kode_gudang');
+
+   // cari stok barang berdar kode barang dan gudang
+   $cariStok = $this->barangModell->getBarangById($kode_barang, $kode_gudang);
+   if ($cariStok) {
+    $stokSekarang = $cariStok['jumlah_barang'];
+    $stokMasuk = $this->request->getPost('jumlah');
+    $satuan = $this->request->getPost('satuan');
+    $stokUpdate = intval($stokSekarang) + intval($stokMasuk);
+    $updateStok = $this->stokModell->updateStok($kode_barang, $satuan, strval($stokUpdate), $kode_gudang);
+    if ($updateStok) {
+     return redirect()->to(base_url('TransaksiController'));
+    } else {
+     return redirect()->to(base_url('DashboardController'));
+    }
+   }
+  }
  }
  public function storeKeluar()
  {

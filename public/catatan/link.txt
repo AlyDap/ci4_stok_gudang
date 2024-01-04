@@ -1,2 +1,13 @@
 link icon flaticon
 https://www.flaticon.com/free-icon-font/address-card_9821470
+
+no_barang_masuk-masuk-detailmasuk
+tanggal_masuk-masuk
+id_user-masuk
+kode_gudang-masuk
+id_supplier-masuk
+kode_barang-detailmasuk
+satuan-detailmasuk
+harga-detailmasuk
+jumlah-detailmasuk
+total_harga-masuk-detailmasuk

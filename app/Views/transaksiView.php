@@ -186,16 +186,16 @@
  <div class="card-body">
   <form method="post" action="<?= base_url('/TransaksiController/storeMasuk'); ?>">
    <h5>Input Stok Masuk</h5>
-   <input type="hidden" class="form-control" id="no_barang_masuk" name="no_barang_masuk" value="">
-   <input type="hidden" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value="">
-   <input type="hidden" class="form-control" id="id_user" name="id_user" value="<?= session('id_user') ?>">
-   <input type="hidden" class="form-control" id="kode_gudang" name="kode_gudang" value="<?= $isiKodeGudang ?>">
+   <input type="hidden" class="form-control" id="no_barang_masuk1" name="no_barang_masuk" value="">
+   <input type="hidden" class="form-control" id="tanggal_masuk1" name="tanggal_masuk" value="">
+   <input type="hidden" class="form-control" id="id_user1" name="id_user" value="<?= session('id_user') ?>">
+   <input type="hidden" class="form-control" id="kode_gudang1" name="kode_gudang" value="<?= $isiKodeGudang ?>">
 
    <!-- <h1><?= $isiKodeGudang ?></h1> -->
    <div class="input-group mb-3">
     <span class="input-group-text" id="inputGroup-sizing-default">Supplier</span>
     <!-- <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
-    <select class="form-select" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="id_supplier" id="id_supplier">
+    <select class="form-select" aria-label="Sizing example input" required aria-describedby="inputGroup-sizing-default" name="id_supplier" id="id_supplier">
      <option selected value="">Pilih Supplier</option>
      <?php if (!empty($supplierOn)) {
       foreach ($supplierOn as $s) {
@@ -209,7 +209,7 @@
    <div class="input-group mb-3">
     <span class="input-group-text" id="inputGroup-sizing-default">Barang</span>
     <!-- <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
-    <select class="form-select" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="kode_barang" id="kode_barang">
+    <select class="form-select" aria-label="Sizing example input" required aria-describedby="inputGroup-sizing-default" name="kode_barang" id="kode_barang1">
      <option selected value="">Pilih Barang</option>
      <?php if (!empty($barangOnId)) {
       foreach ($barangOnId as $b) {
@@ -221,12 +221,26 @@
     </select>
    </div>
 
-
    <div class="input-group mb-3">
-    <span class="input-group-text" id="inputGroup-sizing-default-2">Total Harga</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-2" readonly name="total_harga" id="total_harga">
+    <span class="input-group-text" id="inputGroup-sizing-default-2">Satuan</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-2" readonly name="satuan" id="satuan1">
+   </div>
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default-3">Harga</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-3" readonly name="harga" id="harga1">
+   </div>
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default-4">Jumlah</span>
+    <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-4" min="1" required readonly name="jumlah" id="jumlah1">
    </div>
 
+   <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default-5">Total Harga</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default-5" readonly name="total_harga" id="total_harga1">
+   </div>
+
+   <button type="button" class="btn btn-outline-warning" id="btn-reset1">Reset</button>
+   <button type="submit" class="btn btn-outline-primary" id="btn-save1">Save</button>
 
   </form>
  </div>
@@ -433,5 +447,84 @@
    }
   })
  }
+</script>
+
+<!-- input -->
+<script>
+ const id_supplier = document.querySelector('#id_supplier')
+ const kode_barang1 = document.querySelector('#kode_barang1')
+ const satuan1 = document.querySelector('#satuan1')
+ const harga1 = document.querySelector('#harga1')
+ const jumlah1 = document.querySelector('#jumlah1')
+ const total_harga1 = document.querySelector('#total_harga1')
+ const btnreset1 = document.querySelector('#btn-reset1')
+ const btnsave1 = document.querySelector('#btn-save1')
+ $('#kode_barang1').on('change', function() {
+  const selectedKodeBarang = $(this).val(); // Ambil nilai kode_barang yang dipilih
+  if (selectedKodeBarang != "") {
+   console.log('Memilih: ' + selectedKodeBarang)
+   $.ajax({
+    url: "<?= base_url('TransaksiController/getDataBarang') ?>", // Ganti dengan URL endpoint untuk mendapatkan data barang
+    method: 'POST',
+    data: {
+     kode_barang: selectedKodeBarang
+    },
+    success: function(response) {
+     jumlah1.removeAttribute('readonly')
+     // jumlah1.setAttribute('max', response.jumlah_barang)
+     satuan1.value = response.satuan;
+     harga1.value = response.harga_beli;
+
+     // hitungTotalHarga();
+    },
+    error: function(error) {
+     console.error('Error:', error);
+    }
+   });
+  } else {
+   console.log('pilih barang yang ada')
+   satuan1.value = "";
+   harga1.value = "";
+   jumlah1.value = ""
+   jumlah1.setAttribute('readonly', true)
+  }
+ });
+ $('#jumlah1').on('change', function() {
+  total_harga1.value = harga1.value * jumlah1.value
+  console.log(total_harga1.value)
+ });
+ btnreset1.addEventListener('click', function() {
+  jumlah1.setAttribute('readonly', true)
+  btnsave1.setAttribute('disabled', true)
+  document.querySelector('#satuan1').value = '';
+  document.querySelector('#harga1').value = '';
+  document.querySelector('#jumlah1').value = '';
+  document.querySelector('#total_harga1').value = '';
+  document.querySelector('#id_supplier').value = '';
+  document.querySelector('#kode_barang1').value = '';
+ });
+ btnsave1.setAttribute('disabled', true)
+
+ function periksaKetersediaanInput() {
+  return id_supplier.value !== '' && kode_barang1.value !== '';
+ }
+
+ // Memantau perubahan pada select supplier
+ id_supplier.addEventListener('change', function() {
+  if (periksaKetersediaanInput()) {
+   btnsave1.disabled = false; // Enable tombol simpan
+  } else {
+   btnsave1.disabled = true; // Disable tombol simpan
+  }
+ });
+
+ // Memantau perubahan pada select barang
+ kode_barang1.addEventListener('change', function() {
+  if (periksaKetersediaanInput()) {
+   btnsave1.disabled = false; // Enable tombol simpan
+  } else {
+   btnsave1.disabled = true; // Disable tombol simpan
+  }
+ });
 </script>
 <?= $this->endSection('content') ?>
