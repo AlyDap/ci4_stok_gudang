@@ -448,7 +448,13 @@
   })
  }
 </script>
+<!-- Moment.js untuk waktu -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+<script src="<?= base_url('js/moment.min.js'); ?>"></script>
 
+<!-- id.js untuk waktu Indonesia -->
+<script src="<?= base_url('js/id.js'); ?>"></script>
+<!-- waktu -->
 <!-- input -->
 <script>
  const id_supplier = document.querySelector('#id_supplier')
@@ -459,6 +465,12 @@
  const total_harga1 = document.querySelector('#total_harga1')
  const btnreset1 = document.querySelector('#btn-reset1')
  const btnsave1 = document.querySelector('#btn-save1')
+
+ const tanggal_masuk1 = document.querySelector('#tanggal_masuk1')
+
+ tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+
+
  $('#kode_barang1').on('change', function() {
   const selectedKodeBarang = $(this).val(); // Ambil nilai kode_barang yang dipilih
   if (selectedKodeBarang != "") {
@@ -474,6 +486,7 @@
      // jumlah1.setAttribute('max', response.jumlah_barang)
      satuan1.value = response.satuan;
      harga1.value = response.harga_beli;
+     tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
 
      // hitungTotalHarga();
     },
@@ -502,6 +515,12 @@
   document.querySelector('#total_harga1').value = '';
   document.querySelector('#id_supplier').value = '';
   document.querySelector('#kode_barang1').value = '';
+  console.log(tanggal_masuk1.value);
+ });
+ $('#btn-save1').on('click', function() {
+  tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+
+  console.log(tanggal_masuk1.value);
  });
  btnsave1.setAttribute('disabled', true)
 

@@ -216,9 +216,10 @@ class TransaksiController extends BaseController
  }
  public function storeMasukDetail()
  {
-  $noBarangMasuk = $this->barangModell->getKodeTerbaru();
+  $noBarangMasuk = $this->barangModell->getKodeTransaksiMasukTerbaru();
   $data = [
-   'no_barang_masuk' => $noBarangMasuk,
+   // 'no_barang_masuk' => '11', //coba ganti
+   'no_barang_masuk' => $noBarangMasuk->no_barang_masuk, //coba ganti
    'kode_barang' => $this->request->getPost('kode_barang'),
    'satuan' => $this->request->getPost('satuan'),
    'jumlah' => $this->request->getPost('jumlah'),
@@ -238,12 +239,16 @@ class TransaksiController extends BaseController
     $satuan = $this->request->getPost('satuan');
     $stokUpdate = intval($stokSekarang) + intval($stokMasuk);
     $updateStok = $this->stokModell->updateStok($kode_barang, $satuan, strval($stokUpdate), $kode_gudang);
-    if ($updateStok) {
-     return redirect()->to(base_url('TransaksiController'));
-    } else {
+    if ($updateStok) { //berhasil updateStok
+     return redirect()->to(base_url('MerekController'));
+    } else { //gagal updatestok
      return redirect()->to(base_url('DashboardController'));
     }
+   } else { //gagal cari stok
+    return redirect()->to(base_url('StokController'));
    }
+  } else { //gagal save detail masuk
+   return redirect()->to(base_url('BarangController'));
   }
  }
  public function storeKeluar()

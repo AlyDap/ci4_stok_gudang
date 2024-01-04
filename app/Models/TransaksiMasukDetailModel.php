@@ -14,7 +14,7 @@ class TransaksiMasukDetailModel extends Model
   protected $returnType       = 'array';
   protected $useSoftDeletes   = false;
   protected $protectFields    = true;
-  protected $allowedFields    = ['kode_barang', 'satuan', 'jumlah', 'harga', 'total_harga'];
+  protected $allowedFields    = ['no_barang_masuk', 'kode_barang', 'satuan', 'jumlah', 'harga', 'total_harga'];
 
   // Dates
   protected $useTimestamps = false;
