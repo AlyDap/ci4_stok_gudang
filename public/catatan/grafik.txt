@@ -57,7 +57,7 @@ VIEW:
      labels: <?= json_encode($barang1); ?>,
      datasets: [{
       label: 'Produk Yang Terjual',
-      data: <?= json_encode($jumlah); ?>,
+      data: <?= json_encode($jumlah1); ?>,
       borderWidth: 1
      }]
     },
