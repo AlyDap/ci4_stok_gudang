@@ -9,7 +9,7 @@
 
 <div class="mb-2 d-flex justify-content-between">
  <!-- <div class="" style="margin-bottom: -10px;"> -->
- <a class="btn btn-warning" type="button" href="<?= base_url('BarangController'); ?>" class="right-0">
+ <a class="btn btn-warning" type="button" href="<?= base_url('DashboardController'); ?>" class="right-0">
   <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
   Kembali </a>
  <!-- </div> -->
@@ -501,7 +501,7 @@
 
  const tanggal_masuk1 = document.querySelector('#tanggal_masuk1')
 
- tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+ tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD HH:mm:ss');
 
 
  $('#kode_barang1').on('change', function() {
@@ -519,7 +519,7 @@
      // jumlah1.setAttribute('max', response.jumlah_barang)
      satuan1.value = response.satuan;
      harga1.value = response.harga_beli;
-     tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+     tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD HH:mm:ss');
 
      // hitungTotalHarga();
     },
@@ -551,7 +551,7 @@
   console.log(tanggal_masuk1.value);
  });
  $('#btn-save1').on('click', function() {
-  tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+  tanggal_masuk1.value = moment().locale('id').format('YYYY-MM-DD HH:mm:ss');
 
   console.log(tanggal_masuk1.value);
  });
@@ -597,7 +597,7 @@
 
  const tanggal_keluar2 = document.querySelector('#tanggal_keluar2')
 
- // tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+ // tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD HH:mm:ss');
 
 
  $('#kode_barang2').on('change', function() {
@@ -614,8 +614,8 @@
      jumlah2.removeAttribute('readonly')
      jumlah2.setAttribute('max', response.jumlah_barang)
      satuan2.value = response.satuan;
-     harga2.value = response.harga_beli;
-     tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+     harga2.value = response.harga_jual_satuan;
+     tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD HH:mm:ss');
 
      // hitungTotalHarga();
     },
@@ -646,7 +646,7 @@
   console.log(tanggal_keluar2.value);
  });
  $('#btn-save2').on('click', function() {
-  tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+  tanggal_keluar2.value = moment().locale('id').format('YYYY-MM-DD HH:mm:ss');
 
   console.log(tanggal_keluar2.value);
  });

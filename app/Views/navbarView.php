@@ -261,11 +261,11 @@
 	<!-- waktu -->
 	<script>
 		// document.getElementById('tanggal').innerHTML = moment().locale('id').format('dddd DD MMMM YYYY');
-		document.getElementById('tanggal').innerHTML = moment().locale('id').format('YYYY-MM-DD hh:mm:ss');
+		document.getElementById('tanggal').innerHTML = moment().locale('id').format('YYYY-MM-DD HH:mm:ss');
 
 		function updateClock() {
 			// document.getElementById('waktu').innerHTML = jam + ':' + menit + ':' + detik;
-			document.querySelector(".jam").innerHTML = moment().locale('id').format('hh:mm:ss');
+			document.querySelector(".jam").innerHTML = moment().locale('id').format('HH:mm:ss');
 			setTimeout(updateClock, 1000);
 		};
 	</script>
