@@ -315,10 +315,8 @@ GROUP BY b.kode_barang
 			")->getResultArray();
 	}
 
-	// kodegudang semuamerek all
-
-	// STOK KELUAR 
-	// PERTAMA MUNCUL
+	// STOK KELUAR PERTAMA MUNCUL
+	//1 semuagudang semuamerek all
 	public function getGrafikDashboardKeluarSemuaGudangSemuaMerekAll()
 	{
 		return $this->db->query("SELECT
@@ -338,6 +336,52 @@ WHERE
 GROUP BY b.kode_barang
 		")->getResultArray();
 	}
+	//2 semuagudang semuamerek tahun
+	public function getGrafikDashboardKeluarSemuaGudangSemuaMerekTahun()
+	{
+		return $this->db->query("SELECT
+		dbm.kode_barang as kode_barang,
+		b.nama_barang as nama_barang,
+		SUM(dbm.jumlah) as jumlah,
+		SUM(dbm.total_harga) as total_harga
+FROM
+		barang_keluar AS bm, detail_barang_keluar AS dbm,
+		merek AS m, barang AS b, gudang AS g
+WHERE
+		bm.no_barang_keluar = dbm.no_barang_keluar AND 
+		bm.kode_gudang = g.kode_gudang AND
+		dbm.kode_barang = b.kode_barang AND
+		b.id_merek = m.id_merek AND
+		b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif' AND
+		bm.tanggal_keluar >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND
+		bm.tanggal_keluar < DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+GROUP BY b.kode_barang
+		")->getResultArray();
+	}
+	//3 semuagudang semuamerek bulan
+	public function getGrafikDashboardKeluarSemuaGudangSemuaMerekBulan()
+	{
+		return $this->db->query("SELECT
+		dbm.kode_barang as kode_barang,
+		b.nama_barang as nama_barang,
+		SUM(dbm.jumlah) as jumlah,
+		SUM(dbm.total_harga) as total_harga
+FROM
+		barang_keluar AS bm, detail_barang_keluar AS dbm,
+		merek AS m, barang AS b, gudang AS g
+WHERE
+		bm.no_barang_keluar = dbm.no_barang_keluar AND 
+		bm.kode_gudang = g.kode_gudang AND
+		dbm.kode_barang = b.kode_barang AND
+		b.id_merek = m.id_merek AND
+		b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif' AND
+		bm.tanggal_keluar >= DATE_SUB(CURDATE(), INTERVAL 89 DAY) AND
+		bm.tanggal_keluar < DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+GROUP BY b.kode_barang
+		")->getResultArray();
+	}
+
+	//4 kodegudang semuamerek all
 	public function getGrafikDashboardKeluarKodeGudangSemuaMerekAll($id)
 	{
 		return $this->db->query("SELECT
@@ -358,6 +402,189 @@ WHERE
 GROUP BY b.kode_barang
 		")->getResultArray();
 	}
+	//5 kodegudang semuamerek tahun
+	public function getGrafikDashboardKeluarKodeGudangSemuaMerekTahun($id)
+	{
+		return $this->db->query("SELECT
+		dbm.kode_barang as kode_barang,
+		b.nama_barang as nama_barang,
+		SUM(dbm.jumlah) as jumlah,
+		SUM(dbm.total_harga) as total_harga
+FROM
+		barang_keluar AS bm, detail_barang_keluar AS dbm,
+		merek AS m, barang AS b, gudang AS g
+WHERE
+		bm.no_barang_keluar = dbm.no_barang_keluar AND 
+		bm.kode_gudang = g.kode_gudang AND
+		dbm.kode_barang = b.kode_barang AND
+		b.id_merek = m.id_merek AND
+		b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif' AND
+		bm.tanggal_keluar >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND
+		bm.tanggal_keluar < DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+		AND g.kode_gudang= '" . $id . "'
+GROUP BY b.kode_barang
+		")->getResultArray();
+	}
+	//6 kodegudang semuamerek bulan
+	public function getGrafikDashboardKeluarKodeGudangSemuaMerekBulan($id)
+	{
+		return $this->db->query("SELECT
+		dbm.kode_barang as kode_barang,
+		b.nama_barang as nama_barang,
+		SUM(dbm.jumlah) as jumlah,
+		SUM(dbm.total_harga) as total_harga
+FROM
+		barang_keluar AS bm, detail_barang_keluar AS dbm,
+		merek AS m, barang AS b, gudang AS g
+WHERE
+		bm.no_barang_keluar = dbm.no_barang_keluar AND 
+		bm.kode_gudang = g.kode_gudang AND
+		dbm.kode_barang = b.kode_barang AND
+		b.id_merek = m.id_merek AND
+		b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif' AND
+		bm.tanggal_keluar >= DATE_SUB(CURDATE(), INTERVAL 89 DAY) AND
+		bm.tanggal_keluar < DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+		AND g.kode_gudang= '" . $id . "'
+GROUP BY b.kode_barang
+		")->getResultArray();
+	}
+
+	//7 semuagudang idmerek all
+	public function getGrafikDashboardKeluarSemuaGudangKodeMerekAll($id)
+	{
+		return $this->db->query("SELECT
+			dbm.kode_barang as kode_barang,
+			b.nama_barang as nama_barang,
+			SUM(dbm.jumlah) as jumlah,
+			SUM(dbm.total_harga) as total_harga
+	FROM
+			barang_keluar AS bm, detail_barang_keluar AS dbm,
+			merek AS m, barang AS b, gudang AS g
+	WHERE
+			bm.no_barang_keluar = dbm.no_barang_keluar AND 
+			bm.kode_gudang = g.kode_gudang AND
+			dbm.kode_barang = b.kode_barang AND
+			b.id_merek = m.id_merek AND
+			b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif'
+			AND m.id_merek= '" . $id . "'
+	GROUP BY b.kode_barang
+	")->getResultArray();
+	}
+	//8 semuagudang idmerek tahun
+	public function getGrafikDashboardKeluarSemuaGudangKodeMerekTahun($id)
+	{
+		return $this->db->query("SELECT
+			dbm.kode_barang as kode_barang,
+			b.nama_barang as nama_barang,
+			SUM(dbm.jumlah) as jumlah,
+			SUM(dbm.total_harga) as total_harga
+	FROM
+			barang_keluar AS bm, detail_barang_keluar AS dbm,
+			merek AS m, barang AS b, gudang AS g
+	WHERE
+			bm.no_barang_keluar = dbm.no_barang_keluar AND 
+			bm.kode_gudang = g.kode_gudang AND
+			dbm.kode_barang = b.kode_barang AND
+			b.id_merek = m.id_merek AND
+			b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif' AND
+			bm.tanggal_keluar >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND
+			bm.tanggal_keluar < DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+			AND m.id_merek= '" . $id . "'
+	GROUP BY b.kode_barang
+			")->getResultArray();
+	}
+	//9 semuagudang idmerek bulan
+	public function getGrafikDashboardKeluarSemuaGudangKodeMerekBulan($id)
+	{
+		return $this->db->query("SELECT
+			dbm.kode_barang as kode_barang,
+			b.nama_barang as nama_barang,
+			SUM(dbm.jumlah) as jumlah,
+			SUM(dbm.total_harga) as total_harga
+	FROM
+			barang_keluar AS bm, detail_barang_keluar AS dbm,
+			merek AS m, barang AS b, gudang AS g
+	WHERE
+			bm.no_barang_keluar = dbm.no_barang_keluar AND 
+			bm.kode_gudang = g.kode_gudang AND
+			dbm.kode_barang = b.kode_barang AND
+			b.id_merek = m.id_merek AND
+			b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif' AND
+			bm.tanggal_keluar >= DATE_SUB(CURDATE(), INTERVAL 89 DAY) AND
+			bm.tanggal_keluar < DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+			AND m.id_merek= '" . $id . "'
+	GROUP BY b.kode_barang
+			")->getResultArray();
+	}
+
+	//10 kodegudang idmerek all
+	public function getGrafikDashboardKeluarKodeGudangKodeMerekAll($id, $id1)
+	{
+		return $this->db->query("SELECT
+			dbm.kode_barang as kode_barang,
+			b.nama_barang as nama_barang,
+			SUM(dbm.jumlah) as jumlah,
+			SUM(dbm.total_harga) as total_harga
+	FROM
+			barang_keluar AS bm, detail_barang_keluar AS dbm,
+			merek AS m, barang AS b, gudang AS g
+	WHERE
+			bm.no_barang_keluar = dbm.no_barang_keluar AND 
+			bm.kode_gudang = g.kode_gudang AND
+			dbm.kode_barang = b.kode_barang AND
+			b.id_merek = m.id_merek AND
+			b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif'
+			AND g.kode_gudang= '" . $id . "' AND m.id_merek= '" . $id1 . "'
+	GROUP BY b.kode_barang
+	")->getResultArray();
+	}
+	//11 kodegudang idmerek tahun
+	public function getGrafikDashboardKeluarKodeGudangKodeMerekTahun($id, $id1)
+	{
+		return $this->db->query("SELECT
+			dbm.kode_barang as kode_barang,
+			b.nama_barang as nama_barang,
+			SUM(dbm.jumlah) as jumlah,
+			SUM(dbm.total_harga) as total_harga
+	FROM
+			barang_keluar AS bm, detail_barang_keluar AS dbm,
+			merek AS m, barang AS b, gudang AS g
+	WHERE
+			bm.no_barang_keluar = dbm.no_barang_keluar AND 
+			bm.kode_gudang = g.kode_gudang AND
+			dbm.kode_barang = b.kode_barang AND
+			b.id_merek = m.id_merek AND
+			b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif' AND
+			bm.tanggal_keluar >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND
+			bm.tanggal_keluar < DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+			AND g.kode_gudang= '" . $id . "' AND m.id_merek= '" . $id1 . "'
+	GROUP BY b.kode_barang
+			")->getResultArray();
+	}
+	//12 kodegudang idmerek bulan
+	public function getGrafikDashboardKeluarKodeGudangKodeMerekBulan($id, $id1)
+	{
+		return $this->db->query("SELECT
+			dbm.kode_barang as kode_barang,
+			b.nama_barang as nama_barang,
+			SUM(dbm.jumlah) as jumlah,
+			SUM(dbm.total_harga) as total_harga
+	FROM
+			barang_keluar AS bm, detail_barang_keluar AS dbm,
+			merek AS m, barang AS b, gudang AS g
+	WHERE
+			bm.no_barang_keluar = dbm.no_barang_keluar AND 
+			bm.kode_gudang = g.kode_gudang AND
+			dbm.kode_barang = b.kode_barang AND
+			b.id_merek = m.id_merek AND
+			b.status = 'aktif' AND m.status = 'aktif' AND g.status = 'aktif' AND
+			bm.tanggal_keluar >= DATE_SUB(CURDATE(), INTERVAL 89 DAY) AND
+			bm.tanggal_keluar < DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+			AND g.kode_gudang= '" . $id . "' AND m.id_merek= '" . $id1 . "'
+	GROUP BY b.kode_barang
+			")->getResultArray();
+	}
+
 
 	// waktu 90 hari
 	public function cekPenjahitan90Hari()

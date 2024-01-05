@@ -152,48 +152,50 @@
      </select>
     </div>
     <!-- grafik masuk card -->
-    <div class="card grafik-masuk-awal">
+    <div class="card">
      <div class="card-body">
-      <!-- grafik_stok_pergudang -->
-      <?php if (!empty($masuksemua)) {
-       foreach ($masuksemua as $key => $value) {
-        $barang1[] = $value['nama_barang'];
-        $jumlah1[] = $value['jumlah'];
-       }
-      ?>
-       <canvas id="myChart1"></canvas>
-       <script>
-        $(document).ready(function() {
-         const ctx1 = document.getElementById("myChart1");
-         // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
-         new Chart(ctx1, {
-          type: 'polarArea',
-          data: {
-           labels: <?= json_encode($barang1); ?>,
-           datasets: [{
-            label: 'Jumlah Stok Masuk',
-            data: <?= json_encode($jumlah1); ?>,
-            borderWidth: 1
-           }]
-          },
-          options: {
-           scales: {
-            y: {
-             beginAtZero: true
+      <div class="grafik-masuk-awal">
+       <!-- grafik_stok_pergudang -->
+       <?php if (!empty($masuksemua)) {
+        foreach ($masuksemua as $key => $value) {
+         $barang1[] = $value['nama_barang'];
+         $jumlah1[] = $value['jumlah'];
+        }
+       ?>
+        <canvas id="myChart1"></canvas>
+        <script>
+         $(document).ready(function() {
+          const ctx1 = document.getElementById("myChart1");
+          // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
+          new Chart(ctx1, {
+           type: 'polarArea',
+           data: {
+            labels: <?= json_encode($barang1); ?>,
+            datasets: [{
+             label: 'Jumlah Stok Masuk',
+             data: <?= json_encode($jumlah1); ?>,
+             borderWidth: 1
+            }]
+           },
+           options: {
+            scales: {
+             y: {
+              beginAtZero: true
+             }
             }
            }
-          }
+          });
          });
-        });
-       </script>
+        </script>
 
-      <?php
-      } else { ?>
-       <p>Tidak ada stok yang masuk</p>
-      <?php } ?>
+       <?php
+       } else { ?>
+        <p>Tidak ada stok yang masuk</p>
+       <?php } ?>
+      </div>
+      <div class="coba-grafik"></div>
      </div>
     </div>
-    <div class="coba-grafik"></div>
    </div>
   </div>
  </div>
@@ -230,43 +232,47 @@
     <!-- grafik keluar card -->
     <div class="card">
      <div class="card-body">
-      <!-- grafik_stok_pergudang -->
-      <?php if (!empty($keluarsemua)) {
-       foreach ($keluarsemua as $key => $value) {
-        $barang2[] = $value['nama_barang'];
-        $jumlah2[] = $value['jumlah'];
-       }
-      ?>
-       <canvas id="myChart2"></canvas>
-       <script>
-        $(document).ready(function() {
-         const ctx2 = document.getElementById("myChart2");
-         // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
-         new Chart(ctx2, {
-          type: 'polarArea',
-          data: {
-           labels: <?= json_encode($barang2); ?>,
-           datasets: [{
-            label: 'Jumlah Stok Keluar',
-            data: <?= json_encode($jumlah2); ?>,
-            borderWidth: 1
-           }]
-          },
-          options: {
-           scales: {
-            y: {
-             beginAtZero: true
+      <div class="grafik-keluar-awal">
+       <!-- grafik_stok_pergudang -->
+       <?php if (!empty($keluarsemua)) {
+        foreach ($keluarsemua as $key => $value) {
+         $barang2[] = $value['nama_barang'];
+         $jumlah2[] = $value['jumlah'];
+        }
+       ?>
+        <canvas id="myChart2"></canvas>
+        <script>
+         $(document).ready(function() {
+          const ctx2 = document.getElementById("myChart2");
+          // type: pie, bar, line, bubble, doughnut, polarArea, radar, scatter
+          new Chart(ctx2, {
+           type: 'polarArea',
+           data: {
+            labels: <?= json_encode($barang2); ?>,
+            datasets: [{
+             label: 'Jumlah Stok Keluar',
+             data: <?= json_encode($jumlah2); ?>,
+             borderWidth: 1
+            }]
+           },
+           options: {
+            scales: {
+             y: {
+              beginAtZero: true
+             }
             }
            }
-          }
+          });
          });
-        });
-       </script>
+        </script>
 
-      <?php
-      } else { ?>
-       <p>Tidak ada stok yang masuk</p>
-      <?php } ?>
+       <?php
+       } else { ?>
+        <p>Tidak ada stok yang keluar</p>
+       <?php } ?>
+      </div>
+      <!-- json -->
+      <div class="coba-grafik2"></div>
      </div>
     </div>
    </div>
@@ -277,6 +283,7 @@
 
 
 <br>
+<!-- GRAFIK MASUK -->
 <script>
  <?php if ($jenis == 'besar') { ?>
   const filGudang1 = document.querySelector('#kode_gudang1')
@@ -334,5 +341,62 @@
  }
 </script>
 
+<!-- GRAFIK KELUAR -->
+<script>
+ <?php if ($jenis == 'besar') { ?>
+  const filGudang2 = document.querySelector('#kode_gudang2')
+ <?php } ?>
+ const filMerek2 = document.querySelector('#id_merek2')
+ const filWaktu2 = document.querySelector('#waktu2')
+ const grafKeluarAwal = document.querySelectorAll('.grafik-keluar-awal')
+
+ <?php if ($jenis == 'besar') { ?>
+  $('#kode_gudang2').on('change', function() {
+   console.log('gudang:' + filGudang2.value)
+   viewgrafikkeluar()
+  })
+ <?php } ?>
+ $('#id_merek2').on('change', function() {
+  console.log(filMerek2.value)
+  viewgrafikkeluar()
+ })
+ $('#waktu2').on('change', function() {
+  console.log(filWaktu2.value)
+  viewgrafikkeluar()
+ })
+
+ // grafikmasuk
+ function viewgrafikkeluar() {
+  let selectedMerek2 = filMerek2.value;
+  let selectedWaktu2 = filWaktu2.value;
+  let dataToSend2 = {
+   selectedMerek2: selectedMerek2,
+   selectedWaktu2: selectedWaktu2,
+  };
+
+  <?php if ($jenis == 'besar') { ?>
+   let selectedGudang2 = filGudang2.value;
+   dataToSend2.selectedGudang2 = selectedGudang2;
+  <?php } ?>
+
+  $.ajax({
+   type: "POST",
+   url: "<?= base_url('DashboardController/viewGrafikBarangKeluar') ?>",
+   data: dataToSend2,
+   dataType: "JSON",
+   success: function(response) {
+    if (response.data) {
+     $('.coba-grafik2').html(response.data);
+     console.log(response.data);
+    }
+   }
+  });
+
+  // hilangkan grafik masuk awal
+  grafKeluarAwal.forEach(e => {
+   e.style.display = 'none';
+  })
+ }
+</script>
 
 <?= $this->endSection('content') ?>

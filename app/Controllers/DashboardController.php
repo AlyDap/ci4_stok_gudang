@@ -237,6 +237,103 @@ class DashboardController extends BaseController
   echo json_encode($response);
  }
 
+ // json grafik masuk
+ public function viewGrafikBarangKeluar()
+ {
+  $dataPenggantiSession = $this->penggantiSession();
+  // Mengakses nilai-nilai yang dikembalikan
+  $isiKodeJenis = $dataPenggantiSession['isiKodeJenis'];
+  // jika jenis gudang besar
+  if ($isiKodeJenis == 'besar') {
+   $sGudang2 = $this->request->getPost('selectedGudang2');
+   $sMerek2 = $this->request->getPost('selectedMerek2');
+   $sWaktu2 = $this->request->getPost('selectedWaktu2');
+   // filter ada 12 
+   if ($sGudang2 == 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'all') {
+    //1 waktu all
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarSemuaGudangSemuaMerekAll(),];
+   } else if ($sGudang2 == 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'tahun') {
+    //2 waktu tahun (1tahun)
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarSemuaGudangSemuaMerekTahun(),];
+   } else if ($sGudang2 == 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'bulan') {
+    //3 waktu tahun (3 bulan)
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarSemuaGudangSemuaMerekBulan(),];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'all') {
+    //4 waktu all kode_gudang
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangSemuaMerekAll($sGudang2),];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'tahun') {
+    //5 waktu tahun (1tahun) kode_gudang
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangSemuaMerekTahun($sGudang2),];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'bulan') {
+    //6 waktu tahun (3 bulan) kode_gudang
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangSemuaMerekBulan($sGudang2),];
+   } else if ($sGudang2 == 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'all') {
+    //7 waktu all id_merek
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarSemuaGudangKodeMerekAll($sMerek2),];
+   } else if ($sGudang2 == 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'tahun') {
+    //8 waktu tahun (1tahun) id_merek
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarSemuaGudangKodeMerekTahun($sMerek2),];
+   } else if ($sGudang2 == 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'bulan') {
+    //9 waktu tahun (3 bulan) id_merek
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarSemuaGudangKodeMerekBulan($sMerek2),];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'all') {
+    //10 waktu all kode_gudang id_merek
+    $data = [
+     'filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangKodeMerekAll($sGudang2, $sMerek2),
+    ];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'tahun') {
+    //11 waktu tahun (1tahun) kode_gudang id_merek
+    $data = [
+     'filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangKodeMerekTahun($sGudang2, $sMerek2),
+    ];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'bulan') {
+    //12 waktu tahun (3 bulan) kode_gudang id_merek
+    $data = [
+     'filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangKodeMerekBulan($sGudang2, $sMerek2),
+    ];
+   }
+
+   // $data = ['hasil' => 'BESAR MASUK'];
+   // jika jenis gudang kecil
+  } else if ($isiKodeJenis == 'kecil') {
+   $sGudang2 = $dataPenggantiSession['isiKodeGudang'];
+   $sMerek2 = $this->request->getPost('selectedMerek2');
+   $sWaktu2 = $this->request->getPost('selectedWaktu2');
+   // filter ada 6 karena tidak ada semua gudang
+   if ($sGudang2 != 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'all') {
+    //1-4 waktu all kode_gudang
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangSemuaMerekAll($sGudang2),];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'tahun') {
+    //2-5 waktu tahun (1tahun) kode_gudang
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangSemuaMerekTahun($sGudang2),];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 == 'semuamerek' && $sWaktu2 == 'bulan') {
+    //3-6 waktu tahun (3 bulan) kode_gudang
+    $data = ['filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangSemuaMerekBulan($sGudang2),];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'all') {
+    //4-10 waktu all kode_gudang id_merek
+    $data = [
+     'filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangKodeMerekAll($sGudang2, $sMerek2),
+    ];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'tahun') {
+    //5-11 waktu tahun (1tahun) kode_gudang id_merek
+    $data = [
+     'filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangKodeMerekTahun($sGudang2, $sMerek2),
+    ];
+   } else if ($sGudang2 != 'semuagudang' && $sMerek2 != 'semuamerek' && $sWaktu2 == 'bulan') {
+    //6-12 waktu tahun (3 bulan) kode_gudang id_merek
+    $data = [
+     'filterkeluar' => $this->grafikStokModell->getGrafikDashboardKeluarKodeGudangKodeMerekBulan($sGudang2, $sMerek2),
+    ];
+   }
+   // $data = ['hasil' => 'KECIL MASUK'];
+  }
+  // semuagudang semuamerek all tahun bulan
+
+  $response = [
+   'data' => view('cobaGrafikView2', $data)
+  ];
+  echo json_encode($response);
+ }
  // Lakukan operasi atau pemrosesan data selanjutnya di sini dengan variabel yang telah Anda tangkap
 
  public function produk()
