@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Jan 2024 pada 06.05
+-- Waktu pembuatan: 05 Jan 2024 pada 18.33
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -290,6 +290,7 @@ INSERT INTO `merek` (`id_merek`, `nama_merek`, `kategori_produk`, `deskripsi`, `
 --
 
 CREATE TABLE `stok_barang` (
+  `id_stok` int(11) NOT NULL,
   `kode_barang` int(11) NOT NULL,
   `satuan` text NOT NULL,
   `jumlah` int(11) NOT NULL,
@@ -300,59 +301,59 @@ CREATE TABLE `stok_barang` (
 -- Dumping data untuk tabel `stok_barang`
 --
 
-INSERT INTO `stok_barang` (`kode_barang`, `satuan`, `jumlah`, `kode_gudang`) VALUES
-(1, 'dus', 20, 1),
-(2, 'dus', 10, 1),
-(3, 'dus', 5, 1),
-(4, 'dus', 20, 1),
-(5, 'dus', 18, 1),
-(6, 'bijian', 30, 1),
-(7, 'dus', 30, 1),
-(8, 'dus', 10, 1),
-(9, 'dus', 25, 1),
-(10, 'dus', 25, 1),
-(11, 'dus', 15, 1),
-(12, 'dus', 15, 1),
-(13, 'dus', 10, 1),
-(1, 'dus', 18, 2),
-(2, 'dus', 5, 2),
-(3, 'dus', 10, 2),
-(4, 'dus', 22, 2),
-(5, 'dus', 9, 2),
-(6, 'bijian', 13, 2),
-(7, 'dus', 25, 2),
-(8, 'dus', 15, 2),
-(9, 'dus', 20, 2),
-(10, 'dus', 28, 2),
-(11, 'dus', 7, 2),
-(12, 'dus', 21, 2),
-(13, 'dus', 14, 2),
-(1, 'dus', 10, 3),
-(2, 'dus', 11, 3),
-(3, 'dus', 12, 3),
-(4, 'dus', 13, 3),
-(5, 'dus', 14, 3),
-(6, 'bijian', 15, 3),
-(7, 'dus', 16, 3),
-(8, 'dus', 17, 3),
-(9, 'dus', 18, 3),
-(10, 'dus', 19, 3),
-(11, 'dus', 18, 3),
-(12, 'dus', 17, 3),
-(13, 'dus', 16, 3),
-(1, 'dus', 0, 4),
-(2, 'dus', 1, 4),
-(3, 'dus', 2, 4),
-(4, 'dus', 3, 4),
-(5, 'dus', 4, 4),
-(6, 'bijian', 5, 4),
-(7, 'dus', 6, 4),
-(8, 'dus', 7, 4),
-(9, 'dus', 8, 4),
-(10, 'dus', 9, 4),
-(11, 'dus', 8, 4),
-(12, 'dus', 7, 4),
-(13, 'dus', 6, 4);
+INSERT INTO `stok_barang` (`id_stok`, `kode_barang`, `satuan`, `jumlah`, `kode_gudang`) VALUES
+(1, 1, 'dus', 20, 1),
+(2, 2, 'dus', 10, 1),
+(3, 3, 'dus', 5, 1),
+(4, 4, 'dus', 20, 1),
+(5, 5, 'dus', 18, 1),
+(6, 6, 'bijian', 30, 1),
+(7, 7, 'dus', 30, 1),
+(8, 8, 'dus', 10, 1),
+(9, 9, 'dus', 25, 1),
+(10, 10, 'dus', 25, 1),
+(11, 11, 'dus', 15, 1),
+(12, 12, 'dus', 15, 1),
+(13, 13, 'dus', 10, 1),
+(14, 1, 'dus', 18, 2),
+(15, 2, 'dus', 5, 2),
+(16, 3, 'dus', 10, 2),
+(17, 4, 'dus', 22, 2),
+(18, 5, 'dus', 9, 2),
+(19, 6, 'bijian', 13, 2),
+(20, 7, 'dus', 25, 2),
+(21, 8, 'dus', 15, 2),
+(22, 9, 'dus', 20, 2),
+(23, 10, 'dus', 28, 2),
+(24, 11, 'dus', 7, 2),
+(25, 12, 'dus', 21, 2),
+(26, 13, 'dus', 14, 2),
+(27, 1, 'dus', 10, 3),
+(28, 2, 'dus', 11, 3),
+(29, 3, 'dus', 12, 3),
+(30, 4, 'dus', 13, 3),
+(31, 5, 'dus', 14, 3),
+(32, 6, 'bijian', 15, 3),
+(33, 7, 'dus', 16, 3),
+(34, 8, 'dus', 17, 3),
+(35, 9, 'dus', 18, 3),
+(36, 10, 'dus', 19, 3),
+(37, 11, 'dus', 18, 3),
+(38, 12, 'dus', 17, 3),
+(39, 13, 'dus', 16, 3),
+(40, 1, 'dus', 0, 4),
+(41, 2, 'dus', 1, 4),
+(42, 3, 'dus', 2, 4),
+(43, 4, 'dus', 3, 4),
+(44, 5, 'dus', 4, 4),
+(45, 6, 'bijian', 5, 4),
+(46, 7, 'dus', 6, 4),
+(47, 8, 'dus', 7, 4),
+(48, 9, 'dus', 8, 4),
+(49, 10, 'dus', 9, 4),
+(50, 11, 'dus', 8, 4),
+(51, 12, 'dus', 7, 4),
+(52, 13, 'dus', 6, 4);
 
 -- --------------------------------------------------------
 
@@ -480,6 +481,7 @@ ALTER TABLE `merek`
 -- Indeks untuk tabel `stok_barang`
 --
 ALTER TABLE `stok_barang`
+  ADD PRIMARY KEY (`id_stok`),
   ADD KEY `kode_barang` (`kode_barang`),
   ADD KEY `kode_gudang` (`kode_gudang`);
 
@@ -529,6 +531,12 @@ ALTER TABLE `gudang`
 --
 ALTER TABLE `merek`
   MODIFY `id_merek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT untuk tabel `stok_barang`
+--
+ALTER TABLE `stok_barang`
+  MODIFY `id_stok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
