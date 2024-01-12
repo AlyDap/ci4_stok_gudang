@@ -23,7 +23,7 @@
   }
 
   @page {
-   size: A4
+   margin: 10px;
   }
  </style>
 </head>
@@ -31,7 +31,7 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 
-<body class="A4" onload="updateClock()">
+<body onload="updateClock()">
 
  <!-- Each sheet element should have the class "sheet" -->
  <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
@@ -41,60 +41,41 @@
   <div class="card">
    <div class="card-body">
     <center>
-     <h5 id="detail-barang-judul">Detail Transaksi Barang Masuk</h5>
-     <hr>
+     <h5 id="detail-barang-judul">Stok Barang Semua Gudang</h5>
+     <!-- <hr> -->
     </center>
     <div class="rata-kanan">
-     <!-- <h6>
-      Waktu Cetak:
-      <span id="waktu" class="jam">
-      </span>
-      WIB
-     </h6> -->
-     <h6>
-      Waktu Cetak
-      <span id="tanggal"></span>
-     </h6>
+     <h7>
+      <i> <span id="tanggal"></span></i>
+     </h7>
     </div>
     <div class="lihat-tabel-sendiri">
-     <?php if (!empty($data_detail_masuk)) :
+     <?php if (!empty($stok_semua)) :
       $noo = 1;
      ?>
-      <h6>No Transaksi Barang Masuk: <?= $data_rekap_masuk->no_barang_masuk ?> </h6>
-      <h6>Waktu Transaksi: <?= $data_rekap_masuk->tanggal_masuk ?> </h6>
-      <h6>User: <?= $data_rekap_masuk->username ?> </h6>
-      <h6>Supplier: <?= $data_rekap_masuk->nama_supplier ?> </h6>
-      <h6>Gudang: <?= $data_rekap_masuk->nama_gudang ?> </h6>
       <!-- <div class="table-responsive"> -->
       <table class="table">
        <thead>
         <tr>
          <th scope="col">No</th>
+         <th scope="col">Nama Gudang</th>
+         <th scope="col">Merek</th>
          <th scope="col">Nama Barang</th>
          <th scope="col">Satuan</th>
          <th scope="col">Jumlah</th>
-         <th scope="col">Harga</th>
-         <th scope="col">Total</th>
         </tr>
        </thead>
        <tbody>
-        <?php foreach ($data_detail_masuk as $row) : ?>
+        <?php foreach ($stok_semua as $row) : ?>
          <tr>
           <th scope="row"> <?= $noo++; ?> </th>
+          <td> <?= $row['nama_gudang']; ?> </td>
+          <td> <?= $row['nama_merek']; ?> </td>
           <td> <?= $row['nama_barang']; ?> </td>
           <td> <?= $row['satuan']; ?> </td>
           <td> <?= $row['jumlah']; ?> </td>
-          <td class="rata-kanan"><?= number_format($row['harga'], 0, ',', '.'); ?></td>
-          <td class="rata-kanan"><?= number_format($row['total_harga'], 0, ',', '.'); ?></td>
          </tr>
         <?php endforeach; ?>
-        <tr>
-         <td></td>
-         <td></td>
-         <td></td>
-         <th colspan="2" class="rata-kanan">Total Harga</th>
-         <th class="rata-kanan">Rp<?= number_format($data_rekap_masuk->total_harga, 0, ',', '.'); ?></th>
-        </tr>
        </tbody>
       </table>
       <!-- </div> -->
@@ -108,17 +89,13 @@
         </thead>
         <tbody>
          <tr>
-          <td>Tidak ada transaksi</td>
+          <td>Tidak ada stok barang</td>
          </tr>
         </tbody>
        </table>
       </div>
      <?php endif; ?>
     </div>
-    <?php if (!empty($data_detail_masuk)) {
-    ?>
-    <?php
-    } ?>
    </div>
   </div>
   <!-- </div> -->

@@ -3,7 +3,7 @@
 
 <head>
  <meta charset="utf-8">
- <title>Print A4</title>
+ <title>Print</title>
  <!-- bootstrap -->
  <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css'); ?>">
 
@@ -23,7 +23,7 @@
   }
 
   @page {
-   size: A4
+   margin: 10px;
   }
  </style>
 </head>
@@ -31,7 +31,7 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 
-<body class="A4" onload="updateClock()">
+<body onload="updateClock()">
 
  <!-- Each sheet element should have the class "sheet" -->
  <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->

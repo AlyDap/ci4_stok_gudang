@@ -45,6 +45,16 @@ if ($jenis == 'besar') {
     <?php } ?>
    </select>
   </div>
+  <div class="tombol-print">
+   <a class="btn btn-outline-warning" target="_blank" href="<?= base_url('StokController/printStok'); ?>" style="margin-left: 7px;">
+    <i class="fi fi-rr-print"></i>
+   </a>
+  </div>
+  <div class="tombol-print2">
+   <a class="btn btn-outline-primary" target="_blank" href="<?= base_url('StokController/printStok2'); ?>" style="margin-left: 7px;">
+    <i class="fi fi-rr-print"></i>
+   </a>
+  </div>
   <a href="#" class="btn btn-warning mx-2" type="button" id="tabel-stok" class="right-0">
    Lihat Tabel
   </a>
@@ -67,6 +77,9 @@ if ($jenis == 'kecil') {
    <i class="fi fi-rr-left text-xl"></i>
   </a>
   <div class="">
+   <a class="btn btn-outline-warning" target="_blank" href="<?= base_url('StokController/printStok'); ?>">
+    <i class="fi fi-rr-print"></i>
+   </a>
    <a class="btn btn-danger" type="button" href="<?= base_url('BarangController'); ?>" class="right-0">
     <!-- <i class="fi fi-rr-plus" style="font-size: 1.3rem;\"></i> -->
     Lihat Barang
@@ -258,6 +271,8 @@ if ($jenis == 'besar') {
   const divLihatTabelSemua = document.querySelectorAll('.lihat-tabel-semua')
   const divLihatGrafikSendiri = document.querySelectorAll('.lihat-grafik-sendiri')
   const divLihatGrafikSemua = document.querySelectorAll('.lihat-grafik-semua')
+  const divPrintGudang = document.querySelectorAll('.tombol-print')
+  const divPrintGudangAll = document.querySelectorAll('.tombol-print2')
 
   // cek inputan select gudang
   const pilihGudang = document.querySelectorAll('.pilih-gudang')
@@ -282,7 +297,10 @@ if ($jenis == 'besar') {
   pilihGudang.forEach(e => {
    e.style.display = 'none'
   })
-
+  // sembunyikan div print gudang semua
+  divPrintGudangAll.forEach(f => {
+   f.style.display = 'none'
+  })
 
   function tombol() {
    if (perubahan == 'sendiritabel') {
@@ -294,6 +312,9 @@ if ($jenis == 'besar') {
     divLihatTabelSendiri.forEach(element => {
      element.style.display = 'block'
     });
+    divPrintGudang.forEach(f => {
+     f.style.display = 'block'
+    })
     // sembunyikan
     headerStokSemua.style.display = 'none'
     divLihatTabelSemua.forEach(element => {
@@ -304,6 +325,9 @@ if ($jenis == 'besar') {
     });
     pilihGudang.forEach(e => {
      e.style.display = 'none'
+    })
+    divPrintGudangAll.forEach(f => {
+     f.style.display = 'none'
     })
 
    } else if (perubahan == 'sendirigrafik') {
@@ -326,6 +350,12 @@ if ($jenis == 'besar') {
     pilihGudang.forEach(e => {
      e.style.display = 'none'
     })
+    divPrintGudang.forEach(f => {
+     f.style.display = 'none'
+    })
+    divPrintGudangAll.forEach(f => {
+     f.style.display = 'none'
+    })
 
    } else if (perubahan == 'semuatabel') {
     // tampilkan
@@ -336,6 +366,9 @@ if ($jenis == 'besar') {
     divLihatTabelSemua.forEach(element => {
      element.style.display = 'block'
     });
+    divPrintGudangAll.forEach(f => {
+     f.style.display = 'block'
+    })
     // sembunyikan
     headerStokSendiri.style.display = 'none'
     divLihatGrafik.forEach(element => {
@@ -346,6 +379,9 @@ if ($jenis == 'besar') {
     });
     pilihGudang.forEach(e => {
      e.style.display = 'none'
+    })
+    divPrintGudang.forEach(f => {
+     f.style.display = 'none'
     })
 
    } else if (perubahan == 'semuagrafik') {
@@ -368,6 +404,12 @@ if ($jenis == 'besar') {
     divLihatGrafikSendiri.forEach(element => {
      element.style.display = 'none'
     });
+    divPrintGudang.forEach(f => {
+     f.style.display = 'none'
+    })
+    divPrintGudangAll.forEach(f => {
+     f.style.display = 'none'
+    })
 
    }
   }

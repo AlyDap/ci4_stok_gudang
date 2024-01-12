@@ -14,6 +14,7 @@ class StokController extends BaseController
 {
  protected $barangModell, $merekModell, $grafikStokModel;
  protected $gudangModell, $userModell;
+ protected $session, $dataPrint;
 
  public function __construct()
  {
@@ -25,6 +26,7 @@ class StokController extends BaseController
   // $this->barangModell = new \App\Models\MerekModel();
   $this->cekOtorisasi();
   $this->cekUserOn();
+  $this->session = session();
  }
 
  public function cekOtorisasi()
@@ -125,7 +127,19 @@ class StokController extends BaseController
   } else if ($isiKodeJenis == 'kecil') {
    // $data['barang'] = $this->barangModell->getBarangBarangOn();
   }
+  $this->session->set('dataPrint', $data);
   return view('stokView', $data);
+ }
+
+ public function printStok() // 1 gudang
+ {
+  $data = $this->session->get('dataPrint');
+  return view('printStokV', $data);
+ }
+ public function printStok2() // semua gudang
+ {
+  $data = $this->session->get('dataPrint');
+  return view('printStok2V', $data);
  }
 
  // json grafik stok

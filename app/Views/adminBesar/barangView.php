@@ -13,7 +13,9 @@
 	</a>
 	<!-- </div> -->
 	<div class="">
-
+		<a class="btn btn-warning" target="_blank" href="<?= base_url('BarangController/printBarang'); ?>">
+			<i class="fi fi-rr-print"></i>
+		</a>
 		<?php
 		if ($jenis == 'besar') {
 		?>

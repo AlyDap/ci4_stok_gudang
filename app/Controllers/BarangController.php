@@ -8,11 +8,14 @@ use App\Models\UserModel;
 use App\Models\BarangModel;
 use App\Models\MerekModel;
 use CodeIgniter\Controller;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class BarangController extends BaseController
 {
  protected $barangModell, $merekModell;
  protected $gudangModell, $userModell;
+ protected $dataPrint, $session;
 
  public function __construct()
  {
@@ -23,6 +26,7 @@ class BarangController extends BaseController
   // $this->barangModell = new \App\Models\MerekModel();
   $this->cekOtorisasi();
   $this->cekUserOn();
+  $this->session = session();
  }
 
  public function cekOtorisasi()
@@ -116,8 +120,31 @@ class BarangController extends BaseController
   } else if ($isiKodeJenis == 'kecil') {
    $data['barang'] = $this->barangModell->getBarangBarangOn();
   }
+  $this->session->set('dataPrint', $data);
   return view('adminBesar/barangView', $data);
  }
+
+ public function printBarang()
+ {
+  $data = $this->session->get('dataPrint');
+  return view('printBarangV', $data);
+
+  // $options = new Options();
+  // $options->set('isHtml5ParserEnabled', true);
+  // $options->set('isPhpEnabled', true);
+  // $options->set('isPhpDebug', true);
+  // $options->set('isFontSubsettingEnabled', false);
+  // $options->set('pdfBackend', 'CPDF');
+  // $options->set('isRemoteEnabled', true);
+
+  // $dompdf = new Dompdf($options);
+  // $html = view('printBarangV', $data);
+  // $dompdf->loadHtml($html);
+  // $dompdf->setPaper('A4', 'landscape');
+  // $dompdf->render();
+  // $dompdf->stream('Data-Barang.pdf', array("Attachment" => 0));
+ }
+ // $dompdf->stream(); //auto download
 
  public function store()
  {
