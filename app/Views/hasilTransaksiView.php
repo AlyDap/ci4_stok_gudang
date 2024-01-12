@@ -61,6 +61,13 @@
      </div>
     <?php endif; ?>
    </div>
+   <?php if (!empty($data_detail_masuk)) {
+   ?>
+    <a class="btn btn-warning px-3" target="_blank" href="<?= base_url('TransaksiController/PrintDetailTransaksi'); ?>" style="padding-top: 1rem;">
+     <i class="fi fi-rr-print text-xl"></i>
+    </a>
+   <?php
+   } ?>
   </div>
  </div>
  <!-- </div> -->

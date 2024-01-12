@@ -22,6 +22,7 @@ class TransaksiController extends BaseController
  protected $gudangModell, $userModell, $supplierModell, $stokModell;
  protected $transaksiMasukModell, $transaksiMasukDetailModell;
  protected $transaksiKeluarModell, $transaksiKeluarDetailModell;
+ protected $dataPrint, $session;
 
  public function __construct()
  {
@@ -39,6 +40,8 @@ class TransaksiController extends BaseController
   // $this->barangModell = new \App\Models\MerekModel();
   $this->cekOtorisasi();
   $this->cekUserOn();
+  // $this->session = \Config\Services::session();
+  $this->session = session();
  }
 
  public function cekOtorisasi()
@@ -161,7 +164,8 @@ class TransaksiController extends BaseController
     'data_detail_masuk' => '',
    ];
   }
-
+  // $this->dataPrint = $data; //tidak bisa
+  $this->session->set('dataPrint', $data);
   $response = [
    'data' => view('hasilTransaksiView', $data)
   ];
@@ -182,11 +186,25 @@ class TransaksiController extends BaseController
     'data_detail_keluar' => '',
    ];
   }
-
+  $this->session->set('dataPrint', $data);
   $response = [
    'data' => view('hasilTransaksiView2', $data)
   ];
   echo json_encode($response);
+ }
+
+ // PRINT detail Transaksi 1 halaman
+ public function PrintDetailTransaksi()
+ {
+  $data = $this->session->get('dataPrint');
+  // dd($data);
+  return view('printDetailTransaksiV', $data);
+ }
+ public function PrintDetailTransaksi2()
+ {
+  $data = $this->session->get('dataPrint');
+  // dd($data);
+  return view('printDetailTransaksi2V', $data);
  }
 
  // respon select pilih barang
